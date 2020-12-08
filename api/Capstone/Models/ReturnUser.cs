@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Capstone.Models
+{
+    /// <summary>
+    /// Model of user data to return upon successful login
+    /// </summary>
+    public class ReturnUser
+    {
+        public int UserId { get; set; }
+        public string Username { get; set; }
+        public string Role { get; set; }
+    }
+}
