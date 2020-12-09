@@ -8,8 +8,7 @@ BEGIN
 	DROP DATABASE final_capstone;
 END
 
-
-/****** Object:  Database [final_capstone]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Database [final_capstone]    Script Date: 12/9/2020 10:31:00 AM ******/
 CREATE DATABASE [final_capstone]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -87,7 +86,42 @@ ALTER DATABASE [final_capstone] SET QUERY_STORE = OFF
 GO
 USE [final_capstone]
 GO
-/****** Object:  Table [dbo].[Forum_Category]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[Address]    Script Date: 12/9/2020 10:31:01 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Address](
+	[Address_ID] [int] IDENTITY(1,1) NOT NULL,
+	[Street_Address_1] [nvarchar](50) NOT NULL,
+	[Street_Address_2] [nvarchar](50) NULL,
+	[City] [nvarchar](50) NOT NULL,
+	[State] [char](2) NOT NULL,
+	[Zip] [int] NOT NULL,
+	[Created_Date] [datetime] NOT NULL,
+	[Is_Active] [bit] NOT NULL,
+ CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED 
+(
+	[Address_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Address_User]    Script Date: 12/9/2020 10:31:01 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Address_User](
+	[User_ID] [int] NOT NULL,
+	[Address_ID] [int] NOT NULL,
+ CONSTRAINT [PK_Address_User] PRIMARY KEY CLUSTERED 
+(
+	[User_ID] ASC,
+	[Address_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Forum_Category]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,7 +137,7 @@ CREATE TABLE [dbo].[Forum_Category](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Forum_Message]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[Forum_Message]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -122,7 +156,7 @@ CREATE TABLE [dbo].[Forum_Message](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Forum_Response]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[Forum_Response]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -140,7 +174,7 @@ CREATE TABLE [dbo].[Forum_Response](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pet]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[Pet]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -161,14 +195,14 @@ CREATE TABLE [dbo].[Pet](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Playdate]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[Playdate]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Playdate](
 	[Playdate_ID] [int] IDENTITY(1,1) NOT NULL,
-	[Location] [varchar](50) NOT NULL,
+	[Address_ID] [int] NOT NULL,
 	[Date_Time] [datetime] NOT NULL,
 	[Creator_User_ID] [int] NOT NULL,
 	[Number_Of_Attendees] [int] NOT NULL,
@@ -181,7 +215,7 @@ CREATE TABLE [dbo].[Playdate](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Playdate_Pet]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[Playdate_Pet]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -200,7 +234,7 @@ CREATE TABLE [dbo].[Playdate_Pet](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[users]    Script Date: 12/8/2020 6:02:18 PM ******/
+/****** Object:  Table [dbo].[users]    Script Date: 12/9/2020 10:31:01 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -213,11 +247,17 @@ CREATE TABLE [dbo].[users](
 	[user_role] [varchar](50) NOT NULL,
 	[Created_Date] [datetime] NOT NULL,
 	[Is_Active] [bit] NOT NULL,
+	[First_Name] [varchar](50) NOT NULL,
+	[Last_Name] [varchar](50) NOT NULL,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Address] ADD  CONSTRAINT [DF_Address_Created_Date]  DEFAULT (getutcdate()) FOR [Created_Date]
+GO
+ALTER TABLE [dbo].[Address] ADD  CONSTRAINT [DF_Address_Is_Active]  DEFAULT ((1)) FOR [Is_Active]
 GO
 ALTER TABLE [dbo].[Forum_Category] ADD  CONSTRAINT [DF_Forum_Category_Created_Date]  DEFAULT (getutcdate()) FOR [Created_Date]
 GO
@@ -249,6 +289,16 @@ ALTER TABLE [dbo].[users] ADD  CONSTRAINT [DF_users_Created_Date]  DEFAULT (getu
 GO
 ALTER TABLE [dbo].[users] ADD  CONSTRAINT [DF_users_Is_Active]  DEFAULT ((1)) FOR [Is_Active]
 GO
+ALTER TABLE [dbo].[Address_User]  WITH CHECK ADD  CONSTRAINT [FK_Address_User_Address] FOREIGN KEY([Address_ID])
+REFERENCES [dbo].[Address] ([Address_ID])
+GO
+ALTER TABLE [dbo].[Address_User] CHECK CONSTRAINT [FK_Address_User_Address]
+GO
+ALTER TABLE [dbo].[Address_User]  WITH CHECK ADD  CONSTRAINT [FK_Address_User_User] FOREIGN KEY([User_ID])
+REFERENCES [dbo].[users] ([user_id])
+GO
+ALTER TABLE [dbo].[Address_User] CHECK CONSTRAINT [FK_Address_User_User]
+GO
 ALTER TABLE [dbo].[Forum_Message]  WITH CHECK ADD  CONSTRAINT [FK_Forum_Message_Category_ID] FOREIGN KEY([Category_ID])
 REFERENCES [dbo].[Forum_Category] ([Category_ID])
 GO
@@ -274,6 +324,11 @@ REFERENCES [dbo].[users] ([user_id])
 GO
 ALTER TABLE [dbo].[Pet] CHECK CONSTRAINT [FK_Pet_Owner_ID]
 GO
+ALTER TABLE [dbo].[Playdate]  WITH CHECK ADD  CONSTRAINT [FK_Playdate_Address] FOREIGN KEY([Address_ID])
+REFERENCES [dbo].[Address] ([Address_ID])
+GO
+ALTER TABLE [dbo].[Playdate] CHECK CONSTRAINT [FK_Playdate_Address]
+GO
 ALTER TABLE [dbo].[Playdate]  WITH CHECK ADD  CONSTRAINT [FK_Playdate_Creator_User_ID] FOREIGN KEY([Creator_User_ID])
 REFERENCES [dbo].[users] ([user_id])
 GO
@@ -297,8 +352,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Constrain Appr
 GO
 
 --populate default data
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+INSERT INTO users (username, password_hash, salt, user_role, First_Name, Last_Name) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user','Test','User');
+INSERT INTO users (username, password_hash, salt, user_role, First_Name, Last_Name) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin','Test','Admin');
 
 GO
 
@@ -306,4 +361,3 @@ USE [master]
 GO
 ALTER DATABASE [final_capstone] SET  READ_WRITE 
 GO
-
