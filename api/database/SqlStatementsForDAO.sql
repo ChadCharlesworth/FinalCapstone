@@ -13,11 +13,11 @@ join Playdate_Pet on Playdate.Playdate_ID = Playdate_Pet.Playdate_ID
 where Playdate.Is_Active = 1 and Pet_ID = @petID
 
 --get all users
-select First_Name,Last_Name,user_id from users where Is_Active = 1
+select First_Name,Last_Name,user_id,user_role,username from users where Is_Active = 1
 select Pet_ID from Pet where Owner_ID = @userID where Is_Active = 1
 
 --post new user
-insert into users (username,password_hash,salt,user_role,First_Name,Last_Name) values (@username,@passwordHash,@salt,@userRole,@firstName,@lastName)
+update users set First_Name = @firstName, Last_Name = @lastName where user_id = @userID
 insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAdress1,@streetAddress2,@city,@state,@zip)
 insert into Address_User (User_ID,Address_ID) values (@userID,@addressID)
 
