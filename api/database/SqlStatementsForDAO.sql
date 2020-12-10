@@ -23,7 +23,7 @@ insert into Address_User (User_ID,Address_ID) values (@userID,@addressID)
 
 --update(put) user
 select Address_ID from Address_User where User_ID = @userID
-update users set First_Name = @firstName,Last_Name = @lastName where user_id = @userID --do we want to be able to change passwords/usernames/roles?
+update users set First_Name = @firstName,Last_Name = @lastName where user_id = @userID
 update address set Street_Address_1 = @streetAdress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip where Address_ID = @addressID
 
 --delete user
