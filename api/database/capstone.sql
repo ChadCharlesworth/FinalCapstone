@@ -97,7 +97,7 @@ CREATE TABLE [dbo].[Address](
 	[Street_Address_2] [nvarchar](50) NULL,
 	[City] [nvarchar](50) NOT NULL,
 	[State] [char](2) NOT NULL,
-	[Zip] [int] NOT NULL,
+	[Zip] [char](5) NOT NULL,
 	[Created_Date] [datetime] NOT NULL,
 	[Is_Active] [bit] NOT NULL,
  CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED 
@@ -225,8 +225,6 @@ CREATE TABLE [dbo].[Playdate_Pet](
 	[Pet_ID] [int] NOT NULL,
 	[Approval_Status] [varchar](50) NOT NULL,
 	[Accepted] [bit] NOT NULL,
-	[Created_Date] [datetime] NOT NULL,
-	[Is_Active] [bit] NOT NULL,
  CONSTRAINT [PK_Playdate_Pet] PRIMARY KEY CLUSTERED 
 (
 	[Playdate_ID] ASC,
@@ -280,10 +278,6 @@ GO
 ALTER TABLE [dbo].[Playdate] ADD  CONSTRAINT [DF_Playdate_Created_Date]  DEFAULT (getutcdate()) FOR [Created_Date]
 GO
 ALTER TABLE [dbo].[Playdate] ADD  CONSTRAINT [DF_Playdate_Is_Active]  DEFAULT ((1)) FOR [Is_Active]
-GO
-ALTER TABLE [dbo].[Playdate_Pet] ADD  CONSTRAINT [DF_Playdate_Pet_Created_Date]  DEFAULT (getutcdate()) FOR [Created_Date]
-GO
-ALTER TABLE [dbo].[Playdate_Pet] ADD  CONSTRAINT [DF_Playdate_Pet_Is_Active]  DEFAULT ((1)) FOR [Is_Active]
 GO
 ALTER TABLE [dbo].[users] ADD  CONSTRAINT [DF_users_Created_Date]  DEFAULT (getutcdate()) FOR [Created_Date]
 GO
