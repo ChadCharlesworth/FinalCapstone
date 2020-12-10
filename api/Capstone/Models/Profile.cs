@@ -13,19 +13,17 @@ namespace Capstone.Models
 
         [Required]
         public string Last_Name { get; set; }
-        
+
         public string user_role { get; set; }
-        
+
         [Required]
         public int user_id { get; set; }
-        
+
         [Required]
         public string username { get; set; }
-        
+
         public List<int> Address_Ids { get; set; } = new List<int>();
-        
+
         public List<int> Pet_Ids { get; set; } = new List<int>();
-        
-        public List<Playdate> Playdates { get; set; } = new List<Playdate>();
     }
 }
