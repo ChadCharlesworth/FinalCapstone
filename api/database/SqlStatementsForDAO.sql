@@ -13,8 +13,8 @@ join Playdate_Pet on Playdate.Playdate_ID = Playdate_Pet.Playdate_ID
 where Playdate.Is_Active = 1 and Pet_ID = @petID
 
 --get all users
-select First_Name,Last_Name,user_id from users
-select Pet_ID from Pet where Owner_ID = @userID
+select First_Name,Last_Name,user_id from users where Is_Active = 1
+select Pet_ID from Pet where Owner_ID = @userID where Is_Active = 1
 
 --post new user
 insert into users (username,password_hash,salt,user_role,First_Name,Last_Name) values (@username,@passwordHash,@salt,@userRole,@firstName,@lastName)
