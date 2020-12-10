@@ -125,11 +125,30 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+                    TransactionScope transaction = new TransactionScope();
 
-                    SqlCommand cmd = new SqlCommand("update Address set Is_Active = 0 where Address_ID = @addressID", conn);
-                    cmd.Parameters.AddWithValue("@addressID", id);
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand("update Address set Is_Active = 0 where Address_ID = @addressID", conn);
+                        cmd.Parameters.AddWithValue("@addressID", id);
 
-                    int addressID = Convert.ToInt32(cmd.ExecuteScalar());
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected == 1)
+                        {
+                            isDeleted = true;
+                            transaction.Complete();
+                        }
+                        else
+                        {
+                            transaction.Dispose();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Dispose();
+                        throw e;
+                    }
                 }
             }
             catch (Exception e)
