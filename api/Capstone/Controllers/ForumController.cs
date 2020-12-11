@@ -19,7 +19,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("/category")]
-        public ActionResult<List<Category>> GetCategory()
+        public ActionResult<List<ForumCategory>> GetCategory()
         {
             //todo Link to forum DAO
             throw new Exception();
@@ -27,13 +27,13 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("/category/")]
-        public ActionResult<List<Message>> GetAllMessages(int categoryID)
+        public ActionResult<List<ForumMessage>> GetAllMessages(int categoryID)
         {
             throw new Exception();
         }
 
         [HttpGet("/category/{message.id}")]
-        public ActionResult<Message> GetMessages(int categoryID, int messageID)
+        public ActionResult<ForumMessage> GetMessages(int categoryID, int messageID)
         {
             //todo Link to Forum/Message DAO
             throw new NotImplementedException();
