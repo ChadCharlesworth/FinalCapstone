@@ -60,19 +60,27 @@ namespace Capstone.DAO
                     TransactionScope transaction = new TransactionScope();
 
 
-                    SqlCommand cmd = new SqlCommand("update Pet set Is_Active = 0 where Pet_ID = @petID");
-                    cmd.Parameters.AddWithValue("@petID", id);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected == 1)
+                    try
                     {
-                        isDeleted = true;
-                        transaction.Complete();
+                        SqlCommand cmd = new SqlCommand("update Pet set Is_Active = 0 where Pet_ID = @petID");
+                        cmd.Parameters.AddWithValue("@petID", id);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected == 1)
+                        {
+                            isDeleted = true;
+                            transaction.Complete();
+                        }
+                        else
+                        {
+                            transaction.Dispose();
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
                         transaction.Dispose();
+                        throw;
                     }
                 }
             }
@@ -134,7 +142,7 @@ namespace Capstone.DAO
                         updatePet.Pet_ID = Convert.ToInt32(cmd.ExecuteScalar());
                     }
                 }
-                catch (SqlException)
+                catch (Exception)
                 {
                     throw;
                 }
