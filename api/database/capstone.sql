@@ -8,7 +8,7 @@ BEGIN
 	DROP DATABASE final_capstone;
 END
 
-/****** Object:  Database [final_capstone]    Script Date: 12/9/2020 10:31:00 AM ******/
+/****** Object:  Database [final_capstone]    Script Date: 12/10/2020 10:12:01 AM ******/
 CREATE DATABASE [final_capstone]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -86,7 +86,7 @@ ALTER DATABASE [final_capstone] SET QUERY_STORE = OFF
 GO
 USE [final_capstone]
 GO
-/****** Object:  Table [dbo].[Address]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Address]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,7 +106,7 @@ CREATE TABLE [dbo].[Address](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Address_User]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Address_User]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -121,7 +121,7 @@ CREATE TABLE [dbo].[Address_User](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Forum_Category]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Forum_Category]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +137,7 @@ CREATE TABLE [dbo].[Forum_Category](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Forum_Message]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Forum_Message]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +156,7 @@ CREATE TABLE [dbo].[Forum_Message](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Forum_Response]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Forum_Response]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +174,7 @@ CREATE TABLE [dbo].[Forum_Response](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pet]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Pet]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -195,7 +195,7 @@ CREATE TABLE [dbo].[Pet](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Playdate]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Playdate]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -215,7 +215,7 @@ CREATE TABLE [dbo].[Playdate](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Playdate_Pet]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[Playdate_Pet]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -232,7 +232,7 @@ CREATE TABLE [dbo].[Playdate_Pet](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[users]    Script Date: 12/9/2020 10:31:01 AM ******/
+/****** Object:  Table [dbo].[users]    Script Date: 12/10/2020 10:12:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -245,8 +245,8 @@ CREATE TABLE [dbo].[users](
 	[user_role] [varchar](50) NOT NULL,
 	[Created_Date] [datetime] NOT NULL,
 	[Is_Active] [bit] NOT NULL,
-	[First_Name] [varchar](50) NOT NULL,
-	[Last_Name] [varchar](50) NOT NULL,
+	[First_Name] [varchar](50) NULL,
+	[Last_Name] [varchar](50) NULL,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
