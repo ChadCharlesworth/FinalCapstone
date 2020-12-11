@@ -47,6 +47,7 @@ namespace Capstone.DAO
 
         public bool DeleteProfile(int id)
         {
+            //todo set pets inactive, too
             bool isDeleted = false;
 
             try
@@ -68,7 +69,6 @@ namespace Capstone.DAO
                     {
                         commandString = "update users set Is_Active = 0 where user_id = @userID";
                         command.CommandText = commandString;
-                        command.Parameters.AddWithValue("@userID", id);
 
                         int userRowsAffected = command.ExecuteNonQuery();
 
@@ -132,38 +132,42 @@ namespace Capstone.DAO
                         };
 
                         allUsers.Add(profile);
-
-                        int iterator = 0;
-                        foreach (Profile profileUser in allUsers)
-                        {
-                            commandString = $"select Pet_ID from Pet where Owner_ID = @userID{iterator} and Is_Active = 1;";
-                            command.CommandText = commandString;
-                            command.Parameters.AddWithValue($"@userID{iterator}", profileUser.user_id);
-
-                            SqlDataReader petReader = command.ExecuteReader();
-
-                            while (petReader.Read())
-                            {
-                                profileUser.Pet_Ids.Add(Convert.ToInt32(petReader["Pet_ID"]));
-                            }
-                            iterator++;
-                        }
-
-                        foreach (Profile profileUser in allUsers)
-                        {
-                            commandString = $"select Address.Address_ID from Address join Address_User on Address.Address_ID = Address_User.Address_ID where User_ID = @userID{iterator} and Is_Active = 1;";
-                            command.CommandText = commandString;
-                            command.Parameters.AddWithValue($"@userID{iterator}", profileUser.user_id);
-
-                            SqlDataReader addressReader = command.ExecuteReader();
-
-                            while (addressReader.Read())
-                            {
-                                profileUser.Address_Ids.Add(Convert.ToInt32(addressReader["Address_ID"]));
-                            }
-                            iterator++;
-                        }
                     }
+                    userReader.Close();
+
+                    int iterator = 0;
+                    foreach (Profile profileUser in allUsers)
+                    {
+                        commandString = $"select Pet_ID from Pet where Owner_ID = @userID{iterator} and Is_Active = 1;";
+                        command.CommandText = commandString;
+                        command.Parameters.AddWithValue($"@userID{iterator}", profileUser.user_id);
+
+                        SqlDataReader petReader = command.ExecuteReader();
+
+                        while (petReader.Read())
+                        {
+                            profileUser.Pet_Ids.Add(Convert.ToInt32(petReader["Pet_ID"]));
+                        }
+                        iterator++;
+                        petReader.Close();
+                    }
+
+                    foreach (Profile profileUser in allUsers)
+                    {
+                        commandString = $"select Address.Address_ID from Address join Address_User on Address.Address_ID = Address_User.Address_ID where User_ID = @userID{iterator} and Is_Active = 1;";
+                        command.CommandText = commandString;
+                        command.Parameters.AddWithValue($"@userID{iterator}", profileUser.user_id);
+
+                        SqlDataReader addressReader = command.ExecuteReader();
+
+                        while (addressReader.Read())
+                        {
+                            profileUser.Address_Ids.Add(Convert.ToInt32(addressReader["Address_ID"]));
+                        }
+                        iterator++;
+                        addressReader.Close();
+                    }
+
                 }
             }
             catch (Exception e)

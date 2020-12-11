@@ -85,7 +85,7 @@ namespace Capstone.Controllers
         [HttpPut("{id}")]
         public ActionResult<Profile> UpdateProfile(int id, [FromBody] Profile updatedProfile)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || updatedProfile.user_id != id)
             {
                 return BadRequest(ModelState);
             }

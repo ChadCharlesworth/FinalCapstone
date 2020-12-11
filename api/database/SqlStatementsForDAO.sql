@@ -18,13 +18,13 @@ select Pet_ID from Pet where Owner_ID = @userID where Is_Active = 1
 
 --post new user
 update users set First_Name = @firstName, Last_Name = @lastName where user_id = @userID
-insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAdress1,@streetAddress2,@city,@state,@zip)
+insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAddress1,@streetAddress2,@city,@state,@zip)
 insert into Address_User (User_ID,Address_ID) values (@userID,@addressID)
 
 --update(put) user
 select Address_ID from Address_User where User_ID = @userID
 update users set First_Name = @firstName,Last_Name = @lastName where user_id = @userID
-update address set Street_Address_1 = @streetAdress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip where Address_ID = @addressID
+update address set Street_Address_1 = @streetAddress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip where Address_ID = @addressID
 
 --delete user
 select Address_ID from Address_User where User_ID = @userID
@@ -36,11 +36,11 @@ select Address_ID,Street_Address_1,Street_Address_2,City,State,Zip
 from address where Is_Active = 1
 
 --post address
-insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAdress1,@streetAddress2,@city,@state,@zip)
+insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAddress1,@streetAddress2,@city,@state,@zip)
 insert into Address_User (User_ID,Address_ID) values (@userID,@addressID)
 
 --update(put) address
-update Address set Street_Address_1 = @streetAdress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip where Address_ID = @addressID
+update Address set Street_Address_1 = @streetAddress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip where Address_ID = @addressID
 
 --delete address
 update Address set Is_Active = 0 where Address_ID = @addressID
