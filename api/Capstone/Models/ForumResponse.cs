@@ -18,21 +18,6 @@ namespace Capstone.Models
         [Required]
         public DateTime CreatedDate { get; set; }
 
-        public ForumResponse(int responseID, int userID, int messageID, string body, DateTime createdDate)
-        {
-            ResponseID = responseID;
-
-            UserID = userID;
-
-            MessageID = messageID;
-
-            Body = body;
-
-            CreatedDate = createdDate;
-        }
-        public ForumResponse()
-        {
-
-        }
+        
     }
 }
