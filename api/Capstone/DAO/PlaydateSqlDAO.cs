@@ -162,7 +162,7 @@ namespace Capstone.DAO
 
             return updatedPlaydate;
         }
-        public bool DeletePlaydate(Playdate deletedPlaydate)
+        public bool DeletePlaydate(int playdateID)
         {
             bool isDeleted = false;
 
@@ -175,7 +175,7 @@ namespace Capstone.DAO
                     try
                     {
                         SqlCommand cmd = new SqlCommand("update Playdate set Is_Active = 0  where Playdate_ID = @playdateID", conn);
-                        cmd.Parameters.AddWithValue("@playdateID", deletedPlaydate.Playdate_ID);
+                        cmd.Parameters.AddWithValue("@playdateID", playdateID);
 
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected == 1)
