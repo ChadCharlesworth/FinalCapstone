@@ -1,4 +1,5 @@
-﻿using Capstone.Models;
+﻿using Capstone.DAO;
+using Capstone.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,56 +9,113 @@ using System.Threading.Tasks;
 
 namespace Capstone.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PetController : ControllerBase
     {
         //todo Add each DAO used for Pet with/without Dependency Injection?
         //private readonly DAO
-        public PetController()
+        private readonly IPetDAO petDAO;
+        public PetController(IPetDAO _petDAO)
         {
-
+            petDAO = _petDAO;
         }
 
-        [HttpGet("{userID}/{petID}")]
-        public ActionResult<List<Pet>> GetPets(int userID)
+        [HttpGet]
+        public ActionResult<List<Pet>> GetPets()
         {
-            //List<Pet> pets = userDAO.GetPet(userID);
+            List<Pet> pets = new List<Pet>();
 
-            //if(pets.Count != 0)
-            //{
-            //    return Ok(pets);
-            //}
-            //else
-            //{
-            //    return NotFound();
-            //}
-            throw new Exception();
-
+            try
+            {
+                pets = petDAO.GetPets();
+                if (pets.Count != 0)
+                {
+                    return Ok(pets);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
-        [HttpGet("{userID}")]
-        public ActionResult<Profile> GetProfile(int userID)
+        [HttpPost]
+        public ActionResult<Pet> AddPet(Pet newPet)
         {
-            //todo Link to user / profile DAO
-            throw new Exception();
-        }
+            {
 
-        [HttpGet("{petID}")]
-        public ActionResult<Pet> GetPetProfile(int petID)
-        {
-            //todo Link to pet DAO
-            throw new Exception();
-        }
-
-        [HttpPost("{userID}")]
-        public ActionResult<Pet> AddPet(Pet pet)
-        {
+                try
+                {
+                    newPet = petDAO.AddPet(newPet);
+                    if (newPet != null)
+                    {
+                        return Ok(newPet);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(500, e.Message);
+                }
+            }
             //todo Link to user / pet DAO 
             //created ({userID}/pet.id)
-            throw new Exception();
         }
+        [HttpDelete("{id}")]
+        public ActionResult DeletePet(int id)
+        {
+            bool deleteSuccessful;
 
-        
+            if (id < 1)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                deleteSuccessful = petDAO.DeletePet(id);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+            if (deleteSuccessful)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpPut("{id}")]
+        public ActionResult<Pet> UpdatePet(Pet updatePet, int id)
+        {
+            if(!ModelState.IsValid || updatePet.Pet_ID != id)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                try
+                {
+                    petDAO.UpdatePet(updatePet);
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(500, e.Message);
+                }
+                return Ok(updatePet);
+            }
+        }
     }
 }
