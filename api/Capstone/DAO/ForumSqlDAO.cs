@@ -385,8 +385,12 @@ namespace Capstone.DAO
                 UserID = Convert.ToInt32(reader["User_ID"]),
                 MessageID = Convert.ToInt32(reader["Message_ID"]),
                 Body = Convert.ToString(reader["Response_Body"]),
+
                 CreatedDate = Convert.ToDateTime(reader["Created_Date"]),
               
+
+                CreatedDate = Convert.ToDateTime(reader["Created_Date"])
+
             };
 
             return response;
