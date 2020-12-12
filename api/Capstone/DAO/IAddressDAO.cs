@@ -8,10 +8,10 @@ namespace Capstone.DAO
 {
     public interface IAddressDAO
     {
-        List<Address> getAddresses();
-        Address addAddress(Address newAddress, int userID);
-        Address updateAddress(Address revisedAddress);
-        bool deleteAddress(int id);
+        List<Address> GetAddresses();
+        Address AddAddress(Address newAddress, int userID);
+        Address UpdateAddress(Address revisedAddress);
+        bool DeleteAddress(int id);
 
     }
 }
