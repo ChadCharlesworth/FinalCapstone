@@ -17,7 +17,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public List<Address> getAddresses()
+        public List<Address> GetAddresses()
         {
             List<Address> returnAddresses = new List<Address>();
 
@@ -54,7 +54,7 @@ namespace Capstone.DAO
         }
 
 
-        public Address addAddress(Address newAddress, int userID)
+        public Address AddAddress(Address newAddress, int userID)
         {
             Address address = new Address();
 
@@ -86,7 +86,7 @@ namespace Capstone.DAO
         }
 
 
-        public Address updateAddress(Address updatedAddress)
+        public Address UpdateAddress(Address updatedAddress)
         {
 
             try
@@ -116,7 +116,7 @@ namespace Capstone.DAO
 
 
 
-        public bool deleteAddress(int id)
+        public bool DeleteAddress(int id)
         {
             bool isDeleted = false;
 
