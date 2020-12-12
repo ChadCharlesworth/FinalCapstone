@@ -21,93 +21,101 @@ namespace Capstone.Controllers
             petDAO = _petDAO;
         }
 
-        [HttpPost("{userID}")]
-        public ActionResult<Pet> AddPet(Pet newPet);
+        [HttpGet]
+        public ActionResult<List<Pet>> GetPets()
         {
-            
-        }
-    public ActionResult<Pet> UpdatePet(Pet updatePet);
-        {
-            
-        }
+            List<Pet> pets = new List<Pet>();
 
-[HttpGet]
-public ActionResult<List<Pet>> GetPets()
-{
-    List<Pet> pets = new List<Pet>();
-
-    try
-    {
-        pets = petDAO.GetPets();
-        if (pets.Count != 0)
-        {
-            return Ok(pets);
-        }
-        else
-        {
-            return NotFound();
-        }
-    }
-    catch (Exception e)
-    {
-        return StatusCode(500, e.Message);
-    }
-}
-
-[HttpGet("{petID}")]
-public ActionResult<Pet> GetPetProfile(int petID)
-{
-    {
-        List<Pet> pets = new List<Pet>();
-
-        try
-        {
-            pets = petDAO.GetPetProfile();
-            if (pets.Count != 0)
+            try
             {
-                return Ok(pets);
+                pets = petDAO.GetPets();
+                if (pets.Count != 0)
+                {
+                    return Ok(pets);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<Pet> AddPet(Pet newPet)
+        {
+            {
+
+                try
+                {
+                    newPet = petDAO.AddPet(newPet);
+                    if (newPet != null)
+                    {
+                        return Ok(newPet);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(500, e.Message);
+                }
+            }
+            //todo Link to user / pet DAO 
+            //created ({userID}/pet.id)
+        }
+        [HttpDelete("{id}")]
+        public ActionResult DeletePet(int id)
+        {
+            bool deleteSuccessful;
+
+            if (id < 1)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                deleteSuccessful = petDAO.DeletePet(id);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+            if (deleteSuccessful)
+            {
+                return NoContent();
             }
             else
             {
                 return NotFound();
             }
         }
-        catch (Exception e)
+        [HttpPut("{id}")]
+        public ActionResult<Pet> UpdatePet(Pet updatePet, int id)
         {
-            return StatusCode(500, e.Message);
-        }
-    }
-    //todo Link to pet DAO
-}
-
-[HttpPost("{userID}")]
-public ActionResult<Pet> AddPet(Pet newPet)
-{
-    {
-        List<Pet> pets = new List<Pet>();
-
-        try
-        {
-            pets = petDAO.newPet();
-            if (pets.Count != 0)
+            if(!ModelState.IsValid || updatePet.Pet_ID != id)
             {
-                return Ok(pets);
+                return BadRequest(ModelState);
             }
             else
             {
-                return NotFound();
+                try
+                {
+                    petDAO.UpdatePet(updatePet);
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(500, e.Message);
+                }
+                return Ok(updatePet);
             }
         }
-        catch (Exception e)
-        {
-            return StatusCode(500, e.Message);
-        }
     }
-    //todo Link to user / pet DAO 
-    //created ({userID}/pet.id)
-}
-[HttpDelete]
-public bool DeletePet(int id);
-{
-
 }
