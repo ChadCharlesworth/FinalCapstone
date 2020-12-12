@@ -386,7 +386,7 @@ namespace Capstone.DAO
                 MessageID = Convert.ToInt32(reader["Message_ID"]),
                 Body = Convert.ToString(reader["Response_Body"]),
                 CreatedDate = Convert.ToDateTime(reader["Created_Date"]),
-                IsActive = Convert.ToBoolean(reader["Is_Active"])
+                //IsActive = Convert.ToBoolean(reader["Is_Active"])
             };
 
             return response;
