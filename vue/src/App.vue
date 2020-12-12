@@ -1,9 +1,25 @@
-<template>
+<!--<template>
   <div id="app" class="container">
     <header-panel class="header-panel" />
     <left-column class="left" />
     <right-column class="right" />
     <main-panel class="main" />
+  </div>
+</template> -->
+
+<template>
+  <div id="app">
+    <h1 class="display-1 text-center"> Pet Play Pals </h1>
+    <header-panel id="nav" class="navbar bg-info navbar-light sticky-top"/>
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <left-column class="col-lg-2 col-sm-2 left-column border border-dark" style="height:100vh;"/>
+        <main-panel class="col-lg-8 col-sm-2 main"/>
+        <right-column class="col-lg-2 col-sm-4 right-column border border-dark"/>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -18,7 +34,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .container {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
