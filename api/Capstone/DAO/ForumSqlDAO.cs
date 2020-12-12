@@ -11,7 +11,6 @@ namespace Capstone.DAO
     public class ForumSqlDAO : IForumDAO
     {
         private readonly string connectionString;
-
         public ForumSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -174,7 +173,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand command = new SqlCommand("select Message_ID,Category_ID,User_ID,Message_Title,Message_Body from Forum_Message where Is_Active = 1", conn);
+                    SqlCommand command = new SqlCommand("select Message_ID,Category_ID,User_ID,Message_Title,Message_Body,Created_Date from Forum_Message where Is_Active = 1", conn);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -201,7 +200,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand command = new SqlCommand("select Response_ID,User_ID,Message_ID,Response_Body from Forum_Response where Is_Active = 1", conn);
+                    SqlCommand command = new SqlCommand("select Response_ID,User_ID,Message_ID,Response_Body,Created_Date from Forum_Response where Is_Active = 1", conn);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -372,7 +371,8 @@ namespace Capstone.DAO
                 CategoryID = Convert.ToInt32(reader["Category_ID"]),
                 UserID = Convert.ToInt32(reader["User_ID"]),
                 Title = Convert.ToString(reader["Message_Title"]),
-                Body = Convert.ToString(reader["Message_Body"])
+                Body = Convert.ToString(reader["Message_Body"]),
+                CreatedDate = Convert.ToDateTime(reader["Created_Date"])
             };
             return message;
         }

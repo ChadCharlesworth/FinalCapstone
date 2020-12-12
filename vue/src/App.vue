@@ -9,10 +9,7 @@
 
 <template>
   <div id="app">
-    <h1 class="display-1 text-center"> Pet Play Pals </h1>
-    <header-panel id="nav" class="navbar bg-info navbar-light sticky-top"/>
-
-
+    <header-panel id="nav"/>
     <div class="container-fluid">
       <div class="row">
         <left-column class="col-lg-2 col-sm-2 left-column border border-dark" style="height:100vh;"/>
@@ -61,4 +58,4 @@ export default {
     grid-area: right-panel;
 }
 
-</style>
+</style> -->
