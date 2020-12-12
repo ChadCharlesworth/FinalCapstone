@@ -35,7 +35,7 @@ namespace Capstone.Controllers
 
             return Ok(addresses);
         }
-        [HttpPost]
+        [HttpPost("user/{userID}")]
         public ActionResult<Address> AddAddress(int userID, [FromBody] Address newAddress)
         {
             if (!ModelState.IsValid)

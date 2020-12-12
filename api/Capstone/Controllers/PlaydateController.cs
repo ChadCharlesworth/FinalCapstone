@@ -36,7 +36,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Playdate> CreatePlaydate( [FromBody] Playdate newPlaydate, int petID)
+        public ActionResult<Playdate> CreatePlaydate( [FromBody] Playdate newPlaydate/*, int petID*/)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace Capstone.Controllers
             {
                 try
                 {
-                    playdateDAO.CreatePlaydate(newPlaydate, petID);
+                    playdateDAO.CreatePlaydate(newPlaydate/*, petID*/);
                 }
                 catch (Exception e)
                 {
