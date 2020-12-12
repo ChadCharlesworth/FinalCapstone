@@ -29,7 +29,7 @@ namespace Capstone.DAO
 
 
 
-                        SqlCommand cmd = new SqlCommand("insert into Pet (Owner_ID,Pet_Name,Species,Breed,Size,Personality) values (@userID,@petName,@species,@breed,@size,@personality)", conn);
+                        SqlCommand cmd = new SqlCommand("insert into Pet (Owner_ID,Pet_Name,Species,Breed,Size,Personality) values (@userID,@petName,@species,@breed,@size,@personality);select SCOPE_IDENTITY();", conn);
                         cmd.Parameters.AddWithValue("@userID", newPet.Owner_ID);
                         cmd.Parameters.AddWithValue("@petName", newPet.Pet_Name);
                         cmd.Parameters.AddWithValue("@species", newPet.Species);
@@ -62,7 +62,7 @@ namespace Capstone.DAO
 
                     try
                     {
-                        SqlCommand cmd = new SqlCommand("update Pet set Is_Active = 0 where Pet_ID = @petID");
+                        SqlCommand cmd = new SqlCommand("update Pet set Is_Active = 0 where Pet_ID = @petID", conn);
                         cmd.Parameters.AddWithValue("@petID", id);
 
                         int rowsAffected = cmd.ExecuteNonQuery();
@@ -99,7 +99,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into Pet (Owner_ID,Pet_Name,Species,Breed,Size,Personality) values (@userID,@petName,@species,@breed,@size,@personality)");
+                    SqlCommand cmd = new SqlCommand("select Pet_ID,Owner_ID,Pet_Name,Species,Breed,Size,Personality from Pet where Is_Active = 1", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -112,6 +112,7 @@ namespace Capstone.DAO
                             pet.Breed = Convert.ToString(reader["Breed"]);
                             pet.Size = Convert.ToString(reader["Size"]);
                             pet.Personality = Convert.ToString(reader["Personality"]);
+                            pet.Pet_ID = Convert.ToInt32(reader["Pet_ID"]);
                             returnPets.Add(pet);
                         }
                     }
@@ -132,14 +133,14 @@ namespace Capstone.DAO
                     {
                         conn.Open();
 
-                        SqlCommand cmd = new SqlCommand("update Pet set Pet_Name = @petName, Species = @species, Breed = @breed, Size = @size, Personality = @personality where Pet_ID = @petID");
+                        SqlCommand cmd = new SqlCommand("update Pet set Pet_Name = @petName, Species = @species, Breed = @breed, Size = @size, Personality = @personality where Pet_ID = @petID;select scope_identity()", conn);
                         cmd.Parameters.AddWithValue("@petID", updatePet.Pet_ID);
                         cmd.Parameters.AddWithValue("@petName", updatePet.Pet_Name);
                         cmd.Parameters.AddWithValue("@species", updatePet.Species);
                         cmd.Parameters.AddWithValue("@breed", updatePet.Breed);
                         cmd.Parameters.AddWithValue("@size", updatePet.Size);
                         cmd.Parameters.AddWithValue("@personality", updatePet.Personality);
-                        updatePet.Pet_ID = Convert.ToInt32(cmd.ExecuteScalar());
+                        cmd.ExecuteNonQuery();
                     }
                 }
                 catch (Exception)
