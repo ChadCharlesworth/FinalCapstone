@@ -205,30 +205,33 @@ namespace Capstone.DAO
                             user_role = Convert.ToString(userReader["user_role"]),
                             username = username
                         };
-
-                        //Adding Pet IDs to profile 
-                        commandString = $"select Pet_ID from Pet where Owner_ID = @userID and Is_Active = 1;";
-                        command.CommandText = commandString;
-                        command.Parameters.AddWithValue($"@userID", profile.user_id);
-
-                        SqlDataReader petReader = command.ExecuteReader();
-
-                        while (petReader.Read())
-                        {
-                            profile.Pet_Ids.Add(Convert.ToInt32(petReader["Pet_ID"]));
-                        }
-
-                        //Adding address IDs to profile
-                        commandString = $"select Address.Address_ID from Address join Address_User on Address.Address_ID = Address_User.Address_ID where User_ID = @userID and Is_Active = 1;";
-                        command.CommandText = commandString;
-
-                        SqlDataReader addressReader = command.ExecuteReader();
-
-                        while (addressReader.Read())
-                        {
-                            profile.Address_Ids.Add(Convert.ToInt32(addressReader["Address_ID"]));
-                        }
                     }
+                    userReader.Close();
+
+                    //Adding Pet IDs to profile 
+                    commandString = $"select Pet_ID from Pet where Owner_ID = @userID and Is_Active = 1;";
+                    command.CommandText = commandString;
+                    command.Parameters.AddWithValue($"@userID", profile.user_id);
+
+                    SqlDataReader petReader = command.ExecuteReader();
+
+                    while (petReader.Read())
+                    {
+                        profile.Pet_Ids.Add(Convert.ToInt32(petReader["Pet_ID"]));
+                    }
+                    petReader.Close();
+
+                    //Adding address IDs to profile
+                    commandString = $"select Address.Address_ID from Address join Address_User on Address.Address_ID = Address_User.Address_ID where User_ID = @userID and Is_Active = 1;";
+                    command.CommandText = commandString;
+
+                    SqlDataReader addressReader = command.ExecuteReader();
+
+                    while (addressReader.Read())
+                    {
+                        profile.Address_Ids.Add(Convert.ToInt32(addressReader["Address_ID"]));
+                    }
+                    addressReader.Close();
                 }
             }
             catch (Exception e)
