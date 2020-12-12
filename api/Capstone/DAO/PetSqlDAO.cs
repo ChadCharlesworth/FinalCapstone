@@ -62,7 +62,7 @@ namespace Capstone.DAO
 
                     try
                     {
-                        SqlCommand cmd = new SqlCommand("update Pet set Is_Active = 0 where Pet_ID = @petID");
+                        SqlCommand cmd = new SqlCommand("update Pet set Is_Active = 0 where Pet_ID = @petID", conn);
                         cmd.Parameters.AddWithValue("@petID", id);
 
                         int rowsAffected = cmd.ExecuteNonQuery();
@@ -99,7 +99,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into Pet (Owner_ID,Pet_Name,Species,Breed,Size,Personality) values (@userID,@petName,@species,@breed,@size,@personality)");
+                    SqlCommand cmd = new SqlCommand("select Pet_ID,Owner_ID,Pet_Name,Species,Breed,Size,Personality from Pet where Is_Active = 1", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -132,7 +132,7 @@ namespace Capstone.DAO
                     {
                         conn.Open();
 
-                        SqlCommand cmd = new SqlCommand("update Pet set Pet_Name = @petName, Species = @species, Breed = @breed, Size = @size, Personality = @personality where Pet_ID = @petID");
+                        SqlCommand cmd = new SqlCommand("update Pet set Pet_Name = @petName, Species = @species, Breed = @breed, Size = @size, Personality = @personality where Pet_ID = @petID", conn);
                         cmd.Parameters.AddWithValue("@petID", updatePet.Pet_ID);
                         cmd.Parameters.AddWithValue("@petName", updatePet.Pet_Name);
                         cmd.Parameters.AddWithValue("@species", updatePet.Species);
