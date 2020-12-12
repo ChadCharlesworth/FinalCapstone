@@ -36,7 +36,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Playdate> CreatePlaydate(Playdate newPlaydate, int petID)
+        public ActionResult<Playdate> CreatePlaydate( [FromBody] Playdate newPlaydate, int petID)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Playdate> UpdatePlaydate(int id, Playdate updatedPlaydate)
+        public ActionResult<Playdate> UpdatePlaydate(int id, [FromBody] Playdate updatedPlaydate)
         {
             if (!ModelState.IsValid || updatedPlaydate.Playdate_ID != id)
             {
@@ -79,8 +79,8 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPut("{id}/Pet/{PetID}")]
-        public ActionResult<Playdate> UpdatePlaydateByPetID(int id, Playdate updatedPlaydate, int petID)
+        [HttpPut("{id}/pet/{petID}")]
+        public ActionResult<Playdate> UpdatePlaydateByPetID(int id, [FromBody] Playdate updatedPlaydate, int petID)
         {
             if (!ModelState.IsValid || updatedPlaydate.Playdate_ID != id) //ADDING PET ID REFERENCE??
             {

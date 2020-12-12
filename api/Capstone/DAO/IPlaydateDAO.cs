@@ -12,6 +12,6 @@ namespace Capstone.DAO
         Playdate CreatePlaydate(Playdate newPlaydate, int petID);
         Playdate UpdatePlaydate(Playdate updatedPlaydate);
         Playdate UpdatePlaydateByPetID(Playdate updatedPlaydate, int petID);
-        bool DeletePlaydate(Playdate deletedPlaydate);
+        bool DeletePlaydate(int playdateID);
     }
 }
