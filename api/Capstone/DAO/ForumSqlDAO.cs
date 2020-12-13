@@ -389,7 +389,7 @@ namespace Capstone.DAO
                 CreatedDate = Convert.ToDateTime(reader["Created_Date"]),
               
 
-                CreatedDate = Convert.ToDateTime(reader["Created_Date"])
+               // CreatedDate = Convert.ToDateTime(reader["Created_Date"])
 
             };
 
