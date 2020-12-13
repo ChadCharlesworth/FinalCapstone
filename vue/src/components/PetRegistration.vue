@@ -50,7 +50,7 @@ export default {
         {age: 40, first_name: 'Dickerson', last_name: 'Testing'},
         {age: 28, first_name: 'Person', last_name: 'McPerson'},
         {age: 50, first_name: 'Joe', last_name: 'Schmoe'},
-        {age: 40, first_name: 'John', last_name: 'Doe'}
+        {age: 30, first_name: 'John', last_name: 'Doe'}
       ]
     }
   }
