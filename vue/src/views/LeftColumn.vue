@@ -1,6 +1,6 @@
 <template>
   <div>
-    <forum/>
+    <forum v-if="$route.name!=='forum'"/>
   </div>
 </template>
 
