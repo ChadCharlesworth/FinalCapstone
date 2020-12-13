@@ -4,8 +4,9 @@
       <div>New Playdate</div>
       <div>Search All Playdates</div>
       <div>Map</div>
+      <div>Playdates</div>
       <div>
-        <b-table striped hover :items="items"></b-table>
+        <b-table sticky-header :items="items" head-variant="light"></b-table>
       </div>
       
     
@@ -18,10 +19,14 @@ export default {
   data() {
       return {
         items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { age: 38, first_name: 'Jami', last_name: 'Carney' }
+          { open_slots: 2, location: "Frick Park", date: "01/01/21", going: "1", invited: "3" },
+          { open_slots: 5, location: "Schenley Park", date: "01/02/21", going: "1", invited: "6" },
+          { open_slots: 3, location: "Point State Park", date: "01/03/21", going: "2", invited: "5" },
+          { open_slots: 10, location: "Highland Park", date: "01/04/21", going: "2", invited: "12" },
+          { open_slots: 2, location: "Frick Park", date: "01/01/21", going: "1", invited: "3" },
+          { open_slots: 5, location: "Schenley Park", date: "01/02/21", going: "1", invited: "6" },
+          { open_slots: 3, location: "Point State Park", date: "01/03/21", going: "2", invited: "5" },
+          { open_slots: 10, location: "Highland Park", date: "01/04/21", going: "2", invited: "12" }
         ]
       }
     }
