@@ -1,10 +1,12 @@
 <template>
-  <div></div>
+  <div><profile/></div>
 </template>
 
 <script>
-export default {
+import Profile from '@/components/Profile';
 
+export default {
+components: {Profile}
 }
 </script>
 
