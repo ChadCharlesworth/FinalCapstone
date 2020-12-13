@@ -21,8 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     profile: {
-      Address_Ids: [],
-      Pet_Ids: []
+
     },
     addresses: [],
     pets: [],
@@ -174,8 +173,6 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
       state.profile = {
-        Address_Ids: [],
-        Pet_Ids: []
       };
       state.addresses = [];
       state.pets = [];
