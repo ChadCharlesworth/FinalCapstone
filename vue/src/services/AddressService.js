@@ -6,7 +6,11 @@ export default {
     return axios.get('api/address');
   },
 
-  addAddress(userID,address) {
+  addAddress(address) {
+    return axios.post(`api/address/${address.Address_ID}`, address)
+  },
+
+  addAddressWithUser(userID,address) {
     return axios.post(`api/address/user/${userID}`, address)
   },
 

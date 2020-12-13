@@ -35,8 +35,31 @@ namespace Capstone.Controllers
 
             return Ok(addresses);
         }
+
+        [HttpPost]
+        public ActionResult<Address> AddAddress([FromBody] Address newAddress)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                try
+                {
+                    addressDAO.AddAddress(newAddress);
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(500, e.Message);
+                }
+                return Created($"api/address/{newAddress.Address_ID}", newAddress);
+            }
+        }
+
         [HttpPost("user/{userID}")]
-        public ActionResult<Address> AddAddress(int userID, [FromBody] Address newAddress)
+        public ActionResult<Address> AddAddressWithUser(int userID, [FromBody] Address newAddress)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +69,7 @@ namespace Capstone.Controllers
             {
                 try
                 {
-                    addressDAO.AddAddress(newAddress, userID);
+                    addressDAO.AddAddressWithUser(newAddress, userID);
                 }
                 catch (Exception e)
                 {
