@@ -9,7 +9,8 @@ namespace Capstone.DAO
     public interface IAddressDAO
     {
         List<Address> GetAddresses();
-        Address AddAddress(Address newAddress, int userID);
+        int AddAddress(Address newAddress);
+        Address AddAddressWithUser(Address newAddress, int userID);
         Address UpdateAddress(Address revisedAddress);
         bool DeleteAddress(int id);
 
