@@ -12,9 +12,9 @@
     <header-panel id="nav"/>
     <div class="container-fluid">
       <div class="row">
-        <left-column class="col-lg-2 col-sm-2 left-column border border-dark" style="height:100vh;"/>
-        <main-panel class="col-lg-8 col-sm-2 main"/>
-        <right-column class="col-lg-2 col-sm-4 right-column border border-dark"/>
+        <left-column class="col-lg-2 left-column border border-dark" style="height:100vh;"/>
+        <main-panel class="col-lg-8 main"/>
+        <right-column class="col-lg-2 right-column border border-dark"/>
     </div>
   </div>
   </div>
