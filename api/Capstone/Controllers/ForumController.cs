@@ -39,7 +39,7 @@ namespace Capstone.Controllers
         [HttpPost("category")]
         public ActionResult<ForumCategory> PostCategory(ForumCategory category)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -59,10 +59,10 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPut("category/{category.CategoryID}")]
-        public ActionResult<ForumCategory> UpdateCategory(ForumCategory category)
+        [HttpPut("category/{categoryID}")]
+        public ActionResult<ForumCategory> UpdateCategory(int categoryID, ForumCategory category)
         {
-            if(!ModelState.IsValid || category.CategoryID < 1)
+            if (!ModelState.IsValid || category.CategoryID != categoryID)
             {
                 return BadRequest(ModelState);
             }
@@ -82,26 +82,21 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpDelete("category/{category.CategoryID}")]
-        public ActionResult DeleteCategory(ForumCategory category)
+        [HttpDelete("category/{categoryID}")]
+        public ActionResult DeleteCategory(int categoryID)
         {
             bool wasSuccessful;
 
-            if(category.CategoryID < 1)
-            {
-                return BadRequest();
-            }
-
             try
             {
-                wasSuccessful = forumDAO.DeactivateCategory(category);
+                wasSuccessful = forumDAO.DeactivateCategory(categoryID);
             }
             catch (Exception e)
             {
 
                 return StatusCode(500, e.Message);
             }
-            if(wasSuccessful)
+            if (wasSuccessful)
             {
                 return NoContent();
             }
@@ -123,7 +118,7 @@ namespace Capstone.Controllers
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
-                
+
             }
             return Ok(messages);
         }
@@ -131,29 +126,22 @@ namespace Capstone.Controllers
         [HttpPost("message")]
         public ActionResult<ForumMessage> PostMessage(ForumMessage message)
         {
-            if(!ModelState.IsValid || message.MessageID < 1)
+            try
             {
-                return BadRequest();
+                forumDAO.PostMessage(message);
             }
-            else
+            catch (Exception e)
             {
-                try
-                {
-                    forumDAO.PostMessage(message);
-                }
-                catch (Exception e)
-                {
-                    return StatusCode(500, e.Message);
-                }
+                return StatusCode(500, e.Message);
+            }
 
-                return Created($"/api/forum/message/{message.MessageID}", message);
-            }
+            return Created($"/api/forum/message/{message.MessageID}", message);
         }
 
-        [HttpPut("message/{message.MessageID}")]
-        public ActionResult<ForumMessage> UpdateMessage(ForumMessage message)
+        [HttpPut("message/{messageID}")]
+        public ActionResult<ForumMessage> UpdateMessage(int messageID, ForumMessage message)
         {
-            if (!ModelState.IsValid || message.MessageID < 1)
+            if (!ModelState.IsValid || message.MessageID != messageID)
             {
                 return BadRequest();
             }
@@ -172,34 +160,26 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpDelete("message/{message.MessageID}")]
-        public ActionResult DeleteMessage(ForumMessage message)
+        [HttpDelete("message/{messageID}")]
+        public ActionResult DeleteMessage(int messageID)
         {
             bool wasSuccessful;
 
-            if(message.MessageID < 1)
+            try
             {
-                return BadRequest();
+                wasSuccessful = forumDAO.DeactivateMessage(messageID);
             }
-
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+            if (wasSuccessful)
+            {
+                return NoContent();
+            }
             else
             {
-                try
-                {
-                    wasSuccessful = forumDAO.DeactivateMessage(message);
-                }
-                catch (Exception e)
-                {
-                    return StatusCode(500, e.Message);
-                }
-                if (wasSuccessful)
-                {
-                    return NoContent();
-                }
-                else
-                {
-                    return NotFound();
-                } 
+                return NotFound();
             }
         }
 
@@ -223,7 +203,7 @@ namespace Capstone.Controllers
         [HttpPost("response")]
         public ActionResult<ForumResponse> PostResponse(ForumResponse response)
         {
-            if(!ModelState.IsValid || response.ResponseID < 1)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -243,10 +223,10 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpPut("response/{response.ResponseID}")]
-        public ActionResult<ForumResponse> UpdateResponse(ForumResponse response)
+        [HttpPut("response/{responseID}")]
+        public ActionResult<ForumResponse> UpdateResponse(int responseID, ForumResponse response)
         {
-            if(!ModelState.IsValid || response.ResponseID < 1)
+            if (!ModelState.IsValid || response.ResponseID != responseID)
             {
                 return BadRequest();
             }
@@ -266,34 +246,26 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpDelete("response/{response.ResponseID}")]
-        public ActionResult DeleteResponse(ForumResponse response)
+        [HttpDelete("response/{responseID}")]
+        public ActionResult DeleteResponse(int responseID)
         {
             bool wasSuccessful;
 
-            if (response.ResponseID < 1)
+            try
             {
-                return BadRequest();
+                wasSuccessful = forumDAO.DeactivateResponse(responseID);
             }
-
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+            if (wasSuccessful)
+            {
+                return NoContent();
+            }
             else
             {
-                try
-                {
-                    wasSuccessful = forumDAO.DeactivateResponse(response);
-                }
-                catch (Exception e)
-                {
-                    return StatusCode(500, e.Message);
-                }
-                if (wasSuccessful)
-                {
-                    return NoContent();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return NotFound();
             }
         }
     }

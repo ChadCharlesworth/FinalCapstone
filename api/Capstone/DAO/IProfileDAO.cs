@@ -8,11 +8,9 @@ namespace Capstone.DAO
 {
     public interface IProfileDAO
     {
-        Profile GetProfile(string username);
+        Profile GetProfile(int userID);
 
         List<Profile> GetAllUsers();
-
-        Profile AddProfile(Profile newProfile);
 
         Profile UpdateProfile(Profile updatedProfile);
 

@@ -11,14 +11,14 @@ namespace Capstone.DAO
         List<ForumCategory> GetAllCategories();
         ForumCategory PostCategory(ForumCategory category);
         ForumCategory UpdateCategory(ForumCategory updatedCategory);
-        bool DeactivateCategory(ForumCategory deletedCategory);
+        bool DeactivateCategory(int deletedCategoryID);
         List<ForumMessage> GetAllMessages();
         ForumMessage PostMessage(ForumMessage newMessage);
         ForumMessage UpdateMessage(ForumMessage updatedMessage);
-        bool DeactivateMessage(ForumMessage deletedMessage);
+        bool DeactivateMessage(int deletedMessageID);
         List<ForumResponse> GetAllResponses();
         ForumResponse PostResponse(ForumResponse newResponse);
         ForumResponse UpdateResponse(ForumResponse updatedResponse);
-        bool DeactivateResponse(ForumResponse deletedResponse);
+        bool DeactivateResponse(int deletedResponseID);
     }
 }

@@ -56,23 +56,22 @@ namespace Capstone.DAO
 
         public Address AddAddress(Address newAddress, int userID)
         {
-            Address address = new Address();
-
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAddress1,@streetAddress2,@city,@state,@zip); select SCOPE_IDENTITY;", conn);
+                    SqlCommand cmd = new SqlCommand("insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAddress1,@streetAddress2,@city,@state,@zip); select SCOPE_IDENTITY();", conn);
                     cmd.Parameters.AddWithValue("@streetAddress1", newAddress.Street_Address_1);
                     cmd.Parameters.AddWithValue("@streetAddress2", newAddress.Street_Address_2);
                     cmd.Parameters.AddWithValue("@city", newAddress.City);
                     cmd.Parameters.AddWithValue("@state", newAddress.State);
                     cmd.Parameters.AddWithValue("@zip", newAddress.Zip);
-
                     int addressID = Convert.ToInt32(cmd.ExecuteScalar());
-                    cmd.CommandText = "insert into Address_User(User_ID, Address_ID) values(@userID, @addressID)"; 
+                    newAddress.Address_ID = addressID;
+
+                    cmd.CommandText = "insert into Address_User(User_ID, Address_ID) values(@userID, @addressID)";
                     cmd.Parameters.AddWithValue("@userID", userID);
                     cmd.Parameters.AddWithValue("@addressID", addressID);
                     cmd.ExecuteNonQuery();
@@ -82,7 +81,7 @@ namespace Capstone.DAO
             {
                 throw e;
             }
-            return address;
+            return newAddress;
         }
 
 
@@ -159,10 +158,9 @@ namespace Capstone.DAO
         }
     }
 }
-     
 
 
-      
-        
 
-       
+
+
+

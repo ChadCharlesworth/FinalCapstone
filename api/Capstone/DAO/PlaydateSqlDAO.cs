@@ -17,7 +17,7 @@ namespace Capstone.DAO
             ConnectionString = dbConnectionString;
         }
 
-        public Playdate CreatePlaydate(Playdate playdate, int petID)
+        public Playdate CreatePlaydate(Playdate playdate/*, int petID*/)
         {
             try
             {
@@ -32,12 +32,12 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@isPrivate", playdate.Is_Private);
                     playdate.Playdate_ID = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    cmd.CommandText = "insert into Playdate_Pet (Playdate_ID,Pet_ID,Approval_Status,Accepted) values (@playdateID,@petID,@approvalStatus,@accepted);";
-                    cmd.Parameters.AddWithValue("@playdateID", playdate.Playdate_ID);
-                    cmd.Parameters.AddWithValue("@petID", petID);
-                    cmd.Parameters.AddWithValue("@approvalStatus", playdate.Pet_Approval_Status[petID]);
-                    cmd.Parameters.AddWithValue("@accepted", playdate.Pet_Accepted_Status[petID]);
-                    cmd.ExecuteNonQuery();
+                    //cmd.CommandText = "insert into Playdate_Pet (Playdate_ID,Pet_ID,Approval_Status,Accepted) values (@playdateID,@petID,@approvalStatus,@accepted);";
+                    //cmd.Parameters.AddWithValue("@playdateID", playdate.Playdate_ID);
+                    //cmd.Parameters.AddWithValue("@petID", petID);
+                    //cmd.Parameters.AddWithValue("@approvalStatus", playdate.Pet_Approval_Status[petID]);
+                    //cmd.Parameters.AddWithValue("@accepted", playdate.Pet_Accepted_Status[petID]);
+                    //cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace Capstone.DAO
                             playdate.Date_Time = Convert.ToDateTime(reader["Date_Time"]);
                             playdate.Creator_User_ID = Convert.ToInt32(reader["Creator_User_ID"]);
                             playdate.Number_Of_Attendees = Convert.ToInt32(reader["Number_Of_Attendees"]);
-                            playdate.Is_Private = Convert.ToInt32("Is_Private");
+                            playdate.Is_Private = Convert.ToBoolean(reader["Is_Private"]);
                             allPlaydates.Add(playdate);
 
                         }
@@ -124,7 +124,7 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("update Playdate set Address_ID = @addressID,Date_Time = @dateTime,Creator_User_ID = @userID,Number_Of_Attendees = @numberOfAttendees,Is_Private = @isPrivate where Playdate_ID = @playdateID", conn);
                     cmd.Parameters.AddWithValue("@addressID", updatedPlaydate.Address_ID);
-                    cmd.Parameters.AddWithValue("@@dateTime", updatedPlaydate.Date_Time);
+                    cmd.Parameters.AddWithValue("@dateTime", updatedPlaydate.Date_Time);
                     cmd.Parameters.AddWithValue("@userID", updatedPlaydate.Creator_User_ID);
                     cmd.Parameters.AddWithValue("@numberOfAttendees", updatedPlaydate.Number_Of_Attendees);
                     cmd.Parameters.AddWithValue("@isPrivate", updatedPlaydate.Is_Private);
