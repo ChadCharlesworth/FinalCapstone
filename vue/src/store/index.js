@@ -33,7 +33,7 @@ export default new Vuex.Store({
   },
   mutations: {
     LOAD_CURRENT_PROFILE(state, profileUser) {
-      state.profile.push(profileUser);
+      state.profile = profileUser;
     },
     LOAD_ADDRESS(state, address) {
       state.addresses.push(address);
