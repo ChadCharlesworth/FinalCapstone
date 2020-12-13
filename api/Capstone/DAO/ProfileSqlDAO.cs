@@ -17,34 +17,6 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public Profile AddProfile(Profile newProfile)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    string commandString = "update users set First_Name = @firstName, Last_Name = @lastName where user_id = @userID;";
-
-                    SqlCommand command = new SqlCommand(commandString, connection);
-                    command.Parameters.AddWithValue("@firstName", newProfile.First_Name);
-                    command.Parameters.AddWithValue("@lastName", newProfile.Last_Name);
-                    command.Parameters.AddWithValue("@userID", newProfile.user_id);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-            //Add address, pets, and playdates in Vue after adding profile, in the same Vue method based on the returned userID or petID
-
-            return GetProfile(newProfile.username);
-        }
-
         public bool DeleteProfile(int id)
         {
             //todo set pets inactive, too
@@ -178,7 +150,7 @@ namespace Capstone.DAO
             return allUsers;
         }
 
-        public Profile GetProfile(string username)
+        public Profile GetProfile(int userID)
         {
             Profile profile = new Profile();
 
@@ -188,10 +160,10 @@ namespace Capstone.DAO
                 {
                     connection.Open();
 
-                    string commandString = "select First_Name,Last_Name,user_id,user_role from users where Is_Active = 1 and username = @username;";
+                    string commandString = "select First_Name,Last_Name,username,user_role from users where Is_Active = 1 and user_id = @userID;";
 
                     SqlCommand command = new SqlCommand(commandString, connection);
-                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@userID", userID);
 
                     SqlDataReader userReader = command.ExecuteReader();
 
@@ -201,9 +173,9 @@ namespace Capstone.DAO
                         {
                             First_Name = Convert.ToString(userReader["First_Name"]),
                             Last_Name = Convert.ToString(userReader["Last_Name"]),
-                            user_id = Convert.ToInt32(userReader["user_id"]),
+                            username = Convert.ToString(userReader["username"]),
                             user_role = Convert.ToString(userReader["user_role"]),
-                            username = username
+                            user_id = userID
                         };
                     }
                     userReader.Close();
@@ -211,7 +183,6 @@ namespace Capstone.DAO
                     //Adding Pet IDs to profile 
                     commandString = $"select Pet_ID from Pet where Owner_ID = @userID and Is_Active = 1;";
                     command.CommandText = commandString;
-                    command.Parameters.AddWithValue($"@userID", profile.user_id);
 
                     SqlDataReader petReader = command.ExecuteReader();
 

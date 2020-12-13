@@ -40,45 +40,29 @@ namespace Capstone.Controllers
         }
 
         // GET api/<ProfilesController>/5
-        [HttpGet("{username}")]
-        public ActionResult<Profile> GetUserByUsername(string username)
+        [HttpGet("{id}")]
+        public ActionResult<Profile> GetUserByUsername(int id)
         {
             Profile profile = new Profile();
 
             try
             {
-                profile = profileDAO.GetProfile(username);
+                profile = profileDAO.GetProfile(id);
             }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }
 
-            return Ok(profile);
-
-        }
-
-        // POST api/<ProfilesController>
-        [HttpPost]
-        public ActionResult<Profile> AddProfile([FromBody] Profile newProfile)
-        {
-            if (!ModelState.IsValid)
+            if (profile.username != null)
             {
-                return BadRequest(ModelState);
+                return Ok(profile); 
             }
             else
             {
-                try
-                {
-                    profileDAO.AddProfile(newProfile);
-                }
-                catch (Exception e)
-                {
-                    return StatusCode(500, e.Message);
-                }
-
-                return Created($"api/profiles/{newProfile.user_id}", newProfile);
+                return BadRequest();
             }
+
         }
 
         // PUT api/<ProfilesController>/5
