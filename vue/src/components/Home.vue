@@ -19,14 +19,14 @@ export default {
   data() {
       return {
         items: [
-          { open_slots: 2, location: "Frick Park", date: "01/01/21", going: "1", invited: "3" },
-          { open_slots: 5, location: "Schenley Park", date: "01/02/21", going: "1", invited: "6" },
-          { open_slots: 3, location: "Point State Park", date: "01/03/21", going: "2", invited: "5" },
-          { open_slots: 10, location: "Highland Park", date: "01/04/21", going: "2", invited: "12" },
-          { open_slots: 2, location: "Frick Park", date: "01/01/21", going: "1", invited: "3" },
-          { open_slots: 5, location: "Schenley Park", date: "01/02/21", going: "1", invited: "6" },
-          { open_slots: 3, location: "Point State Park", date: "01/03/21", going: "2", invited: "5" },
-          { open_slots: 10, location: "Highland Park", date: "01/04/21", going: "2", invited: "12" }
+          { location: "Frick Park", date_and_time: "01/01/21" },
+          { location: "Schenley Park", date_and_time: "01/02/21" },
+          { location: "Point State Park", date_and_time: "01/03/21" },
+          { location: "Highland Park", date_and_time: "01/04/21" },
+          { location: "Frick Park", date_and_time: "01/01/21" },
+          { location: "Schenley Park", date_and_time: "01/02/21" },
+          { location: "Point State Park", date_and_time: "01/03/21" },
+          { location: "Highland Park", date_and_time: "01/04/21" }
         ]
       }
     }
