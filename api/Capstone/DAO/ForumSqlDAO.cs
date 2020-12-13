@@ -15,7 +15,7 @@ namespace Capstone.DAO
         {
             connectionString = dbConnectionString;
         }
-        public bool DeactivateCategory(ForumCategory deletedCategory)
+        public bool DeactivateCategory(int deletedCategoryID)
         {
             bool worked = false;
             try
@@ -28,8 +28,8 @@ namespace Capstone.DAO
                     try
                     {
                         SqlCommand command = new SqlCommand("update Forum_Category set Is_Active = 0 where Category_ID = @categoryID", conn);
-                        command.Parameters.AddWithValue("@categoryID", deletedCategory.CategoryID);
-                        if(command.ExecuteNonQuery() == 1)
+                        command.Parameters.AddWithValue("@categoryID", deletedCategoryID);
+                        if (command.ExecuteNonQuery() == 1)
                         {
                             worked = true;
                             transaction.Complete();
@@ -54,7 +54,7 @@ namespace Capstone.DAO
             return worked;
         }
 
-        public bool DeactivateMessage(ForumMessage deletedMessage)
+        public bool DeactivateMessage(int deletedMessageID)
         {
             bool worked = false;
             try
@@ -67,9 +67,9 @@ namespace Capstone.DAO
                     try
                     {
                         SqlCommand command = new SqlCommand("update Forum_Message set Is_Active = 0 where Message_ID = @messageID", conn);
-                        command.Parameters.AddWithValue("@messageID", deletedMessage.MessageID);
+                        command.Parameters.AddWithValue("@messageID", deletedMessageID);
 
-                        if(command.ExecuteNonQuery() == 1)
+                        if (command.ExecuteNonQuery() == 1)
                         {
                             worked = true;
                             transaction.Complete();
@@ -94,7 +94,7 @@ namespace Capstone.DAO
             return worked;
         }
 
-        public bool DeactivateResponse(ForumResponse deletedResponse)
+        public bool DeactivateResponse(int deletedResponseID)
         {
             bool worked = false;
             try
@@ -107,9 +107,9 @@ namespace Capstone.DAO
                     try
                     {
                         SqlCommand command = new SqlCommand("update Forum_Response set Is_Active = 0 where Response_ID = @responseID", conn);
-                        command.Parameters.AddWithValue("@responseID", deletedResponse.ResponseID);
+                        command.Parameters.AddWithValue("@responseID", deletedResponseID);
 
-                        if(command.ExecuteNonQuery() == 1)
+                        if (command.ExecuteNonQuery() == 1)
                         {
                             worked = true;
                             transaction.Complete();
@@ -124,7 +124,7 @@ namespace Capstone.DAO
                         transaction.Dispose();
                         throw;
                     }
-                    
+
                 }
             }
             catch (Exception)
@@ -219,7 +219,7 @@ namespace Capstone.DAO
 
         public ForumCategory PostCategory(ForumCategory newCategory)
         {
-            
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -253,6 +253,9 @@ namespace Capstone.DAO
                     command.Parameters.AddWithValue("@messageTitle", newMessage.Title);
                     command.Parameters.AddWithValue("@messageBody", newMessage.Body);
                     newMessage.MessageID = Convert.ToInt32(command.ExecuteScalar());
+
+                    command.CommandText = $"select Created_Date from Forum_Message where Message_ID = {newMessage.MessageID}";
+                    newMessage.CreatedDate = Convert.ToDateTime(command.ExecuteScalar());
                 }
             }
             catch (Exception)
@@ -266,7 +269,7 @@ namespace Capstone.DAO
 
         public ForumResponse PostResponse(ForumResponse newResponse)
         {
-            
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -277,6 +280,10 @@ namespace Capstone.DAO
                     command.Parameters.AddWithValue("@messageID", newResponse.MessageID);
                     command.Parameters.AddWithValue("@responseBody", newResponse.Body);
                     newResponse.ResponseID = Convert.ToInt32(command.ExecuteScalar());
+
+                    command.CommandText = $"select Created_Date from Forum_Response where Response_ID = {newResponse.ResponseID}";
+                    newResponse.CreatedDate = Convert.ToDateTime(command.ExecuteScalar());
+
                 }
             }
             catch (Exception)
@@ -289,15 +296,16 @@ namespace Capstone.DAO
         }
 
         public ForumCategory UpdateCategory(ForumCategory updatedCategory)
-        { 
+        {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
+                    conn.Open();
                     SqlCommand command = new SqlCommand("update Forum_Category set Category_Name = @categoryName where Category_ID = @categoryID", conn);
                     command.Parameters.AddWithValue("@categoryName", updatedCategory.Name);
                     command.Parameters.AddWithValue("@categoryID", updatedCategory.CategoryID);
-                    
+                    command.ExecuteNonQuery();
                 }
             }
             catch (Exception)
@@ -314,12 +322,14 @@ namespace Capstone.DAO
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
+                    conn.Open();
                     SqlCommand command = new SqlCommand("update Forum_Message set Category_ID = @categoryID,User_ID = @userID,Message_Title = @messageTitle,Message_Body = @messageBody where Message_ID = @messageID", conn);
                     command.Parameters.AddWithValue("@categoryID", updatedMessage.CategoryID);
                     command.Parameters.AddWithValue("@userID", updatedMessage.UserID);
                     command.Parameters.AddWithValue("@messageTitle", updatedMessage.Title);
                     command.Parameters.AddWithValue("@messageBody", updatedMessage.Body);
                     command.Parameters.AddWithValue("@messageID", updatedMessage.MessageID);
+                    command.ExecuteNonQuery();
                 }
             }
             catch (Exception)
@@ -336,12 +346,13 @@ namespace Capstone.DAO
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
+                    conn.Open();
                     SqlCommand command = new SqlCommand("update Forum_Response set User_ID = @userID,Message_ID = @messageID,Response_Body = @responseBody where Response_ID = @responseID", conn);
                     command.Parameters.AddWithValue("@userID", updatedResponse.UserID);
                     command.Parameters.AddWithValue("@messageID", updatedResponse.MessageID);
                     command.Parameters.AddWithValue("@responseBody", updatedResponse.Body);
                     command.Parameters.AddWithValue("@responseID", updatedResponse.ResponseID);
-                    
+                    command.ExecuteNonQuery();
                 }
             }
             catch (Exception)
