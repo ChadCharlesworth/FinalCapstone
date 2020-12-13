@@ -26,11 +26,15 @@
         rows="3"
         max-rows="6"></b-form-textarea>
         </b-form-group>
+        <b-form-group>
+          <b-button v-on:click.prevent="addNewMessage(newMessage)">Submit</b-button>
       </b-card>
   </div>
 </template>
 
 <script>
+import ForumService from "../services/ForumService.js"
+
 export default {
   name: "MessageForm",
   data() {
@@ -41,6 +45,19 @@ export default {
         Message_Title: "",
         Message_Body: ""
       }
+    }
+  },
+  methods: {
+    addNewMessage(message) {
+      ForumService.addMessage(message)
+      .then(response => {
+        if(response.status == 201)
+        {
+          this.$store.commit('LOAD_MESSAGE', response.data)
+        }
+      })
+      .catch(error => console.log(error.response));
+      
     }
   }
 
