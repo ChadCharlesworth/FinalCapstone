@@ -13,7 +13,7 @@ import playdateService from "@/services/PlaydateService";
 export default {
   created() {
     this.$store.commit("LOGOUT");
-    this.$router.push("/home");
+    this.$router.push("/");
 
         profileService.getProfiles()
     .then(response => {
