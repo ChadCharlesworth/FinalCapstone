@@ -10,6 +10,7 @@ import PlaydatePage from '../components/PlaydatePage.vue'
 import Profile from '@/components/Profile.vue'
 import CreateProfile from '@/components/CreateProfile.vue'
 import PetRegistration from '@/components/PetRegistration.vue'
+import ForumMessage from '@/components/ForumMessage.vue'
 
 Vue.use(Router)
 
@@ -97,7 +98,17 @@ const router = new Router({
   meta: {
     requiresAuth: false
   }
-}
+},
+    {
+      path: "/message/:messageID",
+      name: "forum-message",
+      component: ForumMessage,
+      meta: {
+        requiresAuth: false
+      }
+
+    }
+
   ]
 })
 
