@@ -13,12 +13,12 @@
     <div class="container-fluid">
       <div class="row">
         <left-column
-          class="col-lg-2 col-sm-2 left-column border border-dark"
+          class="col-2 left-column border border-dark"
           style="height: 100vh"
         />
-        <main-panel class="col-lg-8 col-sm-2 main" />
+        <main-panel class="col-8 main" />
         <right-column
-          class="col-lg-2 col-sm-4 right-column border border-dark"
+          class="col-2 right-column border border-dark"
         />
       </div>
     </div>

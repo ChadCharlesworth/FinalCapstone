@@ -6,6 +6,9 @@ import Logout from '../components/Logout.vue'
 import Register from '../components/Register.vue'
 import store from '../store/index'
 import Forum from '../components/Forum.vue'
+import PlaydatePage from '../components/PlaydatePage.vue'
+import Profile from '@/components/Profile.vue'
+import CreateProfile from '@/components/CreateProfile.vue'
 
 Vue.use(Router)
 
@@ -61,7 +64,32 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/playdate",
+      name: "playdate",
+      component: PlaydatePage,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/createprofile",
+      name: "create-profile",
+      component: CreateProfile,
+      meta: {
+        requiresAuth: false
+      }
     }
+
   ]
 })
 
