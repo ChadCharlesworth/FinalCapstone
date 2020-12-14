@@ -3,14 +3,17 @@
     <h1>{{ currentProfile.first_Name }} {{ currentProfile.last_Name }}</h1>
     <h6 v-for="address in profileAddresses" :key="address.address_ID">{{address.street_Address_1}} {{address.street_Address_2}}<br />{{address.city}}, {{address.state}} {{address.zip}}</h6>
     <h2>My Pets:</h2>
-
+<pet-profile v-for="pet in profilePets" :key="pet.pet_ID" :pet="pet" style="display: inline-block;"/>
 
   </div>
 </template>
 
 <script>
+import PetProfile from '@/components/PetProfile.vue';
+
 export default {
   name: "profile",
+  components: { PetProfile },
   methods: {
     getKeyByValue(object, value) {
       return Object.keys(object).filter((key) => object[key] === value);

@@ -1,12 +1,13 @@
 <template>
 <div>
-    <pet-profile v-for="pet in profilePets" :key="pet" />
+    <pet-profile v-for="pet in profilePets" :key="pet.pet_ID" :pet="pet"/>
 </div>
 </template>
 
 <script>
+import PetProfile from '@/components/PetProfile.vue';
 export default {
-    
+    components: {PetProfile},
   name: "pet-container",
    computed: 
    {currentProfile() {
