@@ -6,6 +6,8 @@ import Logout from '../components/Logout.vue'
 import Register from '../components/Register.vue'
 import store from '../store/index'
 import Forum from '../components/Forum.vue'
+import Profile from '@/components/Profile.vue'
+import CreateProfile from '@/components/CreateProfile.vue'
 
 Vue.use(Router)
 
@@ -60,6 +62,22 @@ const router = new Router({
       component: Forum,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/createprofile",
+      name: "create-profile",
+      component: CreateProfile,
+      meta: {
+        requiresAuth: false
       }
     }
   ]
