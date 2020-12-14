@@ -1,12 +1,13 @@
 <template>
-  <div><profile/></div>
+  <div>
+    <forum v-if="$route.name!=='forum'"/>
+  </div>
 </template>
 
 <script>
-import Profile from '@/components/Profile';
-
+import Forum from "../components/Forum.vue"
 export default {
-components: {Profile}
+  components: {Forum}
 }
 </script>
 
