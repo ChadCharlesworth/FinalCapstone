@@ -1,14 +1,8 @@
 <template>
-<!--  v-for="category in GetCategories" :key="category.Category_ID" -->
   <div>
         <form>
       <label>New Message</label>
-      <div>
-      <label for="message-category">Category </label>
-        <select v-model="message.Category_ID" id="message-category">
-          <option value=1>Test1</option>
-        </select>
-      </div>
+      
       <div>
         <input v-model="message.Message_Title" placeholder="Title" id="message-title">
       </div>
@@ -33,7 +27,6 @@ export default {
   data() {
     return {
       message: {
-        CategoryID: Number,
         UserID: Number,
         Message_Title: "",
         Message_Body: ""
@@ -51,24 +44,9 @@ export default {
       })
       .catch(error => console.log(error.response));
       
-    },
-    GetCategories() {
-      ForumService.getCategories()
-      .then(response => {
-        if(response.status == 200)
-        {
-          return response.data;
-        }
-      })
-    }
-  },
-  computed: {
-    Categories() {
-      return this.$store.state.forumCategories;
-    }
     }
   }
-
+}
 
 </script>
 
