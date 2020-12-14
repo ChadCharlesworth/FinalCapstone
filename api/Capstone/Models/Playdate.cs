@@ -19,6 +19,5 @@ namespace Capstone.Models
         [Required]
         public bool Is_Private { get; set; }
         public Dictionary<int, string> Pet_Approval_Status { get; set; } = new Dictionary<int, string>();
-        public Dictionary<int, bool> Pet_Accepted_Status { get; set; } = new Dictionary<int, bool>();
     }
 }

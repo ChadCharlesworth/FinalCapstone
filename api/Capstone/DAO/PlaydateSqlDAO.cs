@@ -91,19 +91,6 @@ namespace Capstone.DAO
                         i++;
                         playdateReader.Close();
                     }
-                    foreach (Playdate playdate in allPlaydates)
-                    {
-                        cmd.CommandText = $"select Accepted, Pet_ID from Playdate_Pet where Playdate_ID = @playdateID{i}";
-                        cmd.Parameters.AddWithValue($"@playdateID{i}", playdate.Playdate_ID);
-                        SqlDataReader playdateReader = cmd.ExecuteReader();
-                        while (playdateReader.Read())
-                        {
-                            int petID = Convert.ToInt32(playdateReader["Pet_ID"]);
-                            playdate.Pet_Accepted_Status[petID] = Convert.ToBoolean(playdateReader["Accepted"]);
-                        }
-                        i++;
-                        playdateReader.Close();
-                    }
                 }
             }
             catch (Exception e)
@@ -151,7 +138,6 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@playdateID", updatedPlaydate.Playdate_ID);
                     cmd.Parameters.AddWithValue("@petID", petID);
                     cmd.Parameters.AddWithValue("@approvalStatus", updatedPlaydate.Pet_Approval_Status[petID]);
-                    cmd.Parameters.AddWithValue("@accepted", updatedPlaydate.Pet_Accepted_Status[petID]);
                     cmd.ExecuteNonQuery();
                 }
             }
