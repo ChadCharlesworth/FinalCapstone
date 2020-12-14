@@ -8,10 +8,6 @@ namespace Capstone.DAO
 {
     public interface IForumDAO
     {
-        List<ForumCategory> GetAllCategories();
-        ForumCategory PostCategory(ForumCategory category);
-        ForumCategory UpdateCategory(ForumCategory updatedCategory);
-        bool DeactivateCategory(int deletedCategoryID);
         List<ForumMessage> GetAllMessages();
         ForumMessage PostMessage(ForumMessage newMessage);
         ForumMessage UpdateMessage(ForumMessage updatedMessage);
