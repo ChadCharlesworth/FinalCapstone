@@ -6,6 +6,7 @@ import Logout from '../components/Logout.vue'
 import Register from '../components/Register.vue'
 import store from '../store/index'
 import Forum from '../components/Forum.vue'
+import Profile from '@/components/Profile.vue'
 
 Vue.use(Router)
 
@@ -58,6 +59,14 @@ const router = new Router({
       path: "/forum",
       name: "forum",
       component: Forum,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
       meta: {
         requiresAuth: true
       }
