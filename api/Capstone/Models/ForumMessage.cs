@@ -9,27 +9,24 @@ namespace Capstone.Models
     public class ForumMessage
     {
         public int MessageID { get; set; }
-        [Required]
-        public int CategoryID { get; set; }
+
         [Required]
         public int UserID { get; set; }
         [Required]
-        public string Title { get; set; }
-        public string Body { get; set; }
+        public string Message_Title { get; set; }
+        public string Message_Body { get; set; }
         [Required]
         public DateTime CreatedDate { get; set; }
 
-        public ForumMessage(int messageID, int categoryID, int userID, string title, string body, DateTime createdDate)
+        public ForumMessage(int messageID, int userID, string title, string body, DateTime createdDate)
         {
             MessageID = messageID;
 
-            CategoryID = categoryID;
-
             UserID = userID;
 
-            Title = title;
+            Message_Title = title;
 
-            Body = body;
+            Message_Body = body;
 
             CreatedDate = createdDate;
         }

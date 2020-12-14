@@ -27,7 +27,6 @@ export default new Vuex.Store({
     pets: [],
     playdates: [],
     userProfiles: [],
-    forumCategories: [],
     forumMessages: [],
     forumResponses: []
   },
@@ -107,28 +106,12 @@ export default new Vuex.Store({
         return profile.user_id != id;
       })
     },
-    LOAD_CATEGORY(state, category) {
-      state.forumCategories.push(category);
-    },
-    UPDATE_CATEGORY(state, updatedCategory) {
-      state.forumCategories.forEach(category => {
-        if (updatedCategory.Category_ID == category.Category_ID) {
-          category.Category_Name = updatedCategory.Category_Name;
-        }
-      })
-    },
-    DELETE_CATEGORY(state, id) {
-      state.forumCategories.filter(category => {
-        return category.Category_ID != id;
-      })
-    },
     LOAD_MESSAGE(state, message) {
       state.forumMessages.push(message);
     },
     UPDATE_MESSAGE(state, updatedMessage) {
       state.forumMessages.forEach(message => {
         if (updatedMessage.Message_ID == message.Message_ID) {
-          message.Category_ID = updatedMessage.Category_ID;
           message.User_ID = updatedMessage.User_ID;
           message.Message_Title = updatedMessage.Message_Title;
           message.Message_Body = updatedMessage.Message_Body;
@@ -178,7 +161,6 @@ export default new Vuex.Store({
       state.pets = [];
       state.playdates = [];
       state.userProfiles = [];
-      state.forumCategories = [];
       state.forumMessages = [];
       state.forumResponses = [];
     }

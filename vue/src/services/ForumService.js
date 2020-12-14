@@ -2,22 +2,6 @@ import axios from 'axios';
 
 export default {
 
-  getCategories() {
-    return axios.get('api/forum/category');
-  },
-
-  addCategory(category) {
-    return axios.post('api/forum/category', category)
-  },
-
-  updateCategory(categoryID,category) {
-    return axios.put(`api/forum/category/${categoryID}`,category)
-  },
-
-  deleteCategory(categoryID) {
-    return axios.post(`api/forum/category/${categoryID}`)
-  },
-
   getMessages() {
     return axios.get('api/forum/message');
   },
@@ -43,11 +27,11 @@ export default {
   },
 
   updateResponse(responseID,response) {
-    return axios.put(`api/forum/category/${responseID}`,response)
+    return axios.put(`api/forum/response/${responseID}`,response)
   },
 
   deleteResponse(responseID) {
-    return axios.post(`api/forum/category/${responseID}`)
+    return axios.post(`api/forum/response/${responseID}`)
   }
 
 }
