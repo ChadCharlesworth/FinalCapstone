@@ -52,8 +52,8 @@
 </template>
 
 <script>
-// import AddressService from '@/services/AddressService.js';
-// import ProfileService from '@/services/ProfileService.js';
+import AddressService from "@/services/AddressService.js";
+import ProfileService from "@/services/ProfileService.js";
 
 export default {
   methods: {
@@ -67,8 +67,18 @@ export default {
       this.address.zip = "";
     },
     onSubmit() {
-        
-    }
+      AddressService.addAddressWithUser(this.profile.user_id, this.address)
+        .then((response) => {
+          this.$store.commit("LOAD_ADDRESS", response.data);
+        })
+        .catch((error) => console.log(error.response));
+      ProfileService.updateProfile(this.profile.user_id, this.profile).then(
+        (response) => {
+          this.$store.commit("LOAD_CURRENT_PROFILE", response.data);
+          this.$router.push({ name: "home" });
+        }
+      );
+    },
   },
   data() {
     return {
@@ -77,7 +87,7 @@ export default {
         last_Name: "",
         user_id: this.$store.state.user.userId,
         user_role: this.$store.state.user.role,
-        username: this.$store.state.user.username
+        username: this.$store.state.user.username,
       },
       address: {
         street_Address_1: "",

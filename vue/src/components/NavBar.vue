@@ -1,7 +1,7 @@
 <template>
 <div style="position: relative">
     <h1 class="display-2 text-light text-center bg-success pb-2 mb-0"> Pet Play Pals </h1>
-    <b-navbar sticky="true" class="navbar bg-success navbar-light">
+    <b-navbar class="navbar bg-success navbar-light">
         <b-navbar-nav>
             <b-navbar-brand v-bind:to="{ name: 'home' }">Home</b-navbar-brand>
             <b-nav-item v-bind:to="{ name: 'playdate' }">Playdates</b-nav-item>

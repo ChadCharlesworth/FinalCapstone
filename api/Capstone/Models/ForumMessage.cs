@@ -14,8 +14,8 @@ namespace Capstone.Models
         [Required]
         public int UserID { get; set; }
         [Required]
-        public string Title { get; set; }
-        public string Body { get; set; }
+        public string Message_Title { get; set; }
+        public string Message_Body { get; set; }
         [Required]
         public DateTime CreatedDate { get; set; }
 
@@ -27,9 +27,9 @@ namespace Capstone.Models
 
             UserID = userID;
 
-            Title = title;
+            Message_Title = title;
 
-            Body = body;
+            Message_Body = body;
 
             CreatedDate = createdDate;
         }
