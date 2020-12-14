@@ -112,7 +112,6 @@ export default new Vuex.Store({
     UPDATE_MESSAGE(state, updatedMessage) {
       state.forumMessages.forEach(message => {
         if (updatedMessage.Message_ID == message.Message_ID) {
-          message.Category_ID = updatedMessage.Category_ID;
           message.User_ID = updatedMessage.User_ID;
           message.Message_Title = updatedMessage.Message_Title;
           message.Message_Body = updatedMessage.Message_Body;
@@ -162,7 +161,6 @@ export default new Vuex.Store({
       state.pets = [];
       state.playdates = [];
       state.userProfiles = [];
-      state.forumCategories = [];
       state.forumMessages = [];
       state.forumResponses = [];
     }

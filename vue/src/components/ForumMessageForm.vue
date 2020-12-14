@@ -1,5 +1,4 @@
 <template>
-<!--  v-for="category in GetCategories" :key="category.Category_ID" -->
   <div>
         <form>
       <label>New Message</label>
