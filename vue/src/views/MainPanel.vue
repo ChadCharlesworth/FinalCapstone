@@ -6,10 +6,8 @@
 </template>
 
 <script>
-import Pet from '@/components/Pet';
 export default {
 components: {
-  Pet
 }
 }
 </script>

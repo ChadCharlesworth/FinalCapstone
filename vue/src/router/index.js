@@ -9,6 +9,7 @@ import Forum from '../components/Forum.vue'
 import PlaydatePage from '../components/PlaydatePage.vue'
 import Profile from '@/components/Profile.vue'
 import CreateProfile from '@/components/CreateProfile.vue'
+import PetRegistration from '@/components/PetRegistration.vue'
 
 Vue.use(Router)
 
@@ -88,8 +89,15 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
-
+    },
+{
+  path: "/petregistration",
+  name: "pet-registration",
+  component: PetRegistration, 
+  meta: {
+    requiresAuth: false
+  }
+}
   ]
 })
 
