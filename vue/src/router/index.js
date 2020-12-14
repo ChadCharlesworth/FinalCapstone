@@ -6,6 +6,7 @@ import Logout from '../components/Logout.vue'
 import Register from '../components/Register.vue'
 import store from '../store/index'
 import Forum from '../components/Forum.vue'
+import PlaydatePage from '../components/PlaydatePage.vue'
 
 Vue.use(Router)
 
@@ -61,7 +62,16 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/playdate",
+      name: "playdate",
+      component: PlaydatePage,
+      meta: {
+        requiresAuth: false
+      }
     }
+
   ]
 })
 

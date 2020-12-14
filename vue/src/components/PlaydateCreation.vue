@@ -1,71 +1,53 @@
 <template>
   <div id="playdateCreation">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group
-        id="street-address1"
-        label="Playdate Address:"
-        label-for="street-address"
-      >
-        <b-form-input
-          id="street-address1"
-          v-model="address.street_Address_1"
-          required
-          placeholder="Street Address"
-        ></b-form-input>
-      </b-form-group>
+    <h2>Create a New Playdate</h2>
+    <form @submit="onSubmit" @reset="onReset">
+      <input
+        id="input-3"
+        v-model="address.street_Address_1"
+        required
+        placeholder="Street"
+      /><br />
+      <input
+        id="input-4"
+        v-model="address.street_Address_2"
+        placeholder="Street 2 (Optional)"
+      /><br />
+      <input
+        id="input-5"
+        v-model="address.city"
+        required
+        placeholder="City"
+      /><br />
+      <select v-model="address.state" required placeholder="State">
+        <option disabled value="">State</option>
+        <option v-for="state in states" v-bind:key="state" v-bind:value="state">
+          {{ state }}
+        </option></select
+      ><br />
+      <input
+        id="input-6"
+        v-model="address.zip"
+        required
+        placeholder="Zip Code"
+      /><br />
+      <input id="input-7" type="datetime-local" v-model="date_Time" /><br />
 
-      <b-form-group id="streetAddress2">
-        <b-form-input
-          id="street-address2"
-          v-model="address.street_Address_2"
-          placeholder="Street Address"
-        ></b-form-input>
-      </b-form-group>
+      <input id="input-8" type="radio" name="isPrivate" value="public" />
+      <label for="public">Public</label><br />
+      <input id="input-8" type="radio" name="isPrivate" value="private" />
+      <label for="private">Private</label><br />
 
-      <b-form-group id="city">
-        <b-form-input
-          id="city"
-          v-model="address.city"
-          required
-          placeholder="City"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="state">
-        <b-form-select
-          id="state"
-          v-model="address.state"
-          :options="states"
-          required
-        ></b-form-select>
-      </b-form-group>
-
-      <b-form-group id="zip">
-        <b-form-input
-          id="zip"
-          v-model="address.zip"
-          required
-          placeholder="Zip"
-        ></b-form-input>
-      </b-form-group>
-
-      <label for="datepicker">Choose a date</label>
-      <b-form-datepicker id="datepicker" v-model="date"></b-form-datepicker>
-
-      <label for="timepicker">Choose a time</label>
-      <b-form-timepicker
-        id="timepicker"
-        v-model="time"
-        locale="en"
-      ></b-form-timepicker>
-
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
+      <button type="submit" variant="primary">Submit</button>
+      <button type="reset" variant="danger">Reset</button>
+    </form>
   </div>
 </template>
 
 <script>
+import PlaydateService from "../services/PlaydateService.js";
+import AddressService from "../services/AddressService.js";
+
 export default {
   name: "playdateCreation",
   data() {
@@ -77,17 +59,7 @@ export default {
         state: null,
         zip: "",
       },
-      date: "",
-      time: "",
-      playdate: {
-        address_ID: Number,
-        creator_User_Id: Number,
-        number_Of_Attendees: Number,
-        is_Private: false,
-        date_Time: this.combineDatetime,
-      },
       states: [
-        { text: "State", value: null },
         "AK",
         "AL",
         "AR",
@@ -140,11 +112,25 @@ export default {
         "WY",
       ],
       show: true,
+      date: "",
+      time: "",
+      playdate: {
+        address_ID: Number,
+        creator_User_Id: Number,
+        number_Of_Attendees: Number,
+        is_Private: this.isPrivate,
+        date_Time: "",
+      },
     };
   },
   computed: {
     combineDatetime() {
       return this.date + " " + this.time + ".000";
+    },
+    isPrivate() {
+      if (this.playdate.is_Private == "Private") {
+        return true;
+      } else return false;
     },
   },
   methods: {
@@ -152,12 +138,33 @@ export default {
       evt.preventDefault();
       alert.JSON.stringify(this.form);
     },
-    onReset(evt) {
-      evt.preventDeault();
-      this.form.streetAddress = "";
-      this.form.city = "";
-      this.form.zip = "";
-      this.show = false;
+    onReset() {
+      this.address.street_Address_1 = "";
+      this.address.street_Address_2 = "";
+      this.address.city = "";
+      this.address.state = null;
+      this.address.zip = "";
+      this.date_Time = "";
+    },
+    createNewPlaydate(playdate) {
+      PlaydateService.addPlaydate(playdate)
+        .then((response) => {
+          if (response.status == 201) {
+            this.$store.commit("LOAD_PLAYDATE", response.data);
+          }
+        })
+        .catch((error) => console.log(error.response));
+    },
+    addNewPlaydateAddress(address) {
+      AddressService.addAddress(address)
+        .then((response) => {
+          if (response.status == 201) {
+            this.$store.commit("LOAD_ADDRESS", response.data);
+            this.playdate.address_ID = response.data.address_ID;
+            this.createNewPlaydate(this.playdate);
+          }
+        })
+        .catch((error) => console.log(error.response));
     },
   },
 };
