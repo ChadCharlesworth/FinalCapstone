@@ -52,7 +52,11 @@
 <script>
 export default {
   name: "playdate",
-  data() {},
+  data() {
+    return {
+      showForm: false,
+    }
+  },
 };
 </script>
 

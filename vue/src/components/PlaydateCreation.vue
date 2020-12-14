@@ -1,6 +1,7 @@
 <template>
   <div id="playdateCreation">
-    <h3>Create a New Playdate:</h3>
+    <br />
+<a href="#" v-on:click.prevent="showForm = !showForm">Create New Playdate</a>
     <form @submit="onSubmit" @reset="onReset">
       <input
         id="input-3"
