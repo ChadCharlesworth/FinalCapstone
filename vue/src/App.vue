@@ -40,6 +40,7 @@ import playdateService from "@/services/PlaydateService";
 export default {
   components: { HeaderPanel, RightColumn, LeftColumn, MainPanel  },
   created() {
+    this.$store.commit('LOGOUT');
     profileService.getProfiles()
     .then(response => {
       if(response.status == 200) {
