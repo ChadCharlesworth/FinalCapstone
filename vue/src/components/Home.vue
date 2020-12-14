@@ -2,15 +2,7 @@
   <div class="home">
     <div>New Playdate</div>
     <div>Search All Playdates</div>
-    <div>
-      <!-- <iframe
-    type="iframe"
-    aspect="16by9"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA43QR2uCNr0ZiF_wZfecB1UkcXc0S6aJk&callback=initMap&libraries=&v=weekly"
-      defer
-  ></iframe> -->
-    </div>
-  
+    
   <table>
     <tr>
       <th>Street Address</th>
@@ -31,8 +23,10 @@
 </template>
 
 <script>
+import gmap from "./Map.vue"
 export default {
   name: "home",
+  components: {gmap},
   computed: {
     publicPlaydates() {
       return this.$store.state.playdates.filter((playdate) => {
