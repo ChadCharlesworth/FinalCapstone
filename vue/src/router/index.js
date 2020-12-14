@@ -6,12 +6,9 @@ import Logout from '../components/Logout.vue'
 import Register from '../components/Register.vue'
 import store from '../store/index'
 import Forum from '../components/Forum.vue'
-<<<<<<< HEAD
 import PlaydatePage from '../components/PlaydatePage.vue'
-=======
 import Profile from '@/components/Profile.vue'
 import CreateProfile from '@/components/CreateProfile.vue'
->>>>>>> 6c5d396cdb2088d10937eb4a04dfc77783e63282
 
 Vue.use(Router)
 
