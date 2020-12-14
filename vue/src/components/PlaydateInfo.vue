@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>{{ playdateDate }} {{playdateTime}}</h3>
+    <h3>{{ playdateDate }} {{ playdateTime }}</h3>
     <p>
       {{ playdateAddress.street_Address_1 }}
       {{ playdateAddress.street_Address_2 }}<br />
@@ -27,16 +27,16 @@ export default {
       return playdateAddress;
     },
     playdateDate() {
-        return this.playdate.date_Time.split("T")[0];
+      return this.playdate.date_Time.split("T")[0];
     },
     playdateTime() {
-        let time = this.playdate.date_Time.split("T")[1];
-        time = time.substring(0,5);
-        if(time.startsWith('0')) {
-            time = time.substring(1);
-        }
-        return time;
-    }
+      let time = this.playdate.date_Time.split("T")[1];
+      time = time.substring(0, 5);
+      if (time.startsWith("0")) {
+        time = time.substring(1);
+      }
+      return time;
+    },
   },
 };
 </script>
