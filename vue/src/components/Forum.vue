@@ -2,6 +2,7 @@
   <div>
       <div v-for="message in forumMessages" v-bind:key="message.message_ID">
         <h4><router-link :to="{name: 'forum-message', params: {messageID: message.message_ID}}">{{message.message_Title}}</router-link></h4>
+        <p> Responses <span class="badge text-light bg-success">4</span></p>
       </div>
       <forum-message-form/>
       <forum-response-form/>

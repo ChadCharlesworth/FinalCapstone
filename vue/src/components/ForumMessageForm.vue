@@ -27,9 +27,9 @@ export default {
   data() {
     return {
       message: {
-        UserID: this.currentProfile().user_id,
-        Message_Title: "",
-        Message_Body: ""
+        user_id: this.$store.state.user.user_id,
+        message_Title: "",
+        message_Body: ""
       }
     }
   },
@@ -44,11 +44,6 @@ export default {
       })
       .catch(error => console.log(error.response));
       
-    }
-  },
-  computed: {
-    currentProfile() {
-      return this.$store.state.profile;
     }
   }
   }
