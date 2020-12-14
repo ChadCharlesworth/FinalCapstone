@@ -1,6 +1,6 @@
 <template>
 <div>
-    <pet-profile v-for="pet in profilePets" :key="pet.pet_ID" />
+    <pet-profile v-for="pet in profilePets" :key="pet" />
 </div>
 </template>
 
