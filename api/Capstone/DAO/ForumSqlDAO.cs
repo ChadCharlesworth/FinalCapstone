@@ -250,8 +250,8 @@ namespace Capstone.DAO
                     SqlCommand command = new SqlCommand("insert into Forum_Message (Category_ID,User_ID,Message_Title,Message_Body) values (@categoryID,@userID,@messageTitle,@messageBody); select scope_identity();", conn);
                     command.Parameters.AddWithValue("@categoryID", newMessage.CategoryID);
                     command.Parameters.AddWithValue("@userID", newMessage.UserID);
-                    command.Parameters.AddWithValue("@messageTitle", newMessage.Title);
-                    command.Parameters.AddWithValue("@messageBody", newMessage.Body);
+                    command.Parameters.AddWithValue("@messageTitle", newMessage.Message_Title);
+                    command.Parameters.AddWithValue("@messageBody", newMessage.Message_Body);
                     newMessage.MessageID = Convert.ToInt32(command.ExecuteScalar());
 
                     command.CommandText = $"select Created_Date from Forum_Message where Message_ID = {newMessage.MessageID}";
@@ -326,8 +326,8 @@ namespace Capstone.DAO
                     SqlCommand command = new SqlCommand("update Forum_Message set Category_ID = @categoryID,User_ID = @userID,Message_Title = @messageTitle,Message_Body = @messageBody where Message_ID = @messageID", conn);
                     command.Parameters.AddWithValue("@categoryID", updatedMessage.CategoryID);
                     command.Parameters.AddWithValue("@userID", updatedMessage.UserID);
-                    command.Parameters.AddWithValue("@messageTitle", updatedMessage.Title);
-                    command.Parameters.AddWithValue("@messageBody", updatedMessage.Body);
+                    command.Parameters.AddWithValue("@messageTitle", updatedMessage.Message_Title);
+                    command.Parameters.AddWithValue("@messageBody", updatedMessage.Message_Body);
                     command.Parameters.AddWithValue("@messageID", updatedMessage.MessageID);
                     command.ExecuteNonQuery();
                 }
@@ -381,8 +381,8 @@ namespace Capstone.DAO
                 MessageID = Convert.ToInt32(reader["Message_ID"]),
                 CategoryID = Convert.ToInt32(reader["Category_ID"]),
                 UserID = Convert.ToInt32(reader["User_ID"]),
-                Title = Convert.ToString(reader["Message_Title"]),
-                Body = Convert.ToString(reader["Message_Body"]),
+                Message_Title = Convert.ToString(reader["Message_Title"]),
+                Message_Body = Convert.ToString(reader["Message_Body"]),
                 CreatedDate = Convert.ToDateTime(reader["Created_Date"])
             };
             return message;

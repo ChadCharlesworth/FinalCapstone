@@ -1,14 +1,20 @@
 <template>
   <div>
-      <h2 class="display-3 text-center">Forum</h2>
-      <b-table></b-table>
-
+      
+      <forum-message-form/>
+      <forum-response-form/>
   </div>
 </template>
 
 <script>
+import ForumMessageForm from "./ForumMessageForm.vue"
+import ForumResponseForm from './ForumResponseForm.vue';
+
+
+
 export default {
-    name: "forum"
+    name: "forum",
+    components: { ForumMessageForm, ForumResponseForm}
 };
 </script>
 
