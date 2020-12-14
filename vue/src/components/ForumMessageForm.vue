@@ -4,9 +4,9 @@
       <label>New Message</label>
       
       <div>
-        <input v-model="message.Message_Title" placeholder="Title" id="message-title">
+        <input v-model="message.message_Title" placeholder="Title" id="message-title">
       </div>
-        <textarea v-model="message.Message_Body" placeholder="Enter your message.." id="message-body"
+        <textarea v-model="message.message_Body" placeholder="Enter your message.." id="message-body"
         rows="3"
         max-rows="6"></textarea>
         <div>
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       message: {
-        UserID: Number,
+        UserID: this.currentProfile().user_id,
         Message_Title: "",
         Message_Body: ""
       }
@@ -45,8 +45,13 @@ export default {
       .catch(error => console.log(error.response));
       
     }
+  },
+  computed: {
+    currentProfile() {
+      return this.$store.state.profile;
+    }
   }
-}
+  }
 
 </script>
 
