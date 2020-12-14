@@ -9,8 +9,7 @@ namespace Capstone.Models
     public class ForumMessage
     {
         public int MessageID { get; set; }
-        [Required]
-        public int CategoryID { get; set; }
+
         [Required]
         public int UserID { get; set; }
         [Required]
@@ -19,11 +18,9 @@ namespace Capstone.Models
         [Required]
         public DateTime CreatedDate { get; set; }
 
-        public ForumMessage(int messageID, int categoryID, int userID, string title, string body, DateTime createdDate)
+        public ForumMessage(int messageID, int userID, string title, string body, DateTime createdDate)
         {
             MessageID = messageID;
-
-            CategoryID = categoryID;
 
             UserID = userID;
 

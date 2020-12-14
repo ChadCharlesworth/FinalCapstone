@@ -27,7 +27,6 @@ export default new Vuex.Store({
     pets: [],
     playdates: [],
     userProfiles: [],
-    forumCategories: [],
     forumMessages: [],
     forumResponses: []
   },
@@ -105,21 +104,6 @@ export default new Vuex.Store({
     DELETE_PROFILE(state, id) {
       state.userProfiles.filter(profile => {
         return profile.user_id != id;
-      })
-    },
-    LOAD_CATEGORY(state, category) {
-      state.forumCategories.push(category);
-    },
-    UPDATE_CATEGORY(state, updatedCategory) {
-      state.forumCategories.forEach(category => {
-        if (updatedCategory.Category_ID == category.Category_ID) {
-          category.Category_Name = updatedCategory.Category_Name;
-        }
-      })
-    },
-    DELETE_CATEGORY(state, id) {
-      state.forumCategories.filter(category => {
-        return category.Category_ID != id;
       })
     },
     LOAD_MESSAGE(state, message) {
