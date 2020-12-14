@@ -1,6 +1,6 @@
 <template>
   <div id="playdateCreation">
-    <h2>Create a New Playdate</h2>
+    <h3>Create a New Playdate:</h3>
     <form @submit="onSubmit" @reset="onReset">
       <input
         id="input-3"
@@ -34,7 +34,7 @@
       <input id="input-7" type="datetime-local" v-model="date_Time" /><br />
 
       <input id="input-8" type="radio" name="isPrivate" value="public" />
-      <label for="public">Public</label><br />
+      <label for="public">Public</label>&nbsp;
       <input id="input-8" type="radio" name="isPrivate" value="private" />
       <label for="private">Private</label><br />
 
