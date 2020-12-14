@@ -4,16 +4,18 @@
     <h6 v-for="address in profileAddresses" :key="address.address_ID">{{address.street_Address_1}} {{address.street_Address_2}}<br />{{address.city}}, {{address.state}} {{address.zip}}</h6>
     <h2>My Pets:</h2>
 <pet-profile v-for="pet in profilePets" :key="pet.pet_ID" :pet="pet" style="display: inline-block;"/>
-
+<h2>My Playdates:</h2>
+<playdate-info v-for="playdate in profilePlaydates" :key="playdate.playdate_ID" :playdate="playdate" style="display: inline-block;" />
   </div>
 </template>
 
 <script>
 import PetProfile from '@/components/PetProfile.vue';
+import PlaydateInfo from '@/components/PlaydateInfo.vue';
 
 export default {
   name: "profile",
-  components: { PetProfile },
+  components: { PetProfile, PlaydateInfo },
   methods: {
     getKeyByValue(object, value) {
       return Object.keys(object).filter((key) => object[key] === value);
