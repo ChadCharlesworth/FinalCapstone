@@ -58,7 +58,7 @@ export default {
 
       for (let i = 0; i < this.$store.state.playdates.length; i++) {
         let tempPlaydate = this.$store.state.playdates[i];
-        let keys = this.getKeyByValue(tempPlaydate.pet_Approval_Status,true);
+        let keys = this.getKeyByValue(tempPlaydate.pet_Approval_Status,'Attending');
         for (let j = 0; j < this.$store.state.profile.pet_Ids.length; j++) {
           let tempID = this.$store.state.profile.pet_Ids[j];
           let IDIncluded = keys.includes(tempID.toString());
