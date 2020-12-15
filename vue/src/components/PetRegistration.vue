@@ -5,8 +5,14 @@
       <input type="text" id="petname" name="petname" /><br>
       <label for="petbreed">Breed: </label><br>
       <input type="text" id="petbreed" name="petbreed" /><br>
-      <label for="petpersonality">Pet Personality: </label><br>
-      <input type="text" id="petpersonality" name="petpersonality" /><br>
+      <label for="petpersonality">Pet Personality:</label><br>
+      <select name="petpersonality" id="petpersonality" multiple>
+        <option value="athletic">Athletic</option>
+        <option value="playful">Playful</option>
+        <option value="chillin'">Chillin'</option>
+        <option value="aggressive">Aggresive</option>
+        <option value="shy">Shy</option>
+      </select><br>
       <label for="petsize">Pet Size: </label><br>
       <input type="text" id="petsize" name="petsize" /><br>
     </form>
