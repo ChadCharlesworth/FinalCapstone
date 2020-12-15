@@ -15,40 +15,15 @@ import { gmapsMap, gmapsMarker } from "x5-gmaps";
 
 export default {
   components: { gmapsMap, gmapsMarker },
+  props: ["playdateAddress"],
   mounted() {
     this.getLocation();
   },
-  methods: {
-    getLocation() {
-      if (navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(
-          this.setLocation,
-          this.locationError
-        );
-      else alert("Geolocation is not supported by this browser.");
-    },
-
-    setLocation(pos) {
-      this.mapOptions = {
-        ...this.mapOptions,
-        center: { lat: pos.coords.latitude, lng: pos.coords.longitude },
-      };
-      this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-    },
-    locationError(error) {
-      if (error.PERMISSION_DENIED)
-        alert("User denied the request for Geolocation.");
-      else if (error.POSITION_UNAVAILABLE)
-        alert("Location information is unavailable.");
-      else if (error.TIMEOUT)
-        alert("The request to get user location timed out.");
-      else alert("An unknown error occurred.");
-    },
-  },
+  methods: {},
   data() {
     return {
       mapOptions: {
-        center: { lat: 39.390897, lng: -99.066067 },
+        center: { lat: 40.44062479999999, lng: -79.9958864 },
         zoom: 12,
         fullscreenControl: false,
         mapTypeControl: false,
