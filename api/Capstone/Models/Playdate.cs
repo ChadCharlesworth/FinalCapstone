@@ -12,12 +12,15 @@ namespace Capstone.Models
         [Required]
         public int Address_ID { get; set; }
         [Required]
-        public DateTime Date_Time { get; set; }
+        public string Date_Time { get; set; }
         [Required]
         public int Creator_User_ID { get; set; }
         public int Number_Of_Attendees { get; set; }
         [Required]
         public bool Is_Private { get; set; }
         public Dictionary<int, string> Pet_Approval_Status { get; set; } = new Dictionary<int, string>();
+        public List<int> Attending { get; set; } = new List<int>();
+        public List<int> Pending { get; set; } = new List<int>();
+        public List<int> Declined { get; set; } = new List<int>();
     }
 }
