@@ -15,18 +15,15 @@
       <label for="petbreed">Breed: </label><br>
       <input type="text" id="petbreed" name="petbreed" v-model="pet.breed"/><br>
 
-      <h3>Personality</h3>
-      <input type="checkbox" @checked="addPersonality('Calm')"/>
-      <label for ="personality1"> Calm</label><br>
-      <input type="checkbox" @checked="addPersonality('Playful')"/>
-      <label for ="personality2"> Playful</label><br>
-      <input type="checkbox" @checked="addPersonality('Skittish')" />
-      <label for ="personality1"> Skittish</label><br>
-      <input type="checkbox" @checked="addPersonality('Mischievous')"/>
-      <label for ="personality1"> Mischievous</label><br>
-      <input type="checkbox" @checked="addPersonality('Friendly')"/>
-      <label for ="personality1"> Friendly</label><br>
-      
+      <label for="personality">Personality: </label><br>
+      <select name="personality" v-model="pet.personality" multiple>
+        <option value="calm">Calm</option>
+        <option value="playful">Playful</option>
+        <option value="skittish">Skittish</option>
+        <option value="mischievous">Mischievous</option>
+        <option value="friendly">Friendly</option>
+        </select><br>
+        <p>Hold down the Ctrl (Windows) or Command (Mac) button to select multiple personality traits.</p>
 
 
       <label for="size">Size: </label><br>
@@ -44,14 +41,11 @@
 </template>
 
 <script>
+import PetService from "../services/PetService.js";
+
 export default {
   name: "pet-registration",
-  methods: {
-    addPersonality(personality){
-      this.pet.personality.push(personality);
-    }
-  },
-  data() {
+   data() {
     return {
       pet: {
         name: null, 
@@ -59,9 +53,23 @@ export default {
         breed: null,
         personality: null,
         size: null,
-
       }
     }
-  }
-}
+   },
+  methods: {
+    addPersonality(personality) {
+      this.pet.personality.push(personality);
+    },
+    savePet(personality) {
+      PetService.addPet(personality)
+      .then((response) => {
+        if (response.status == 201) {
+          this.$store.commit("LOAD_PET", response.data);
+        }
+      })
+      .catch((error) => console.log(error.response));
+    },
+    },
+  };
+
 </script>
