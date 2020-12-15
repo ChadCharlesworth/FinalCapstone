@@ -2,15 +2,22 @@
   <div id="Your Pet" class="text-align-right">
     <form class="form-signin" @submit.prevent="pet">
       <label for="petname">Pet Name: </label><br>
-      <input type="text" id="petname" name="petname" /><br>
+      <input type="text" id="petname" name="petname" required/><br>
       <label for="petbreed">Breed: </label><br>
-      <input type="text" id="petbreed" name="petbreed" /><br>
-      <label for="petpersonality">Pet Personality: </label><br>
-      <input type="text" id="petpersonality" name="petpersonality" /><br>
+      <input type="text" id="petbreed" name="petbreed" required/><br>
+      <label for="petpersonality">Pet Personality:</label><br>
+      <select name="petpersonality" id="petpersonality" multiple>
+        <option value="athletic">Athletic</option>
+        <option value="playful">Playful</option>
+        <option value="chillin'">Chillin'</option>
+        <option value="aggressive">Aggresive</option>
+        <option value="shy">Shy</option>
+      </select><br>
       <label for="petsize">Pet Size: </label><br>
-      <input type="text" id="petsize" name="petsize" /><br>
+      <input type="text" id="petsize" name="petsize" required/><br>
     </form>
-    <br><input type="button" onclick="alert('Thank you for registering your pet!')" value="Pet Registration" />
+    <br><input type="submit" onclick="alert('Thank you for registering your pet!')" value="Pet Registration" />
+    <input type="submit" onclick="alert('Go back to profile')" value="Return to profile" attribute="http://localhost:8080/login" />
   </div>
 </template>
 
