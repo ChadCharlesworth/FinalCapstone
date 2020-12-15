@@ -2,17 +2,15 @@
   <div>
         <form>
       <label>New Message</label>
-      
       <div>
-        <input v-model="message.message_Title" placeholder="Title" id="message-title">
+        <input v-model.trim="message.message_Title" placeholder="Title" id="message-title">
       </div>
-        <textarea v-model="message.message_Body" placeholder="Enter your message.." id="message-body"
+        <textarea v-model.trim="message.message_Body" placeholder="Enter your message.." id="message-body"
         rows="3"
         max-rows="6"></textarea>
         <div>
-        <label>
           <button v-on:click.prevent="addNewMessage(message)">Submit</button>
-        </label>
+          <button v-on:click.prevent="clearForm">Clear</button>
         </div>
         </form>
       
@@ -27,7 +25,7 @@ export default {
   data() {
     return {
       message: {
-        user_id: this.$store.state.user.user_id,
+        userID: this.$store.state.profile.user_id,
         message_Title: "",
         message_Body: ""
       }
@@ -39,11 +37,16 @@ export default {
       .then(response => {
         if(response.status == 201)
         {
-          this.$store.commit('LOAD_MESSAGE', response.data)
+          this.$store.commit('LOAD_MESSAGE', response.data);
+          this.clearForm();
         }
       })
       .catch(error => console.log(error.response));
       
+    },
+    clearForm() {
+      this.message.message_Title = "";
+      this.message.message_Body = "";
     }
   }
   }
