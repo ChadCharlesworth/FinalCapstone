@@ -23,10 +23,8 @@
 </template>
 
 <script>
-import gmap from "./Map.vue"
 export default {
   name: "home",
-  components: {gmap},
   computed: {
     publicPlaydates() {
       return this.$store.state.playdates.filter((playdate) => {

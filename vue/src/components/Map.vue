@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <div class="Map"/>
 </template>
 
@@ -6,7 +6,7 @@
 import gmapsInit from './utils/gmaps';
 
 export default {
-  name: 'Map',
+  name: 'gmap',
   async mounted() {
     try {
       const google = await gmapsInit();
@@ -39,4 +39,4 @@ body {
   width: 100vw;
   height: 100vh;
 }
-</style>
+</style>-->
