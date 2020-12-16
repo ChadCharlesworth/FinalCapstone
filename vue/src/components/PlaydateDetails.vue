@@ -1,61 +1,78 @@
 <template>
   <div id="playdate">
-    <div>~ Map to be displayed here with pins for playdates ~</div>
-    <div>|_____________________________________________________|</div>
-    <div>|_____________________________________________________|</div>
-    <div>|______this___________________________________________|</div>
-    <div>|________________is___________________________________|</div>
-    <div>|________________________the_________________________|</div>
-    <div>|_________________________________map_______________|</div>
-    <div>|________________________________________space_______|</div>
-    <div>|_____________________________________________________|</div>
-    <div>|_____________________________________________________|</div>
+    <google-map style="height: 800px; width: 800px" />
     <br />
 
     <h3>Your Upcoming Playdates:</h3>
 
-    <table style="width: 100%">
+    <table>
       <tr>
-        <th>When</th>
-        <th>Where</th>
-        <th>Private event?</th>
-        <th>Number of Attendees</th>
+        <th>Location</th>
+        <th>Date and Time</th>
+        <th>Pet</th>
+        <th>Private / Public</th>
+        <th>Attending / Pending Invitation</th>
       </tr>
-      <tr>
-        <td>filler dateTime</td>
-        <td>filler address</td>
-        <td>filler privacy status</td>
-        <td>filler participant count</td>
-      </tr>
-      <tr>
-        <td>filler dateTime</td>
-        <td>filler address</td>
-        <td>filler privacy status</td>
-        <td>filler participant count</td>
-      </tr>
-      <tr>
-        <td>filler dateTime</td>
-        <td>filler address</td>
-        <td>filler privacy status</td>
-        <td>filler participant count</td>
-      </tr>
-      <tr>
-        <td>filler dateTime</td>
-        <td>filler address</td>
-        <td>filler privacy status</td>
-        <td>filler participant count</td>
+      <tr
+        v-for="(playdate) in playdates"
+        :key="playdate.playdate_ID"
+      >
+        <td>
+          {{ playdate.street_Address_1 }}
+          {{ playdate.street_Address_2 }}<br />
+          {{ playdate.city }},&nbsp;
+          {{ playdate.state }}&nbsp;
+          {{ playdate.zip }}
+        </td>
+        <td>{{ playdate.date_Time_String }}</td>
+        <td>{{ playdate.pet_Name }}</td>
+        <td>{{ playdate.is_Private ? "Private" : "Public" }}</td>
+        <td>{{ playdate.approval_Status == "Attending" ? "Attending" : "Pending your acceptance" }}</td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
+import playdateService from "../services/PlaydateService.js";
+// import googleMap from "../components/GoogleMap.vue";
+
 export default {
   name: "playdate",
+  computed: {
+    currentProfile() {
+      return this.$store.state.profile;
+    },
+    playdateDate() {
+      let dates = [];
+      for (let i = 0; i < this.playdates.length; i++) {
+        dates.push(this.playdates[i].date_Time_String.substring(0, 11));
+      }
+      return dates;
+    },
+    playdateTime() {
+      let times = [];
+      for (let i = 0; i < this.playdates.length; i++) {
+        times.push(this.playdates[i].date_Time_String.substring(12).trim());
+      }
+      return times;
+    },
+  },
+  created() {
+    playdateService
+      .getPlaydatesByOwnerID(this.$store.state.profile.user_id)
+      .then((response) => {
+        if (response.status === 200) {
+          this.playdates = response.data;
+        }
+      })
+      .catch (error => console.log(error));
+  },
   data() {
     return {
       showForm: false,
-    }
+      playdates: [],
+    };
   },
 };
 </script>

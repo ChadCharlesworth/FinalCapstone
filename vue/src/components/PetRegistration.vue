@@ -3,6 +3,7 @@
 
     <form class="form-signin" @submit.prevent="savePet">
       <label for="petname">Pet Name: </label><br>
+
       <input type="text" id="petname" name="petname" v-model="pet.pet_Name"/><br>
 
       <label for="species">Species:</label><br>
@@ -37,6 +38,7 @@
      
     <br><input type="submit" onclick="alert('Thank you for registering your pet!')" value="Register Pet" />
     </form>
+   
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <google-map style="height: 800px; width: 800px;" />
     <div>New Playdate</div>
     <div>Search All Playdates</div>
 
@@ -25,7 +26,10 @@
 </template>
 
 <script>
+import GoogleMap from '@/components/GoogleMap.vue';
+
 export default {
+  components: { GoogleMap },
   name: "home",
   computed: {
     publicPlaydates() {

@@ -15,8 +15,9 @@ namespace Capstone.Models
         public int MessageID { get; set; }
         [Required]
         public string Body { get; set; }
-        [Required]
-        public DateTime CreatedDate { get; set; }
+        
+        public string CreatedDate { get; set; }
+
 
         
     }

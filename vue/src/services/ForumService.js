@@ -6,6 +6,10 @@ export default {
     return axios.get('api/forum/message');
   },
 
+  getMessage(id) {
+    return axios.get(`api/forum/message/${id}`)
+  },
+
   addMessage(message) {
     return axios.post('api/forum/message', message)
   },
@@ -20,6 +24,9 @@ export default {
 
   getResponses() {
     return axios.get('api/forum/response');
+  },
+  getResponse(id) {
+    return axios.get(`api/forum/response/${id}`);
   },
 
   addResponse(response) {

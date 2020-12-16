@@ -16,11 +16,6 @@ import PlaydateInfo from '@/components/PlaydateInfo.vue';
 export default {
   name: "profile",
   components: { PetProfile, PlaydateInfo },
-  methods: {
-    getKeyByValue(object, value) {
-      return Object.keys(object).filter((key) => object[key] === value);
-    },
-  },
   computed: {
     currentProfile() {
       return this.$store.state.profile;
@@ -58,12 +53,10 @@ export default {
 
       for (let i = 0; i < this.$store.state.playdates.length; i++) {
         let tempPlaydate = this.$store.state.playdates[i];
-        let keys = this.getKeyByValue(tempPlaydate.pet_Accepted_Status,true);
         for (let j = 0; j < this.$store.state.profile.pet_Ids.length; j++) {
           let tempID = this.$store.state.profile.pet_Ids[j];
-          let IDIncluded = keys.includes(tempID.toString());
-          if (IDIncluded) {
-            profPlaydates.push(this.$store.state.playdates[i]);
+          if(tempPlaydate.attending.includes(tempID) || tempPlaydate.pending.includes(tempID)) {
+            profPlaydates.push(tempPlaydate);
           }
         }
       }

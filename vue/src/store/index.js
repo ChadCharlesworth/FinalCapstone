@@ -107,14 +107,14 @@ export default new Vuex.Store({
       })
     },
     LOAD_MESSAGE(state, message) {
-      state.forumMessages.push(message);
+      state.forumMessages.unshift(message);
     },
     UPDATE_MESSAGE(state, updatedMessage) {
       state.forumMessages.forEach(message => {
-        if (updatedMessage.Message_ID == message.Message_ID) {
-          message.User_ID = updatedMessage.User_ID;
-          message.Message_Title = updatedMessage.Message_Title;
-          message.Message_Body = updatedMessage.Message_Body;
+        if (updatedMessage.messageID == message.messageID) {
+          message.userID = updatedMessage.userID;
+          message.message_Title = updatedMessage.message_Title;
+          message.message_Body = updatedMessage.message_Body;
         }
       })
     },
@@ -124,7 +124,7 @@ export default new Vuex.Store({
       })
     },
     LOAD_RESPONSE(state, response) {
-      state.forumResponses.push(response);
+      state.forumResponses.unshift(response);
     },
     UPDATE_RESPONSE(state, updatedResponse) {
       state.forumResponses.forEach(response => {
