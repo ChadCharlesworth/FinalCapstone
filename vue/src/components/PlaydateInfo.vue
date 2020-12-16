@@ -27,14 +27,10 @@ export default {
       return playdateAddress;
     },
     playdateDate() {
-      return this.playdate.date_Time.split("T")[0];
+      return this.playdate.date_Time.substring(0,11);
     },
     playdateTime() {
-      let time = this.playdate.date_Time.split("T")[1];
-      time = time.substring(0, 5);
-      if (time.startsWith("0")) {
-        time = time.substring(1);
-      }
+      let time = this.playdate.date_Time.substring(12).trim();
       return time;
     },
   },

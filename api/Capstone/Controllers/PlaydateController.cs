@@ -129,5 +129,23 @@ namespace Capstone.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("owner/{ownerID}")]
+        public ActionResult<List<Playdate>> GetPlaydatesByPetOwner(int ownerID)
+        {
+            List<Playdate> playdates = new List<Playdate>();
+
+            try
+            {
+                playdates = playdateDAO.GetPlaydatesByPetOwner(ownerID);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+            return Ok(playdates);
+        }
+
     }
 }

@@ -1,45 +1,86 @@
 <template>
   <div id="playdateCreation">
     <br />
-<a href="#" v-on:click.prevent="showForm = !showForm">Create New Playdate</a>
-    <form @submit="onSubmit" @reset="onReset">
+    <a href="#" v-on:click.prevent="showForm = !showForm"
+      >Click here to create a new playdate</a
+    >
+    <form
+      v-show="showForm === true"
+      @submit.prevent="submitPlaydate"
+      @reset="onReset"
+    >
+      <br /><label for="input-1"><b>Where</b> is this playdate?</label><br />
       <input
-        id="input-3"
+        id="input-1"
         v-model="address.street_Address_1"
         required
         placeholder="Street"
       /><br />
       <input
-        id="input-4"
+        id="input-2"
         v-model="address.street_Address_2"
         placeholder="Street 2 (Optional)"
       /><br />
       <input
-        id="input-5"
+        id="input-3"
         v-model="address.city"
         required
         placeholder="City"
       /><br />
       <select v-model="address.state" required placeholder="State">
-        <option disabled value="">State</option>
+        <option value="" disabled selected>State</option>
         <option v-for="state in states" v-bind:key="state" v-bind:value="state">
           {{ state }}
         </option></select
       ><br />
       <input
-        id="input-6"
+        id="input-4"
         v-model="address.zip"
         required
         placeholder="Zip Code"
       /><br />
-      <input id="input-7" type="datetime-local" v-model="date_Time" /><br />
 
-      <input id="input-8" type="radio" name="isPrivate" value="public" />
-      <label for="public">Public</label>&nbsp;
-      <input id="input-8" type="radio" name="isPrivate" value="private" />
-      <label for="private">Private</label><br />
+      <br /><label for="input-5"><b>When</b> is this playdate?</label><br />
+      <input
+        id="input-5"
+        type="datetime-local"
+        v-model="playdate.date_Time_Non_String"
+      /><br />
 
-      <button type="submit" variant="primary">Submit</button>
+      <br /><label for="input-6"
+        >What <b>pet</b> are you taking to this playdate?</label
+      ><br />
+      <select placeholder="Your Pets" v-model="petID">
+        <option
+          v-for="pet in profilePets"
+          v-bind:key="pet"
+          v-bind:value="pet.pet_ID"
+        >
+          {{ pet.pet_Name }}
+        </option></select
+      ><br />
+
+      <br /><label for="input-7"
+        >Is this playdate <b>public</b> or <b>private</b>?</label
+      ><br />
+      <input
+        id="input-7"
+        type="radio"
+        name="isPrivate"
+        :value="false"
+        v-model="playdate.is_Private"
+      />
+      <label for="public">Public (visible to anyone)</label><br />
+      <input
+        id="input-7"
+        type="radio"
+        name="isPrivate"
+        :value="true"
+        v-model="playdate.is_Private"
+      />
+      <label for="private">Private (by invitation only)</label><br />
+
+      <br /><button type="submit" variant="primary">Submit</button>
       <button type="reset" variant="danger">Reset</button>
     </form>
   </div>
@@ -53,6 +94,7 @@ export default {
   name: "playdateCreation",
   data() {
     return {
+      showForm: false,
       address: {
         street_Address_1: "",
         street_Address_2: "",
@@ -112,33 +154,41 @@ export default {
         "WV",
         "WY",
       ],
-      show: true,
+      petID: Number,
       date: "",
       time: "",
       playdate: {
         address_ID: Number,
         creator_User_Id: Number,
         number_Of_Attendees: Number,
-        is_Private: this.isPrivate,
-        date_Time: "",
+        is_Private: false,
+        date_Time_Non_String: "",
+        attending: [],
+        pending: [],
+        declined: [],
       },
     };
   },
   computed: {
-    combineDatetime() {
-      return this.date + " " + this.time + ".000";
+    currentProfile() {
+      return this.$store.state.profile;
     },
-    isPrivate() {
-      if (this.playdate.is_Private == "Private") {
-        return true;
-      } else return false;
+    profilePets() {
+      let allProfilePets = [];
+      let tempProfilePets = [];
+      const profile = this.currentProfile;
+      const pets = this.$store.state.pets;
+      for (let i = 0; i < profile.pet_Ids.length; i++) {
+        tempProfilePets = pets.filter((pet) => {
+          return pet.pet_ID === profile.pet_Ids[i];
+        });
+        allProfilePets = allProfilePets.concat(tempProfilePets);
+        tempProfilePets = [];
+      }
+      return allProfilePets;
     },
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert.JSON.stringify(this.form);
-    },
     onReset() {
       this.address.street_Address_1 = "";
       this.address.street_Address_2 = "";
@@ -148,10 +198,25 @@ export default {
       this.date_Time = "";
     },
     createNewPlaydate(playdate) {
+      if (this.playdate.attending.length === 0) {
+        this.playdate.attending.push(this.petID);
+      }
       PlaydateService.addPlaydate(playdate)
         .then((response) => {
           if (response.status == 201) {
-            this.$store.commit("LOAD_PLAYDATE", response.data);
+            PlaydateService.updatePlaydateByPetID(
+              response.data.playdate_ID,
+              response.data,
+              this.petID
+            ).then((petResponse) => {
+              if (petResponse.status == 200) {
+                let newPlaydate = petResponse.data;
+                newPlaydate.date_Time = response.data.date_Time;
+                this.$store.commit("LOAD_PLAYDATE", newPlaydate);
+                this.showForm = false;
+                this.onReset;
+              }
+            });
           }
         })
         .catch((error) => console.log(error.response));
@@ -166,6 +231,10 @@ export default {
           }
         })
         .catch((error) => console.log(error.response));
+    },
+    submitPlaydate() {
+      this.playdate.creator_User_Id = this.currentProfile.user_id;
+      this.addNewPlaydateAddress(this.address);
     },
   },
 };
