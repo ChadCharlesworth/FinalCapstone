@@ -75,7 +75,7 @@ export default {
       ProfileService.updateProfile(this.profile.user_id, this.profile).then(
         (response) => {
           this.$store.commit("LOAD_CURRENT_PROFILE", response.data);
-          this.$router.push({ name: "home" });
+          this.$router.push({ name: "pet-registration" });
         }
       );
     },
