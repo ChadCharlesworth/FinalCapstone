@@ -246,7 +246,7 @@ namespace Capstone.DAO
                             playdate.City = Convert.ToString(reader["City"]);
                             playdate.State = Convert.ToString(reader["State"]);
                             playdate.Zip = Convert.ToString(reader["Zip"]);
-                            playdate.Pet_ID = Convert.ToInt32(reader["PetID"]);
+                            playdate.Pet_ID = Convert.ToInt32(reader["Pet_ID"]);
                             playdate.Date_Time_String = Convert.ToString(reader["Date_Time_String"]);
                             playdate.Approval_Status = Convert.ToString(reader["Approval_Status"]);
                             playdate.Pet_Name = Convert.ToString(reader["Pet_Name"]);
