@@ -13,7 +13,7 @@ namespace Capstone.DAO
         Playdate UpdatePlaydate(Playdate updatedPlaydate);
         Playdate UpdatePlaydateByPetID(Playdate updatedPlaydate, int petID);
         bool DeletePlaydate(int playdateID);
-        List<Playdate> GetPlaydatesByPetOwner(int ownerID)
+        List<Playdate> GetPlaydatesByPetOwner(int ownerID);
 
     }
 }

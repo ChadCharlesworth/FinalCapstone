@@ -57,7 +57,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("select Playdate_ID, Address_ID,Date_Time,Creator_User_ID,Number_Of_Attendees,Is_Private from Playdate where Is_Active = 1", conn);
+                    SqlCommand cmd = new SqlCommand("select Playdate_ID, Address_ID,(convert(varchar, (date_time), 0)) as Date_Time,Creator_User_ID,Number_Of_Attendees,Is_Private from Playdate where Is_Active = 1", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
@@ -85,8 +85,18 @@ namespace Capstone.DAO
                         SqlDataReader playdateReader = cmd.ExecuteReader();
                         while (playdateReader.Read())
                         {
-                            int petID = Convert.ToInt32(playdateReader["Pet_ID"]);
-                            playdate.Pet_Approval_Status[petID] = Convert.ToString(playdateReader["Approval_Status"]);
+                            if (Convert.ToString(playdateReader["Approval_Status"]) == "Attending")
+                            {
+                                playdate.Attending.Add(Convert.ToInt32(playdateReader["Pet_ID"]));
+                            }
+                            else if (Convert.ToString(playdateReader["Approval_Status"]) == "Declined")
+                            {
+                                playdate.Declined.Add(Convert.ToInt32(playdateReader["Pet_ID"]));
+                            }
+                            else
+                            {
+                                playdate.Pending.Add(Convert.ToInt32(playdateReader["Pet_ID"]));
+                            }
                         }
                         i++;
                         playdateReader.Close();
@@ -134,10 +144,21 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into Playdate_Pet (Playdate_ID,Pet_ID,Approval_Status) values (@playdateID, @petID, @approvalStatus)", conn);
+                    SqlCommand cmd = new SqlCommand("update Playdate_Pet set Playdate_ID = @playdateID,Pet_ID = @petID,Approval_Status = @approvalStatus where Playdate_ID = @playdateID", conn);
                     cmd.Parameters.AddWithValue("@playdateID", updatedPlaydate.Playdate_ID);
                     cmd.Parameters.AddWithValue("@petID", petID);
-                    cmd.Parameters.AddWithValue("@approvalStatus", updatedPlaydate.Pet_Approval_Status[petID]);
+                    if (updatedPlaydate.Attending.Contains(petID))
+                    {
+                        cmd.Parameters.AddWithValue("@approvalStatus", "Attending");
+                    }
+                    else if (updatedPlaydate.Declined.Contains(petID))
+                    {
+                        cmd.Parameters.AddWithValue("@approvalStatus", "Declined");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@approvalStatus", "Pending");
+                    }
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -211,7 +232,7 @@ namespace Capstone.DAO
                             where Pet_ID in (select Pet_ID from Pet where Owner_ID = @ownerID))
                             and Owner_ID = @ownerID order by Date_Time
                             ", conn);
-                    cmd.Parameters.AddWithValue("@ownderID", ownerID);
+                    cmd.Parameters.AddWithValue("@ownerID", ownerID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
