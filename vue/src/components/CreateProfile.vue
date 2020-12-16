@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>About You</h1>
-    <form @submit="onSubmit" @reset="onReset">
+    <form @submit.prevent="onSubmit" @reset="onReset">
       <input
         id="input-1"
         v-model="profile.first_Name"
@@ -54,6 +54,7 @@
 <script>
 import AddressService from "@/services/AddressService.js";
 import ProfileService from "@/services/ProfileService.js";
+import MapService from "@/services/MapService.js";
 
 export default {
   methods: {
@@ -67,17 +68,35 @@ export default {
       this.address.zip = "";
     },
     onSubmit() {
-      AddressService.addAddressWithUser(this.profile.user_id, this.address)
-        .then((response) => {
-          this.$store.commit("LOAD_ADDRESS", response.data);
-        })
+
+
+
+      MapService.getLatLong(
+        this.address.street_Address_1,
+        this.address.city,
+        this.address.state
+      )
+        .then((gResponse) => {
+            this.address.latitude =
+              gResponse.results[0].geometry.location.lat;
+            this.address.longitude =
+              gResponse.results[0].geometry.location.lng;
+            AddressService.addAddressWithUser(
+              this.profile.user_id,
+              this.address
+            ).then((response) => {
+              this.$store.commit("LOAD_ADDRESS", response.data);
+              ProfileService.updateProfile(
+                this.profile.user_id,
+                this.profile
+              ).then((response) => {
+                this.$store.commit("LOAD_CURRENT_PROFILE", response.data);
+                this.$router.push({ name: "pet-registration" });
+              });
+            });
+          }
+        )
         .catch((error) => console.log(error.response));
-      ProfileService.updateProfile(this.profile.user_id, this.profile).then(
-        (response) => {
-          this.$store.commit("LOAD_CURRENT_PROFILE", response.data);
-          this.$router.push({ name: "home" });
-        }
-      );
     },
   },
   data() {

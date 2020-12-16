@@ -45,6 +45,8 @@ export default new Vuex.Store({
           address.City = updatedAddress.City;
           address.State = updatedAddress.State;
           address.Zip = updatedAddress.Zip;
+          address.Latitude = updatedAddress.Latitude;
+          address.Longitude = updatedAddress.Longitude;
         }
       })
     },

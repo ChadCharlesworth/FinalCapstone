@@ -66,7 +66,13 @@ export default {
               .getProfileByID(this.$store.state.user.userId)
               .then((response) => {
                 this.$store.commit("LOAD_CURRENT_PROFILE", response.data);
-                this.$router.push("/");
+                if(this.$store.state.profile.first_Name == "")
+                {
+                  this.$router.push({name: 'create-profile'});
+                }
+                else {
+                this.$router.push({name: 'home'});
+                }
               })
               .catch(error => console.log(error.response));
           }
