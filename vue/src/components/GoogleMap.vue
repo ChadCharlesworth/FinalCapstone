@@ -12,12 +12,28 @@
 
 <script>
 import { gmapsMap, gmapsMarker } from "x5-gmaps";
+import MapService from "@/services/MapService.js";
 
 export default {
   components: { gmapsMap, gmapsMarker },
   props: ["playdateAddress"],
   mounted() {
     this.getLocation();
+  },
+  created() {
+    this.playdateAddress.forEach((address) => {
+      MapService.getLatLong(
+        address.street_Address_1,
+        address.city,
+        address.state
+      ).then((response) => {
+        if (response.status == 200) {
+          response.data.forEach((gLatLong) => {
+            this.latLong.push(gLatLong.geometry.location);
+          });
+        }
+      });
+    });
   },
   methods: {},
   data() {
@@ -32,6 +48,7 @@ export default {
         streetViewControl: false,
         zoomControl: false,
       },
+      latLong: [],
       options: [
         {
           options: { position: { lat: 40.496644, lng: -79.980158 } },
