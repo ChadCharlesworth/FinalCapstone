@@ -20,6 +20,10 @@ export default {
 
   deletePlaydate(playdateID) {
     return axios.post(`api/playdate/${playdateID}`)
+  },
+
+  getPlaydatesByOwnerID(ownerID) {
+    return axios.get(`api/playdate/owner/${ownerID}`)
   }
 
 }
