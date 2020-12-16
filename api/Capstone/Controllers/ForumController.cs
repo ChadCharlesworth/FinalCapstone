@@ -35,6 +35,22 @@ namespace Capstone.Controllers
             }
             return Ok(messages);
         }
+        [HttpGet("message/{id}")]
+        public ActionResult<ForumMessage> GetMessage(int id)
+        {
+            ForumMessage message = new ForumMessage();
+
+            try
+            {
+                message = forumDAO.GetMessage(id);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+
+            }
+            return Ok(message);
+        }
 
         [HttpPost("message")]
         public ActionResult<ForumMessage> PostMessage(ForumMessage message)
@@ -111,6 +127,22 @@ namespace Capstone.Controllers
                 return StatusCode(500, e.Message);
             }
             return Ok(responses);
+        }
+        [HttpGet("response/{id}")]
+        public ActionResult<ForumResponse> GetResponse(int id)
+        {
+            ForumResponse response = new ForumResponse();
+
+            try
+            {
+                response = forumDAO.GetResponse(id);
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+            return Ok(response);
         }
 
         [HttpPost("response")]

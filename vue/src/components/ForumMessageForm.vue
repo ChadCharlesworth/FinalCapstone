@@ -37,8 +37,16 @@ export default {
       .then(response => {
         if(response.status == 201)
         {
-          this.$store.commit('LOAD_MESSAGE', response.data);
-          this.clearForm();
+          ForumService.getMessage(response.data.messageID)
+          .then(messageResponse => {
+            if(messageResponse.status == 200)
+            {
+              this.$store.commit('LOAD_MESSAGE', messageResponse.data);
+              this.clearForm();
+            }
+          })
+          
+          
         }
       })
       .catch(error => console.log(error.response));

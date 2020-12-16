@@ -36,8 +36,16 @@ export default {
       .then(promise => {
         if(promise.status == 201)
         {
-          this.$store.commit('LOAD_RESPONSE',promise.data);
-          this.clearForm();
+          ForumService.getResponse(promise.data.responseID)
+          .then(responsePromise => {
+            if(responsePromise.status == 200)
+            {
+              this.$store.commit('LOAD_RESPONSE', responsePromise.data);
+              this.clearForm();
+            }
+          })
+          
+          
         }
       })
       .catch(error => console.log(error.response))
