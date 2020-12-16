@@ -35,6 +35,24 @@ namespace Capstone.Controllers
             return Ok(playdates);
         }
 
+        [HttpGet("{playdateID}")]
+        public ActionResult<Playdate> GetPlaydate(int playdateID)
+        {
+            Playdate playdate = new Playdate();            {
+                try
+                {
+                    playdate = playdateDAO.GetPlaydate(playdateID);
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(500, e.Message);
+                }
+
+                return Ok(playdate);
+
+            }
+        }
+
         [HttpPost]
         public ActionResult<Playdate> CreatePlaydate( [FromBody] Playdate newPlaydate/*, int petID*/)
         {
