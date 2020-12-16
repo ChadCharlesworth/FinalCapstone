@@ -1,9 +1,9 @@
 <template>
   <div id="Your Pet" class="text-align-right">
 
-    <form class="form-signin" @submit.prevent="pet">
+    <form class="form-signin" @submit.prevent="savePet">
       <label for="petname">Pet Name: </label><br>
-      <input type="text" id="petname" name="petname" v-model="pet.name"/><br>
+      <input type="text" id="petname" name="petname" v-model="pet.pet_Name"/><br>
 
       <label for="species">Species:</label><br>
       <select name="species" v-model="pet.species">
@@ -16,14 +16,14 @@
       <input type="text" id="petbreed" name="petbreed" v-model="pet.breed"/><br>
 
       <label for="personality">Personality: </label><br>
-      <select name="personality" v-model="pet.personality" multiple>
+      <select name="personality" v-model="pet.personality">
         <option value="calm">Calm</option>
         <option value="playful">Playful</option>
         <option value="skittish">Skittish</option>
         <option value="mischievous">Mischievous</option>
         <option value="friendly">Friendly</option>
         </select><br>
-        <p>Hold down the Ctrl (Windows) or Command (Mac) button to select multiple personality traits.</p>
+        
 
 
       <label for="size">Size: </label><br>
@@ -35,7 +35,7 @@
         <option value="Giant">Giant 100+lbs</option>
         </select><br>
      
-    <br><input type="button" onclick="alert('Thank you for registering your pet!')" value="Pet Registration" />
+    <br><input type="submit" onclick="alert('Thank you for registering your pet!')" value="Register Pet" />
     </form>
   </div>
 </template>
@@ -48,7 +48,8 @@ export default {
    data() {
     return {
       pet: {
-        name: null, 
+        owner_ID: this.$store.state.profile.user_id,
+        pet_Name: null, 
         species: null,
         breed: null,
         personality: null,
@@ -57,13 +58,11 @@ export default {
     }
    },
   methods: {
-    addPersonality(personality) {
-      this.pet.personality.push(personality);
-    },
-    savePet(personality) {
-      PetService.addPet(personality)
+    
+    savePet() {
+      PetService.addPet(this.pet)
       .then((response) => {
-        if (response.status == 201) {
+        if (response.status == 200) {
           this.$store.commit("LOAD_PET", response.data);
         }
       })

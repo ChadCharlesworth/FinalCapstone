@@ -2,6 +2,8 @@
   <div class="home">
     <div>New Playdate</div>
     <div>Search All Playdates</div>
+
+    <router-link :to="{name: 'pet-registration'}" >Register</router-link>
     
   <table>
     <tr>
