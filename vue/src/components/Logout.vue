@@ -32,15 +32,6 @@ export default {
       })
       }})
       .catch(error => console.log(error.response));
-    
-    forumService.getCategories()
-    .then(response => {
-      if(response.status == 200) {
-      response.data.forEach(category => {
-        this.$store.commit('LOAD_CATEGORY',category);
-      })
-      }})
-      .catch(error => console.log(error.response));
 
           forumService.getMessages()
     .then(response => {

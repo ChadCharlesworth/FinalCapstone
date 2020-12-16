@@ -108,7 +108,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand command = new SqlCommand("select Message_ID,User_ID,Message_Title,Message_Body,Created_Date from Forum_Message where Is_Active = 1", conn);
+                    SqlCommand command = new SqlCommand("select Message_ID,User_ID,Message_Title,Message_Body,(convert(varchar, (created_date), 0)) as Created_Date from Forum_Message where Is_Active = 1", conn);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -124,6 +124,33 @@ namespace Capstone.DAO
 
             return messages;
         }
+        public ForumMessage GetMessage(int id)
+        {
+            ForumMessage message = new ForumMessage();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("select Message_ID,User_ID,Message_Title,Message_Body,(convert(varchar, (created_date), 0)) as Created_Date from Forum_Message where Is_Active = 1 and Message_ID = @messageID", conn);
+                    command.Parameters.AddWithValue("@messageID", id);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        message = GetMessageFromReader(reader);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return message;
+        }
 
         public List<ForumResponse> GetAllResponses()
         {
@@ -135,7 +162,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand command = new SqlCommand("select Response_ID,User_ID,Message_ID,Response_Body,Created_Date from Forum_Response where Is_Active = 1", conn);
+                    SqlCommand command = new SqlCommand("select Response_ID,User_ID,Message_ID,Response_Body,(convert(varchar, (created_date), 0)) as Created_Date from Forum_Response where Is_Active = 1", conn);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -150,6 +177,33 @@ namespace Capstone.DAO
             }
 
             return responses;
+        }
+        public ForumResponse GetResponse(int id)
+        {
+            ForumResponse response = new ForumResponse();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("select Response_ID,User_ID,Message_ID,Response_Body,(convert(varchar, (created_date), 0)) as Created_Date from Forum_Response where Is_Active = 1 and Response_ID = @responseID", conn);
+                    command.Parameters.AddWithValue("@responseID", id);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        response = GetResponseFromReader(reader);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return response;
         }
 
 
@@ -168,7 +222,7 @@ namespace Capstone.DAO
                     newMessage.MessageID = Convert.ToInt32(command.ExecuteScalar());
 
                     command.CommandText = $"select Created_Date from Forum_Message where Message_ID = {newMessage.MessageID}";
-                    newMessage.CreatedDate = Convert.ToDateTime(command.ExecuteScalar());
+                    newMessage.CreatedDate = Convert.ToString(command.ExecuteScalar());
                 }
             }
             catch (Exception)
@@ -195,7 +249,7 @@ namespace Capstone.DAO
                     newResponse.ResponseID = Convert.ToInt32(command.ExecuteScalar());
 
                     command.CommandText = $"select Created_Date from Forum_Response where Response_ID = {newResponse.ResponseID}";
-                    newResponse.CreatedDate = Convert.ToDateTime(command.ExecuteScalar());
+                    newResponse.CreatedDate = Convert.ToString(command.ExecuteScalar());
 
                 }
             }
@@ -263,7 +317,7 @@ namespace Capstone.DAO
                 UserID = Convert.ToInt32(reader["User_ID"]),
                 Message_Title = Convert.ToString(reader["Message_Title"]),
                 Message_Body = Convert.ToString(reader["Message_Body"]),
-                CreatedDate = Convert.ToDateTime(reader["Created_Date"])
+                CreatedDate = Convert.ToString(reader["Created_Date"])
             };
             return message;
         }
@@ -277,7 +331,7 @@ namespace Capstone.DAO
                 MessageID = Convert.ToInt32(reader["Message_ID"]),
                 Body = Convert.ToString(reader["Response_Body"]),
 
-                CreatedDate = Convert.ToDateTime(reader["Created_Date"]),
+                CreatedDate = Convert.ToString(reader["Created_Date"]),
               
 
                // CreatedDate = Convert.ToDateTime(reader["Created_Date"])
