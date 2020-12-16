@@ -124,7 +124,7 @@ export default new Vuex.Store({
       })
     },
     LOAD_RESPONSE(state, response) {
-      state.forumResponses.push(response);
+      state.forumResponses.unshift(response);
     },
     UPDATE_RESPONSE(state, updatedResponse) {
       state.forumResponses.forEach(response => {
