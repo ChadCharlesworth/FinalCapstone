@@ -68,10 +68,10 @@ export default {
                 this.$store.commit("LOAD_CURRENT_PROFILE", response.data);
                 if(this.$store.state.profile.first_Name == "")
                 {
-                  this.router.push("/createprofile");
+                  this.$router.push({name: 'create-profile'});
                 }
                 else {
-                this.$router.push("/");
+                this.$router.push({name: 'home'});
                 }
               })
               .catch(error => console.log(error.response));
