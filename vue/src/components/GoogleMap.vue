@@ -35,7 +35,29 @@ export default {
       });
     });
   },
-  methods: {},
+  computed: {
+    options() {
+      let latLngArray = [];
+      
+      for (let i = 0; i < this.playdateAddress.length; i++) {
+        if(this.playdateAddress[i].latitude && this.playdateAddress[i].longitude)
+        {
+          latLngArray.push(
+            {
+              options: {
+                position: {
+                  lat: this.playdateAddress[i].latitude,
+                  lng: this.playdateAddress[i].longitude
+                }
+              }
+            }
+          )
+        }
+      }
+
+      return latLngArray;
+    },
+  },
   data() {
     return {
       mapOptions: {
@@ -49,7 +71,7 @@ export default {
         zoomControl: false,
       },
       latLong: [],
-      options: [
+      options1: [
         {
           options: { position: { lat: 40.496644, lng: -79.980158 } },
         },
