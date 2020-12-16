@@ -110,6 +110,48 @@ namespace Capstone.DAO
 
             return allPlaydates;
         }
+        public Playdate GetPlaydate(int playdateID)
+        {
+            Playdate playdate = new Playdate();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("select Address_ID,Date_Time,Creator_User_ID,Number_Of_Attendees,Is_Private where Playdate_ID = @playdateID", conn);
+                    cmd.Parameters.AddWithValue("@playdateID", playdateID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            playdate.Playdate_ID = Convert.ToInt32(reader["Playdate_ID"]);
+                            playdate.Street_Address_1 = Convert.ToString(reader["Street_Address_1"]);
+                            playdate.Street_Address_2 = Convert.ToString(reader["Street_Address_2"]);
+                            playdate.City = Convert.ToString(reader["City"]);
+                            playdate.State = Convert.ToString(reader["State"]);
+                            playdate.Zip = Convert.ToString(reader["Zip"]);
+                            playdate.Pet_ID = Convert.ToInt32(reader["Pet_ID"]);
+                            playdate.Date_Time_String = Convert.ToString(reader["Date_Time_String"]);
+                            playdate.Approval_Status = Convert.ToString(reader["Approval_Status"]);
+                            playdate.Pet_Name = Convert.ToString(reader["Pet_Name"]);
+                            playdate.Creator_User_ID = Convert.ToInt32(reader["Creator_User_ID"]);
+                            playdate.Is_Private = Convert.ToBoolean(reader["Is_Private"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return playdate;
+
+        }
 
         public Playdate UpdatePlaydate(Playdate updatedPlaydate)
         {

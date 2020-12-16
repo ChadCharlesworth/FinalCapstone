@@ -23,5 +23,7 @@ namespace Capstone.Models
 
         [Required]
         public string Zip { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

@@ -6,6 +6,10 @@ export default {
     return axios.get('api/playdate');
   },
 
+  getPlaydate(playdateID) {
+    return axios.get(`api/playdate/${playdateID}`)
+  },
+
   addPlaydate(playdate) {
     return axios.post('api/playdate', playdate)
   },

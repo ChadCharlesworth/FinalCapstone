@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <google-map style="height: 800px; width: 800px;" />
+    <google-map style="height: 800px; width: 800px;" v-bind:playdateAddress="playdateAddress" />
     <div>New Playdate</div>
     <div>Search All Playdates</div>
 

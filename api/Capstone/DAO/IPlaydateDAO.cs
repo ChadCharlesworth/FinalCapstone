@@ -9,6 +9,7 @@ namespace Capstone.DAO
     public interface IPlaydateDAO
     {
         List<Playdate> GetAllPlaydates();
+        Playdate GetPlaydate(int playdateID);
         Playdate CreatePlaydate(Playdate newPlaydate/*, int petID*/);
         Playdate UpdatePlaydate(Playdate updatedPlaydate);
         Playdate UpdatePlaydateByPetID(Playdate updatedPlaydate, int petID);

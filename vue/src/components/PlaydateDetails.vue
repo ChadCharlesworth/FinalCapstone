@@ -12,22 +12,35 @@
         <th>Pet</th>
         <th>Private / Public</th>
         <th>Attending / Pending Invitation</th>
+        <th>Action</th>
       </tr>
-      <tr
-        v-for="(playdate) in playdates"
-        :key="playdate.playdate_ID"
-      >
+      <tr v-for="playdate in playdates" :key="playdate.playdate_ID">
         <td>
           {{ playdate.street_Address_1 }}
           {{ playdate.street_Address_2 }}<br />
-          {{ playdate.city }},&nbsp;
-          {{ playdate.state }}&nbsp;
+          {{ playdate.city }},&nbsp; {{ playdate.state }}&nbsp;
           {{ playdate.zip }}
         </td>
         <td>{{ playdate.date_Time_String }}</td>
         <td>{{ playdate.pet_Name }}</td>
         <td>{{ playdate.is_Private ? "Private" : "Public" }}</td>
-        <td>{{ playdate.approval_Status == "Attending" ? "Attending" : "Pending your acceptance" }}</td>
+        <td>
+          {{ playdate.approval_Status == "Attending" ? "Attending" : "Pending your acceptance" }}
+        </td>
+        <td>
+          <button
+            type="submit"
+            @click.prevent="
+              acceptInvite(playdate.playdate_ID, playdate, playdate.pet_ID)
+            "
+            v-if="playdate.approval_Status == 'Pending'"
+          >
+            Going
+          </button>
+          <button type="submit" @click.prevent="declineInvite(playdate.playdate_ID, playdate, playdate.pet_ID)">
+            Not Going
+          </button>
+        </td>
       </tr>
     </table>
   </div>
@@ -66,7 +79,45 @@ export default {
           this.playdates = response.data;
         }
       })
-      .catch (error => console.log(error));
+      .catch((error) => console.log(error));
+  },
+  methods: {
+    acceptInvite(playdate_ID, playdate, pet_ID) {
+      if (playdate.pending.includes(pet_ID)) {
+        delete playdate.pending[playdate.pending.indexOf(pet_ID)];
+      }
+      if (playdate.declined.includes(pet_ID)) {
+        delete playdate.declined[playdate.pending.indexOf(pet_ID)];
+      }
+      playdate.attending.push(pet_ID);
+
+      playdateService
+        .updatePlaydateByPetID(playdate_ID, playdate, pet_ID)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$store.commit("UPDATE_PLAYDATE", response.data);
+          }
+        })
+        .catch((error) => console.log(error));
+    },
+    declineInvite(playdate_ID, playdate, pet_ID) {
+      if (playdate.pending.includes(pet_ID)) {
+        delete playdate.pending[playdate.pending.indexOf(pet_ID)];
+      }
+      if (playdate.attending.includes(pet_ID)) {
+        delete playdate.declined[playdate.pending.indexOf(pet_ID)];
+      }
+      playdate.declined.push(pet_ID);
+
+      playdateService
+        .updatePlaydateByPetID(playdate_ID, playdate, pet_ID)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$store.commit("UPDATE_PLAYDATE", response.data);
+          }
+        })
+        .catch((error) => console.log(error));
+    },
   },
   data() {
     return {

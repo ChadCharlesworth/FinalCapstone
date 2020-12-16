@@ -44,7 +44,7 @@
       <input
         id="input-5"
         type="datetime-local"
-        v-model="playdate.date_Time_Non_String"
+        v-model="playdate.date_Time"
       /><br />
 
       <br /><label for="input-6"
@@ -89,6 +89,7 @@
 <script>
 import PlaydateService from "../services/PlaydateService.js";
 import AddressService from "../services/AddressService.js";
+import MapService from "@/services/MapService.js";
 
 export default {
   name: "playdateCreation",
@@ -162,7 +163,7 @@ export default {
         creator_User_Id: Number,
         number_Of_Attendees: Number,
         is_Private: false,
-        date_Time_Non_String: "",
+        date_Time: "",
         attending: [],
         pending: [],
         declined: [],
@@ -222,15 +223,23 @@ export default {
         .catch((error) => console.log(error.response));
     },
     addNewPlaydateAddress(address) {
-      AddressService.addAddress(address)
-        .then((response) => {
-          if (response.status == 201) {
-            this.$store.commit("LOAD_ADDRESS", response.data);
-            this.playdate.address_ID = response.data.address_ID;
-            this.createNewPlaydate(this.playdate);
-          }
-        })
-        .catch((error) => console.log(error.response));
+      MapService.getLatLong(
+        address.street_Address_1,
+        address.city,
+        address.state
+      ).then((gResponse) => {
+        address.latitude = gResponse.results[0].geometry.location.lat;
+        address.longitude = gResponse.results[0].geometry.location.lng;
+        AddressService.addAddress(address)
+          .then((response) => {
+            if (response.status == 201) {
+              this.$store.commit("LOAD_ADDRESS", response.data);
+              this.playdate.address_ID = response.data.address_ID;
+              this.createNewPlaydate(this.playdate);
+            }
+          })
+          .catch((error) => console.log(error.response));
+      });
     },
     submitPlaydate() {
       this.playdate.creator_User_Id = this.currentProfile.user_id;
