@@ -232,7 +232,7 @@ namespace Capstone.DAO
                             where Pet_ID in (select Pet_ID from Pet where Owner_ID = @ownerID))
                             and Owner_ID = @ownerID order by Date_Time
                             ", conn);
-                    cmd.Parameters.AddWithValue("@ownderID", ownerID);
+                    cmd.Parameters.AddWithValue("@ownerID", ownerID);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
