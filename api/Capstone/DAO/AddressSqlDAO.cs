@@ -27,7 +27,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("select Address_ID,Street_Address_1,Street_Address_2,City,State,Zip from address where Is_Active = 1", conn);
+                    SqlCommand cmd = new SqlCommand("select Address_ID,Street_Address_1,Street_Address_2,City,State,Zip,Latitude,Longitude from address where Is_Active = 1", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
@@ -41,6 +41,14 @@ namespace Capstone.DAO
                             address.City = Convert.ToString(reader["City"]);
                             address.State = Convert.ToString(reader["State"]);
                             address.Zip = Convert.ToString(reader["Zip"]);
+                            if (reader["Latitude"] != System.DBNull.Value)
+                            {
+                                address.Latitude = Convert.ToDouble(reader["Latitude"]);
+                            }
+                            if (reader["Longitude"] != System.DBNull.Value)
+                            {
+                                address.Longitude = Convert.ToDouble(reader["Longitude"]);
+                            }
                             returnAddresses.Add(address);
                         }
                     }
@@ -61,12 +69,14 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAddress1,@streetAddress2,@city,@state,@zip); select SCOPE_IDENTITY();", conn);
+                    SqlCommand cmd = new SqlCommand("insert into address (Street_Address_1,Street_Address_2,City,State,Zip,Latitude,Longitude) values (@streetAddress1,@streetAddress2,@city,@state,@zip,@latitude,@longitude); select SCOPE_IDENTITY();", conn);
                     cmd.Parameters.AddWithValue("@streetAddress1", newAddress.Street_Address_1);
                     cmd.Parameters.AddWithValue("@streetAddress2", newAddress.Street_Address_2);
                     cmd.Parameters.AddWithValue("@city", newAddress.City);
                     cmd.Parameters.AddWithValue("@state", newAddress.State);
                     cmd.Parameters.AddWithValue("@zip", newAddress.Zip);
+                    cmd.Parameters.AddWithValue("@latitude", newAddress.Latitude);
+                    cmd.Parameters.AddWithValue("@longitude", newAddress.Longitude);
                     int addressID = Convert.ToInt32(cmd.ExecuteScalar());
                     newAddress.Address_ID = addressID;
                 }
@@ -86,12 +96,14 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into address (Street_Address_1,Street_Address_2,City,State,Zip) values (@streetAddress1,@streetAddress2,@city,@state,@zip); select SCOPE_IDENTITY();", conn);
+                    SqlCommand cmd = new SqlCommand("insert into address (Street_Address_1,Street_Address_2,City,State,Zip,Latitude,Longitude) values (@streetAddress1,@streetAddress2,@city,@state,@zip,@latitude,@longitude); select SCOPE_IDENTITY();", conn);
                     cmd.Parameters.AddWithValue("@streetAddress1", newAddress.Street_Address_1);
                     cmd.Parameters.AddWithValue("@streetAddress2", newAddress.Street_Address_2);
                     cmd.Parameters.AddWithValue("@city", newAddress.City);
                     cmd.Parameters.AddWithValue("@state", newAddress.State);
                     cmd.Parameters.AddWithValue("@zip", newAddress.Zip);
+                    cmd.Parameters.AddWithValue("@latitude", newAddress.Latitude);
+                    cmd.Parameters.AddWithValue("@longitude", newAddress.Longitude);
                     int addressID = Convert.ToInt32(cmd.ExecuteScalar());
                     newAddress.Address_ID = addressID;
 
@@ -118,12 +130,14 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("update Address set Street_Address_1 = @streetAddress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip where Address_ID = @addressID", conn);
+                    SqlCommand cmd = new SqlCommand("update Address set Street_Address_1 = @streetAddress1,Street_Address_2 = @streetAddress2,City = @city,State = @state,Zip = @zip,Latitude = @latitude,Longitude = @longitude where Address_ID = @addressID", conn);
                     cmd.Parameters.AddWithValue("@streetAddress1", updatedAddress.Street_Address_1);
                     cmd.Parameters.AddWithValue("@streetAddress2", updatedAddress.Street_Address_2);
                     cmd.Parameters.AddWithValue("@city", updatedAddress.City);
                     cmd.Parameters.AddWithValue("@state", updatedAddress.State);
                     cmd.Parameters.AddWithValue("@zip", updatedAddress.Zip);
+                    cmd.Parameters.AddWithValue("@latitude", updatedAddress.Latitude);
+                    cmd.Parameters.AddWithValue("@longitude", updatedAddress.Longitude);
 
                     cmd.Parameters.AddWithValue("@addressID", updatedAddress.Address_ID);
 
