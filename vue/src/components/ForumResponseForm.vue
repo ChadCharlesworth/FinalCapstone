@@ -1,7 +1,7 @@
 <template>
   <div>
       <form v-if="$store.state.token != ''" v-bind="setThisMessage()">
-        <textarea rows="6" cols="50" placeholder="Write your comment here" v-model="response.body"/>
+        <textarea rows="6" cols="50" placeholder="Write your comment here" v-model="response.body" required/>
         <div class="container" >
         <button type='submit' @click.prevent="sendIt(response)">Submit</button>
         <button type='reset'>Clear</button>
