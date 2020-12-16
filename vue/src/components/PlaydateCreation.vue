@@ -4,7 +4,11 @@
     <a href="#" v-on:click.prevent="showForm = !showForm"
       >Click here to create a new playdate</a
     >
-    <form v-show="showForm === true" @submit="onSubmit" @reset="onReset">
+    <form
+      v-show="showForm === true"
+      @submit.prevent="submitPlaydate"
+      @reset="onReset"
+    >
       <br /><label for="input-1"><b>Where</b> is this playdate?</label><br />
       <input
         id="input-1"
@@ -40,14 +44,18 @@
       <input
         id="input-5"
         type="datetime-local"
-        v-model="playdate.date_Time"
+        v-model="playdate.date_Time_Non_String"
       /><br />
 
       <br /><label for="input-6"
         >What <b>pet</b> are you taking to this playdate?</label
       ><br />
       <select placeholder="Your Pets" v-model="petID">
-        <option v-for="pet in profilePets" v-bind:key="pet" v-bind:value="pet.pet_ID" >
+        <option
+          v-for="pet in profilePets"
+          v-bind:key="pet"
+          v-bind:value="pet.pet_ID"
+        >
           {{ pet.pet_Name }}
         </option></select
       ><br />
@@ -154,10 +162,10 @@ export default {
         creator_User_Id: Number,
         number_Of_Attendees: Number,
         is_Private: false,
-        date_Time: "",
-        pet_Approval_Status: {
-          [this.petID]:"Attending"
-        }
+        date_Time_Non_String: "",
+        attending: [],
+        pending: [],
+        declined: [],
       },
     };
   },
@@ -181,10 +189,6 @@ export default {
     },
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert.JSON.stringify(this.form);
-    },
     onReset() {
       this.address.street_Address_1 = "";
       this.address.street_Address_2 = "";
@@ -194,10 +198,25 @@ export default {
       this.date_Time = "";
     },
     createNewPlaydate(playdate) {
+      if (this.playdate.attending.length === 0) {
+        this.playdate.attending.push(this.petID);
+      }
       PlaydateService.addPlaydate(playdate)
         .then((response) => {
           if (response.status == 201) {
-            this.$store.commit("LOAD_PLAYDATE", response.data);
+            PlaydateService.updatePlaydateByPetID(
+              response.data.playdate_ID,
+              response.data,
+              this.petID
+            ).then((petResponse) => {
+              if (petResponse.status == 200) {
+                let newPlaydate = petResponse.data;
+                newPlaydate.date_Time = response.data.date_Time;
+                this.$store.commit("LOAD_PLAYDATE", newPlaydate);
+                this.showForm = false;
+                this.onReset;
+              }
+            });
           }
         })
         .catch((error) => console.log(error.response));
@@ -212,6 +231,10 @@ export default {
           }
         })
         .catch((error) => console.log(error.response));
+    },
+    submitPlaydate() {
+      this.playdate.creator_User_Id = this.currentProfile.user_id;
+      this.addNewPlaydateAddress(this.address);
     },
   },
 };
