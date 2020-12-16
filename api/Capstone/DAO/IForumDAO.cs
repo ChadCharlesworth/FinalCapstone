@@ -16,5 +16,7 @@ namespace Capstone.DAO
         ForumResponse PostResponse(ForumResponse newResponse);
         ForumResponse UpdateResponse(ForumResponse updatedResponse);
         bool DeactivateResponse(int deletedResponseID);
+        ForumMessage GetMessage(int id);
+        ForumResponse GetResponse(int id);
     }
 }
