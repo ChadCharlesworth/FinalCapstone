@@ -41,11 +41,11 @@ namespace Capstone.DAO
                             address.City = Convert.ToString(reader["City"]);
                             address.State = Convert.ToString(reader["State"]);
                             address.Zip = Convert.ToString(reader["Zip"]);
-                            if (reader["Latitude"] != null)
+                            if (reader["Latitude"] != System.DBNull.Value)
                             {
                                 address.Latitude = Convert.ToDouble(reader["Latitude"]);
                             }
-                            if (reader["Longitude"] != null)
+                            if (reader["Longitude"] != System.DBNull.Value)
                             {
                                 address.Longitude = Convert.ToDouble(reader["Longitude"]);
                             }

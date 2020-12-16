@@ -68,17 +68,19 @@ export default {
       this.address.zip = "";
     },
     onSubmit() {
+
+
+
       MapService.getLatLong(
         this.address.street_Address_1,
         this.address.city,
         this.address.state
       )
         .then((gResponse) => {
-          if (gResponse.status == 200) {
             this.address.latitude =
-              gResponse.data.results[0].geometry.location.lat;
+              gResponse.results[0].geometry.location.lat;
             this.address.longitude =
-              gResponse.data.results[0].geometry.location.lng;
+              gResponse.results[0].geometry.location.lng;
             AddressService.addAddressWithUser(
               this.profile.user_id,
               this.address
@@ -93,7 +95,7 @@ export default {
               });
             });
           }
-        })
+        )
         .catch((error) => console.log(error.response));
     },
   },
