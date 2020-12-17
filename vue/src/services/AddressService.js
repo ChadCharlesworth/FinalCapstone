@@ -19,7 +19,7 @@ export default {
   },
 
   deleteAddress(addressID) {
-    return axios.post(`api/address/${addressID}`)
+    return axios.delete(`api/address/${addressID}`)
   }
 
 }

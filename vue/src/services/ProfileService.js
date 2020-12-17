@@ -15,7 +15,7 @@ export default {
   },
 
   deleteProfile(userID) {
-    return axios.post(`api/profiles/${userID}`)
+    return axios.delete(`api/profiles/${userID}`)
   }
 
 }

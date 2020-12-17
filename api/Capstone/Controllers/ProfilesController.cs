@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileDAO profileDAO;
@@ -23,6 +25,7 @@ namespace Capstone.Controllers
 
         // GET: api/<ProfilesController>
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<List<Profile>> GetUsers()
         {
             List<Profile> profiles = new List<Profile>();
@@ -41,6 +44,7 @@ namespace Capstone.Controllers
 
         // GET api/<ProfilesController>/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<Profile> GetUserByUsername(int id)
         {
             Profile profile = new Profile();

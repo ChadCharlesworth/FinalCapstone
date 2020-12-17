@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ForumController : ControllerBase
     {
         private readonly IForumDAO forumDAO;
@@ -20,6 +22,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("message")]
+        [AllowAnonymous]
         public ActionResult<List<ForumMessage>> GetAllMessages()
         {
             List<ForumMessage> messages = new List<ForumMessage>();
@@ -36,6 +39,7 @@ namespace Capstone.Controllers
             return Ok(messages);
         }
         [HttpGet("message/user/{userID}")]
+        [AllowAnonymous]
         public ActionResult<List<ForumMessage>> GetAllUserMessages(int userID)
         {
             List<ForumMessage> userMessages = new List<ForumMessage>();
@@ -51,6 +55,7 @@ namespace Capstone.Controllers
             }
             return Ok(userMessages);
         }
+        [AllowAnonymous]
         [HttpGet("message/{id}")]
         public ActionResult<ForumMessage> GetMessage(int id)
         {
@@ -129,6 +134,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("response")]
+        [AllowAnonymous]
         public ActionResult<List<ForumResponse>> GetAllResponses()
         {
             List<ForumResponse> responses = new List<ForumResponse>();
@@ -144,6 +150,7 @@ namespace Capstone.Controllers
             }
             return Ok(responses);
         }
+        [AllowAnonymous]
         [HttpGet("response/{id}")]
         public ActionResult<ForumResponse> GetResponse(int id)
         {
@@ -160,6 +167,7 @@ namespace Capstone.Controllers
             }
             return Ok(response);
         }
+        [AllowAnonymous]
         [HttpGet("response/user/{userID}")]
         public ActionResult<List<ForumResponse>> GetResponseByUser(int userID)
         {
