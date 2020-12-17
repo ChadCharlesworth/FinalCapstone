@@ -39,6 +39,7 @@ namespace Capstone.Controllers
             return Ok(messages);
         }
         [HttpGet("message/user/{userID}")]
+        [AllowAnonymous]
         public ActionResult<List<ForumMessage>> GetAllUserMessages(int userID)
         {
             List<ForumMessage> userMessages = new List<ForumMessage>();
@@ -54,6 +55,7 @@ namespace Capstone.Controllers
             }
             return Ok(userMessages);
         }
+        [AllowAnonymous]
         [HttpGet("message/{id}")]
         public ActionResult<ForumMessage> GetMessage(int id)
         {
@@ -148,6 +150,7 @@ namespace Capstone.Controllers
             }
             return Ok(responses);
         }
+        [AllowAnonymous]
         [HttpGet("response/{id}")]
         public ActionResult<ForumResponse> GetResponse(int id)
         {
@@ -164,6 +167,7 @@ namespace Capstone.Controllers
             }
             return Ok(response);
         }
+        [AllowAnonymous]
         [HttpGet("response/user/{userID}")]
         public ActionResult<List<ForumResponse>> GetResponseByUser(int userID)
         {
