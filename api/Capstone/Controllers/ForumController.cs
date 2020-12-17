@@ -35,6 +35,22 @@ namespace Capstone.Controllers
             }
             return Ok(messages);
         }
+        [HttpGet("message/user/{userID}")]
+        public ActionResult<List<ForumMessage>> GetAllUserMessages(int userID)
+        {
+            List<ForumMessage> userMessages = new List<ForumMessage>();
+
+            try
+            {
+                userMessages = forumDAO.GetMessagesByUser(userID);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+
+            }
+            return Ok(userMessages);
+        }
         [HttpGet("message/{id}")]
         public ActionResult<ForumMessage> GetMessage(int id)
         {
@@ -143,6 +159,22 @@ namespace Capstone.Controllers
                 return StatusCode(500, e.Message);
             }
             return Ok(response);
+        }
+        [HttpGet("response/user/{userID}")]
+        public ActionResult<List<ForumResponse>> GetResponseByUser(int userID)
+        {
+            List<ForumResponse> userResponses = new List<ForumResponse>();
+
+            try
+            {
+                userResponses = forumDAO.GetResponsesByUser(userID);
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+            return Ok(userResponses);
         }
 
         [HttpPost("response")]
