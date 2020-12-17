@@ -1,6 +1,6 @@
 <template>
-  <div class="ratio ratio-16x9">
-    <gmaps-map :options="mapOptions">
+  <div class="container ratio ratio-16x9">
+    <gmaps-map class="ratio ratio-16x9" :options="mapOptions">
       <gmaps-marker
         v-for="(option, i) in options"
         :key="i"

@@ -1,12 +1,13 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid bg-secondary">
     
-    <h1 class="text-center"> Playdates in Your Area </h1>
+    <h1 class="text-center display-4"> Playdates in Your Area </h1>
     
-    <google-map style="height: 800px; width: 800px;" v-bind:playdateAddress="playdateAddress" />
+    <google-map style="height: 600px; width: 100%;" v-bind:playdateAddress="playdateAddress" />
     
     
-  <table>
+  <table class="table table-hover mt-5">
+    <tbody>
     <tr>
       <th>Street Address</th>
       <th>City</th>
@@ -18,6 +19,7 @@
       <td>{{playdateAddress[index].city}}</td>
       <td>{{publicPlaydate.date_Time}}</td>
     </tr>
+    </tbody>
      </table>
   </div>
   
