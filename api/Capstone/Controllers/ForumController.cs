@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ForumController : ControllerBase
     {
         private readonly IForumDAO forumDAO;
@@ -20,6 +22,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("message")]
+        [AllowAnonymous]
         public ActionResult<List<ForumMessage>> GetAllMessages()
         {
             List<ForumMessage> messages = new List<ForumMessage>();
@@ -113,6 +116,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("response")]
+        [AllowAnonymous]
         public ActionResult<List<ForumResponse>> GetAllResponses()
         {
             List<ForumResponse> responses = new List<ForumResponse>();
