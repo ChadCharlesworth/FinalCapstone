@@ -10,7 +10,6 @@ Vue.use(Vuex)
  * exists you should set the header so that it will be attached to each request
  */
 const currentToken = localStorage.getItem('token');
-localStorage.clear();
 const currentUser = JSON.parse(localStorage.getItem('user'));
 
 if (currentToken != null) {
