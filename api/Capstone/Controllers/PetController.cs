@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PetController : ControllerBase
     {
         //todo Add each DAO used for Pet with/without Dependency Injection?
@@ -22,6 +24,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<List<Pet>> GetPets()
         {
             List<Pet> pets = new List<Pet>();

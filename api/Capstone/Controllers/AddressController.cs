@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AddressController : ControllerBase
     {
         private readonly IAddressDAO addressDAO;
@@ -20,6 +22,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<List<Address>> GetAllAddresses()
         {
             List<Address> addresses = new List<Address>();

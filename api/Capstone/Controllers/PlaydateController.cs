@@ -1,5 +1,6 @@
 ﻿using Capstone.DAO;
 using Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlaydateController : ControllerBase
     {
         private readonly IPlaydateDAO playdateDAO;
@@ -19,6 +21,7 @@ namespace Capstone.Controllers
             playdateDAO = _playdateDAO;
         }
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<List<Playdate>> GetAllPlaydates()
         {
             List<Playdate> playdates = new List<Playdate>();
@@ -36,6 +39,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{playdateID}")]
+        [AllowAnonymous]
         public ActionResult<Playdate> GetPlaydate(int playdateID)
         {
             Playdate playdate = new Playdate();            {
@@ -149,6 +153,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("owner/{ownerID}")]
+        [AllowAnonymous]
         public ActionResult<List<Playdate>> GetPlaydatesByPetOwner(int ownerID)
         {
             List<Playdate> playdates = new List<Playdate>();

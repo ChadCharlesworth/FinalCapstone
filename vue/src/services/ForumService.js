@@ -22,7 +22,7 @@ export default {
   },
 
   deleteMessage(messageID) {
-    return axios.post(`api/forum/message/${messageID}`)
+    return axios.delete(`api/forum/message/${messageID}`)
   },
 
   getResponses() {
@@ -44,7 +44,7 @@ export default {
   },
 
   deleteResponse(responseID) {
-    return axios.post(`api/forum/response/${responseID}`)
+    return axios.delete(`api/forum/response/${responseID}`)
   }
 
 }
