@@ -9,10 +9,12 @@ namespace Capstone.DAO
     public interface IForumDAO
     {
         List<ForumMessage> GetAllMessages();
+        List<ForumMessage> GetMessagesByUser(int userID);
         ForumMessage PostMessage(ForumMessage newMessage);
         ForumMessage UpdateMessage(ForumMessage updatedMessage);
         bool DeactivateMessage(int deletedMessageID);
         List<ForumResponse> GetAllResponses();
+        List<ForumResponse> GetResponsesByUser(int userID);
         ForumResponse PostResponse(ForumResponse newResponse);
         ForumResponse UpdateResponse(ForumResponse updatedResponse);
         bool DeactivateResponse(int deletedResponseID);

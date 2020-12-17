@@ -124,6 +124,33 @@ namespace Capstone.DAO
 
             return messages;
         }
+        public List<ForumMessage> GetMessagesByUser(int userID)
+        {
+            List<ForumMessage> userMessages = new List<ForumMessage>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("select Message_ID,User_ID,Message_Title,Message_Body,(convert(varchar, (created_date), 0)) as Created_Date from Forum_Message where Is_Active = 1 and User_ID = @userID", conn);
+                    command.Parameters.AddWithValue("@userID", userID);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        userMessages.Add(GetMessageFromReader(reader));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return userMessages;
+        }
         public ForumMessage GetMessage(int id)
         {
             ForumMessage message = new ForumMessage();
@@ -177,6 +204,33 @@ namespace Capstone.DAO
             }
 
             return responses;
+        }
+        public List<ForumResponse> GetResponsesByUser(int userID)
+        {
+            List<ForumResponse> userResponses = new List<ForumResponse>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("select Response_ID,User_ID,Message_ID,Response_Body,(convert(varchar, (created_date), 0)) as Created_Date from Forum_Response where Is_Active = 1 and User_ID = @userID", conn);
+                    command.Parameters.AddWithValue("@userID", userID);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        userResponses.Add(GetResponseFromReader(reader));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return userResponses;
         }
         public ForumResponse GetResponse(int id)
         {
