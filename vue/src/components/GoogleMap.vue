@@ -68,17 +68,9 @@ export default {
         rotateControl: false,
         scaleControl: false,
         streetViewControl: false,
-        zoomControl: false,
+        zoomControl: true,
       },
       latLong: [],
-      options1: [
-        {
-          options: { position: { lat: 40.496644, lng: -79.980158 } },
-        },
-        {
-          options: { position: { lat: 40.45536, lng: -80.019531 } },
-        },
-      ],
     };
   },
 };

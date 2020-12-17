@@ -1,6 +1,6 @@
 <template>
   <div id="playdate">
-    <google-map style="height: 800px; width: 800px" />
+    <google-map style="height: 800px; width: 800px;" v-bind:playdateAddress="playdateAddress"/>
     <br />
 
     <h3>Your Upcoming Playdates:</h3>
@@ -48,10 +48,11 @@
 
 <script>
 import playdateService from "../services/PlaydateService.js";
-// import googleMap from "../components/GoogleMap.vue";
+import googleMap from "../components/GoogleMap.vue";
 
 export default {
   name: "playdate",
+  components: { googleMap },
   computed: {
     currentProfile() {
       return this.$store.state.profile;
@@ -69,6 +70,19 @@ export default {
         times.push(this.playdates[i].date_Time_String.substring(12).trim());
       }
       return times;
+    },
+        playdateAddress() {
+      let playdateAddresses = [];
+      let tempPlaydateAddresses = [];
+      const playdates = this.playdates;
+      const addresses = this.$store.state.addresses;
+      for (let i = 0; i < playdates.length; i++) {
+        tempPlaydateAddresses = addresses.filter((address) => {
+          return address.address_ID === playdates[i].address_ID;
+        });
+        playdateAddresses = playdateAddresses.concat(tempPlaydateAddresses);
+      }
+      return playdateAddresses;
     },
   },
   created() {
