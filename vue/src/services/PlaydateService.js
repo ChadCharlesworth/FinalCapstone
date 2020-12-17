@@ -21,9 +21,13 @@ export default {
   updatePlaydateByPetID(playdateID, playdate, petID) {
     return axios.put(`api/playdate/${playdateID}/pet/${petID}`, playdate)
   },
+  
+  declinePlaydateByPetID(playdateID, playdate, petID) {
+    return axios.put(`api/playdate/${playdateID}/decline/pet/${petID}`)
+  },
 
   deletePlaydate(playdateID) {
-    return axios.post(`api/playdate/${playdateID}`)
+    return axios.delete(`api/playdate/${playdateID}`)
   },
 
   getPlaydatesByOwnerID(ownerID) {

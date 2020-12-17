@@ -15,7 +15,7 @@ export default {
   },
 
   deletePet(petID) {
-    return axios.post(`/api/pet/${petID}`)
+    return axios.delete(`/api/pet/${petID}`)
   }
 
 }
