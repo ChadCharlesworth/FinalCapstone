@@ -1,6 +1,6 @@
 <template>
 <div style="position: relative">
-    <h1 class="display-2 text-light text-center bg-success pb-2 mb-0"> Pet Play Pals </h1>
+    <h1 class="display-2 text-light text-center bg-success pb-2 mb-0"><i class="fas fa-paw"></i> Pet Play Pals </h1>
     <b-navbar class="navbar bg-success navbar-light">
         <b-navbar-nav>
             <b-navbar-brand v-bind:to="{ name: 'home' }">Home</b-navbar-brand>

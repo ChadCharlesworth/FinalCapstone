@@ -1,12 +1,3 @@
-<!--<template>
-  <div id="app" class="container">
-    <header-panel class="header-panel" />
-    <left-column class="left" />
-    <right-column class="right" />
-    <main-panel class="main" />
-  </div>
-</template> -->
-
 <template>
   <div id="app">
     <header-panel id="nav" />
@@ -21,6 +12,7 @@
           class="col-2 right-column border border-dark"
         />
       </div>
+      <footer/>
     </div>
   </div>
 </template>
@@ -35,10 +27,11 @@ import addressService from "@/services/AddressService";
 import forumService from "@/services/ForumService";
 import petService from "@/services/PetService";
 import playdateService from "@/services/PlaydateService";
+import Footer from './components/Footer.vue';
 
 
 export default {
-  components: { HeaderPanel, RightColumn, LeftColumn, MainPanel  },
+  components: { HeaderPanel, RightColumn, LeftColumn, MainPanel, Footer  },
   created() {
     this.$store.commit('LOGOUT');
     profileService.getProfiles()
