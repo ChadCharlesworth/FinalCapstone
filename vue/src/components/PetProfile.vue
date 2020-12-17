@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="display-6">{{ pet.pet_Name }}</h1>
-    <h3>{{ pet.species }}</h3>
-    <h4>Breed: {{ pet.breed }}</h4>
-    <h4>Personality: {{ pet.personality }}</h4>
-    <h4>Size: {{pet.size}}</h4>
+    <h3 class="text-center">{{ pet.pet_Name }}</h3>
+    <h5>{{ pet.species }}</h5>
+    <h6>Breed: {{ pet.breed }}</h6>
+    <h6>Personality: {{ pet.personality }}</h6>
+    <h6>Size: {{pet.size}}</h6>
   </div>
 </template>
 
