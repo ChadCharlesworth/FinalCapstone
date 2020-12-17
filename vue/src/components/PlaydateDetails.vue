@@ -3,9 +3,10 @@
     <google-map style="height: 800px; width: 800px" />
     <br />
 
-    <h3>Your Upcoming Playdates:</h3>
 
-    <table>
+    <h3 class="display-6">Your Upcoming Playdates:</h3>
+
+    <table class="table table-sm">
       <tr>
         <th>Location</th>
         <th>Date and Time</th>
