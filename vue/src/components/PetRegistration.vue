@@ -78,7 +78,6 @@ export default {
             if (this.route.name != "profile") {
               this.$router.push({ name: "profile" });
             }
-            this.$forceUpdate();
           }
         })
         .catch((error) => console.log(error.response));
