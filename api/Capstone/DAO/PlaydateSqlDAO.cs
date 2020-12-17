@@ -186,7 +186,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("update Playdate_Pet set Playdate_ID = @playdateID,Pet_ID = @petID,Approval_Status = @approvalStatus where Playdate_ID = @playdateID", conn);
+                    SqlCommand cmd = new SqlCommand("update Playdate_Pet set Approval_Status = @approvalStatus where Playdate_ID = @playdateID and Pet_ID = @petID", conn);
                     cmd.Parameters.AddWithValue("@playdateID", updatedPlaydate.Playdate_ID);
                     cmd.Parameters.AddWithValue("@petID", petID);
                     if (updatedPlaydate.Attending.Contains(petID))

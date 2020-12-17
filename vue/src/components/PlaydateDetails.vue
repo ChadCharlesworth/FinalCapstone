@@ -14,7 +14,7 @@
         <th>Attending / Pending Invitation</th>
         <th>Action</th>
       </tr>
-      <tr v-for="playdate in playdates" :key="playdate.playdate_ID">
+      <tr v-for="playdate in notDeclinedPlaydates" :key="playdate.playdate_ID" >
         <td>
           {{ playdate.street_Address_1 }}
           {{ playdate.street_Address_2 }}<br />
@@ -84,6 +84,11 @@ export default {
       }
       return playdateAddresses;
     },
+    notDeclinedPlaydates() {
+      return this.playdates.filter(playdate => {
+        return playdate.approval_Status != "Declined";
+      })
+    }
   },
   created() {
     playdateService
