@@ -5,7 +5,7 @@ import Login from '../components/Login.vue'
 import Logout from '../components/Logout.vue'
 import Register from '../components/Register.vue'
 import store from '../store/index'
-import Forum from '../components/Forum.vue'
+import ForumSearch from '../components/ForumSearch.vue'
 import PlaydatePage from '../components/PlaydatePage.vue'
 import Profile from '@/components/Profile.vue'
 import CreateProfile from '@/components/CreateProfile.vue'
@@ -61,8 +61,8 @@ const router = new Router({
     },
     {
       path: "/forum",
-      name: "forum",
-      component: Forum,
+      name: "forum-search",
+      component: ForumSearch,
       meta: {
         requiresAuth: true
       }

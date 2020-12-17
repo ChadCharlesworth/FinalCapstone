@@ -4,8 +4,8 @@
     <b-navbar class="navbar bg-success navbar-light">
         <b-navbar-nav>
             <b-navbar-brand v-bind:to="{ name: 'home' }">Home</b-navbar-brand>
-            <b-nav-item v-bind:to="{ name: 'playdate' }">Playdates</b-nav-item>
-            <b-nav-item v-bind:to="{ name: 'forum' }">Forum</b-nav-item>
+            <b-nav-item v-bind:to="{ name: 'playdate' }">My Playdates</b-nav-item>
+            <b-nav-item v-bind:to="{ name: 'forum-search' }">Forum Search</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown  v-if="$store.state.token != ''" text="Account" right>

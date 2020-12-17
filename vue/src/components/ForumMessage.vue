@@ -1,17 +1,17 @@
 <template>
     <div class="container" v-bind="setCurrentMessage()">
-            <h4>{{message.message_Title}}</h4>
-            <p>{{getThisProfile(message.userID).username}}  {{message.createdDate}}</p>
-            <p>{{message.message_Body}}</p>
+        <h4>{{message.message_Title}}</h4>
+        <p>{{getThisProfile(message.userID).username}}  {{message.createdDate}}</p>
+        <p>{{message.message_Body}}</p>
 
             
-            <h6><a href=# @click.prevent="showComments = !showComments ">{{showComments ? "Hide Comments" : "Show Comments"}} ({{theseForumResponses(message.messageID).length}})</a></h6>
-            <div v-show="showComments" id="Responses" v-for="response in theseForumResponses(message.messageID)" :key="response.messageID">
+        <h6><a href=# @click.prevent="showComments = !showComments ">{{showComments ? "Hide Comments" : "Show Comments"}} ({{theseForumResponses(message.messageID).length}})</a></h6>
+        <div v-show="showComments" id="Responses" v-for="response in theseForumResponses(message.messageID)" :key="response.messageID">
                 {{response.body}}
-            <p>{{getThisProfile(response.userID).username}}  {{response.createdDate}}</p>
-            </div>
-            <button href='#' @click.prevent="showForm = !showForm">{{showForm ? "Hide Form" : "Add New Comment"}}</button>
-            <forum-response-form v-show="showForm" :messageID="message.messageID"/>
+        <p>{{getThisProfile(response.userID).username}}  {{response.createdDate}}</p>
+        </div>
+        <button href='#' @click.prevent="showForm = !showForm">{{showForm ? "Hide Form" : "Add New Comment"}}</button>
+        <forum-response-form v-show="showForm" :messageID="message.messageID"/>
             
     </div>
 </template>

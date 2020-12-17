@@ -5,6 +5,9 @@ export default {
   getMessages() {
     return axios.get('api/forum/message');
   },
+  getMessagesByUser(userID) {
+    return axios.get(`api/forum/message/user/${userID}`)
+  },
 
   getMessage(id) {
     return axios.get(`api/forum/message/${id}`)
@@ -27,6 +30,9 @@ export default {
   },
   getResponse(id) {
     return axios.get(`api/forum/response/${id}`);
+  },
+  getResponsesByUser(userID) {
+    return axios.get(`api/forum/response/user/${userID}`)
   },
 
   addResponse(response) {

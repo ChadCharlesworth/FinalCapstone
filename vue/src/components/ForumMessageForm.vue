@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       message: {
-        userID: this.$store.state.profile.user_id,
+        userID: this.$store.state.user.userId,
         message_Title: "",
         message_Body: ""
       }
