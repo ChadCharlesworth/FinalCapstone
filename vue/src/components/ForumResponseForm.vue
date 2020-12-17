@@ -19,7 +19,7 @@ export default {
     return {
       response: {
         body: "",
-        userID: this.$store.state.profile.user_id,
+        userID: this.$store.state.user.userId,
         messageID: ""
       }
     }
