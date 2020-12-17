@@ -75,7 +75,10 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             this.$store.commit("LOAD_PET", response.data);
-            this.$router.push({ name: "profile" });
+            if (this.route.name != "profile") {
+              this.$router.push({ name: "profile" });
+            }
+            this.$forceUpdate();
           }
         })
         .catch((error) => console.log(error.response));

@@ -4,18 +4,23 @@
     <h6 v-for="address in profileAddresses" :key="address.address_ID">{{address.street_Address_1}} {{address.street_Address_2}}<br />{{address.city}}, {{address.state}} {{address.zip}}</h6>
     <h2>My Pets:</h2>
 <pet-profile v-for="pet in profilePets" :key="pet.pet_ID" :pet="pet" style="display: inline-block;"/>
-<h2>My Playdates:</h2>
-<playdate-info v-for="playdate in profilePlaydates" :key="playdate.playdate_ID" :playdate="playdate" style="display: inline-block;" />
+<a href="#" @click.stop.prevent="showPetForm=!showPetForm">{{showPetForm ? 'Hide form': 'Add a pet'}}</a>
+<pet-registration v-if="showPetForm" />
   </div>
 </template>
 
 <script>
 import PetProfile from '@/components/PetProfile.vue';
-import PlaydateInfo from '@/components/PlaydateInfo.vue';
+import PetRegistration from './PetRegistration.vue';
 
 export default {
   name: "profile",
-  components: { PetProfile, PlaydateInfo },
+  components: { PetProfile, PetRegistration },
+  data() {
+    return{
+    showPetForm: false 
+    }
+  },
   computed: {
     currentProfile() {
       return this.$store.state.profile;
