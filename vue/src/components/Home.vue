@@ -1,10 +1,9 @@
 <template>
   <div class="home">
-    <h1>Playdates in Your Area</h1>
+    
+    <h1 class="text-center"> Playdates in Your Area </h1>
+    
     <google-map style="height: 800px; width: 800px;" v-bind:playdateAddress="playdateAddress" />
-    
-    
-
     
     
   <table>
@@ -21,6 +20,7 @@
     </tr>
      </table>
   </div>
+  
 
 
  
