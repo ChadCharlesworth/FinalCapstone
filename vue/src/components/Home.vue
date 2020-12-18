@@ -16,7 +16,7 @@
     <tr v-for="(publicPlaydate, index) in publicPlaydates" :key="publicPlaydate.playdate_ID">
       <td>{{playdateAddress[index].street_Address_1}} {{playdateAddress[index].street_Address_2}}</td>
       <td>{{playdateAddress[index].city}}</td>
-      <td>{{publicPlaydate.date_Time}}</td>
+      <td>{{publicPlaydate.date_Time_String}}</td>
     </tr>
      </table>
   </div>
