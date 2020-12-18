@@ -22,8 +22,14 @@ export default {
     return axios.put(`api/playdate/${playdateID}/pet/${petID}`, playdate)
   },
   
-  declinePlaydateByPetID(playdateID, playdate, petID) {
-    return axios.put(`api/playdate/${playdateID}/decline/pet/${petID}`)
+  declinePlaydateByPetID(playdateID, petID) {
+    return axios.delete(`api/playdate/${playdateID}/decline/pet/${petID}`)
+  },
+  acceptPlaydateByPetID(playdateID, petID) {
+    return axios.delete(`api/playdate/${playdateID}/accept/pet/${petID}`)
+  },
+  pendingPlaydateByPetID(playdateID, petID) {
+    return axios.delete(`api/playdate/${playdateID}/pending/pet/${petID}`)
   },
 
   deletePlaydate(playdateID) {

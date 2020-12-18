@@ -88,6 +88,27 @@ export default new Vuex.Store({
     LOAD_PLAYDATE(state, playdate) {
       state.playdates.push(playdate);
     },
+    DECLINE_PLAYDATE(state,playdateID,petID){
+      for(let i = 0; i < state.playdates.length; i++) {
+        if(state.playdates[i].playdate_ID == playdateID && state.playdates[i].pet_ID == petID){
+          state.playdates[i].approval_Status = 'Declined';
+        }
+      }
+    },
+    ACCEPT_PLAYDATE(state,playdateID,petID){
+      for(let i = 0; i < state.playdates.length; i++) {
+        if(state.playdates[i].playdate_ID == playdateID && state.playdates[i].pet_ID == petID){
+          state.playdates[i].approval_Status = 'Attending';
+        }
+      }
+    },
+    PENDING_PLAYDATE(state,playdateID,petID){
+      for(let i = 0; i < state.playdates.length; i++) {
+        if(state.playdates[i].playdate_ID == playdateID && state.playdates[i].pet_ID == petID){
+          state.playdates[i].approval_Status = 'Pending';
+        }
+      }
+    },
     UPDATE_PLAYDATE(state, updatedPlaydate) {
       state.playdates.forEach(playdate => {
         if (updatedPlaydate.Playdate_ID == playdate.Playdate_ID) {

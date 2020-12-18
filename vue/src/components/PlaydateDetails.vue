@@ -13,9 +13,9 @@
         <th>Pet</th>
         <th>Private / Public</th>
         <th>Attending / Pending Invitation</th>
-        <th>Action</th>
+        <th>Join in the fun?</th>
       </tr>
-      <tr v-for="playdate in playdates" :key="playdate.playdate_ID">
+      <tr v-for="playdate in playdatesToDecline" :key="playdate.playdate_ID">
         <td>
           {{ playdate.street_Address_1 }}
           {{ playdate.street_Address_2 }}<br />
@@ -26,20 +26,29 @@
         <td>{{ playdate.pet_Name }}</td>
         <td>{{ playdate.is_Private ? "Private" : "Public" }}</td>
         <td>
-          {{ playdate.approval_Status == "Attending" ? "Attending" : "Pending your acceptance" }}
+          {{
+            playdate.approval_Status == "Attending"
+              ? "Attending"
+              : "Pending your acceptance"
+          }}
         </td>
         <td>
           <button class="btn btn-secondary"
             type="submit"
-            @click.prevent="
-              acceptInvite(playdate.playdate_ID, playdate, playdate.pet_ID)
-            "
+            @click.prevent="acceptInvite(playdate.playdate_ID, playdate.pet_ID)"
             v-if="playdate.approval_Status == 'Pending'"
           >
-            Going
+            I'll be there!
           </button>
-          <button class="btn btn-light" type="submit" @click.prevent="declineInvite(playdate.playdate_ID, playdate, playdate.pet_ID)">
-            Not Going
+          <button
+          class="btn btn-light"
+            type="submit"
+            @click.prevent="
+              declineInvite(playdate.playdate_ID, playdate.pet_ID)
+            "
+            v-if="playdate.approval_Status =='Attending' || playdate.approval_Status == 'Pending'"
+          >
+            Bummer, I can't make it.
           </button>
         </td>
       </tr>
@@ -54,6 +63,11 @@ import playdateService from "../services/PlaydateService.js";
 export default {
   name: "playdate",
   computed: {
+    playdatesToDecline() {
+      return this.playdates.filter((playdate) => {
+        return playdate.approval_Status != "Declined";
+      });
+    },
     currentProfile() {
       return this.$store.state.profile;
     },
@@ -78,43 +92,30 @@ export default {
       .then((response) => {
         if (response.status === 200) {
           this.playdates = response.data;
+          for (let i = 0; i < this.playdates.length; i++) {
+            this.playdates[i].date_Time = null;
+          }
         }
       })
       .catch((error) => console.log(error));
   },
   methods: {
-    acceptInvite(playdate_ID, playdate, pet_ID) {
-      if (playdate.pending.includes(pet_ID)) {
-        delete playdate.pending[playdate.pending.indexOf(pet_ID)];
-      }
-      if (playdate.declined.includes(pet_ID)) {
-        delete playdate.declined[playdate.pending.indexOf(pet_ID)];
-      }
-      playdate.attending.push(pet_ID);
-
+    acceptInvite(playdate_ID, pet_ID) {
       playdateService
-        .updatePlaydateByPetID(playdate_ID, playdate, pet_ID)
+        .acceptPlaydateByPetID(playdate_ID, pet_ID)
         .then((response) => {
-          if (response.status === 200) {
-            this.$store.commit("UPDATE_PLAYDATE", response.data);
+          if (response.status === 204) {
+            this.$store.commit("ACCEPT_PLAYDATE", playdate_ID, pet_ID);
           }
         })
         .catch((error) => console.log(error));
     },
-    declineInvite(playdate_ID, playdate, pet_ID) {
-      if (playdate.pending.includes(pet_ID)) {
-        delete playdate.pending[playdate.pending.indexOf(pet_ID)];
-      }
-      if (playdate.attending.includes(pet_ID)) {
-        delete playdate.declined[playdate.pending.indexOf(pet_ID)];
-      }
-      playdate.declined.push(pet_ID);
-
+    declineInvite(playdate_ID, pet_ID) {
       playdateService
-        .updatePlaydateByPetID(playdate_ID, playdate, pet_ID)
+        .declinePlaydateByPetID(playdate_ID, pet_ID)
         .then((response) => {
-          if (response.status === 200) {
-            this.$store.commit("UPDATE_PLAYDATE", response.data);
+          if (response.status === 204) {
+            this.$store.commit("DECLINE_PLAYDATE", playdate_ID, pet_ID);
           }
         })
         .catch((error) => console.log(error));

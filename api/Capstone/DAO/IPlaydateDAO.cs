@@ -15,6 +15,10 @@ namespace Capstone.DAO
         Playdate UpdatePlaydateByPetID(Playdate updatedPlaydate, int petID);
         bool DeletePlaydate(int playdateID);
         List<Playdate> GetPlaydatesByPetOwner(int ownerID);
+        void DeclinePlaydateByPetID(int id, int petID);
+        void AcceptPlaydateByPetID(int playdate_Id, int petID);
+        void PendingPlaydateByPetID(int playdate_Id, int petID);
+
 
     }
 }
