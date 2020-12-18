@@ -1,15 +1,15 @@
 <template>
     <div>
-        <h2> Forum Search </h2>
+        <h2 class="display-3"> Forum Search </h2>
         <select name="search" v-model="search">
         <option disabled >Choose a User </option>
         <option v-for="user in this.$store.state.userProfiles" :value="user.user_id" :key="user.user_id">{{user.username}}</option>
         </select>
-        <button type='submit' @click.prevent="searchMessage(search)">Search Messages</button>
-        <button type='submit' @click.prevent="searchResponse(search)">Search Comments</button>
+        <button class="btn btn-light m-2" type='submit' @click.prevent="searchMessage(search)">Search Messages</button>
+        <button class="btn btn-light" type='submit' @click.prevent="searchResponse(search)">Search Comments</button>
         <div>
         <div v-if="searchMessageList != []">
-            <h5>Messages</h5>
+            <h5 class="display-5">Messages</h5>
             <h6 v-for="message in searchMessageList" :key="message.messageID">
                 <router-link :to="{name: 'forum-message', params: {messageID: message.messageID}}">
                     {{message.message_Title}}</router-link></h6>

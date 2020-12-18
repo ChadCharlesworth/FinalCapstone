@@ -29,7 +29,7 @@
           {{ playdate.approval_Status == "Attending" ? "Attending" : "Pending your acceptance" }}
         </td>
         <td>
-          <button
+          <button class="btn btn-secondary"
             type="submit"
             @click.prevent="
               acceptInvite(playdate.playdate_ID, playdate, playdate.pet_ID)
@@ -38,7 +38,7 @@
           >
             Going
           </button>
-          <button type="submit" @click.prevent="declineInvite(playdate.playdate_ID, playdate, playdate.pet_ID)">
+          <button class="btn btn-light" type="submit" @click.prevent="declineInvite(playdate.playdate_ID, playdate, playdate.pet_ID)">
             Not Going
           </button>
         </td>

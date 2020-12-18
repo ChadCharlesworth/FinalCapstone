@@ -4,12 +4,12 @@
     <div class="container-fluid">
       <div class="row">
         <left-column
-          class="col-2 left-column border-end border-dark"
+          class="col-2 left-column  border-dark"
           
         />
         <main-panel class="col-8 main" />
         <right-column
-          class="col-2 right-column border-start border-dark"
+          class="col-2 right-column border-dark"
         />
       </div>
       <footer/>
