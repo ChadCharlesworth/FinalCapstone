@@ -106,31 +106,3 @@ export default {
 
 </script>
 
-<!-- <style scoped>
-.container {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas: 
-        "header header header"
-        "left-column main-panel right-column";
-    height: 100vh;
-    grid-gap: 10px;
-}
-
-.header-panel {
-    grid-area: header;
-}
-
-.left {
-    grid-area: left-column;
-}
-
-.main {
-    grid-area: main-panel;
-}
-
-.right {
-    grid-area: right-panel;
-}
-
-</style> -->

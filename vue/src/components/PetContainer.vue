@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>My Pets</h1>
+  <h1 class="text-center">My Pets</h1>
     <pet-profile v-for="pet in profilePets" :key="pet.pet_ID" :pet="pet"/>
 </div>
 </template>
@@ -33,3 +33,4 @@ export default {
    }
 }
     </script>
+    
