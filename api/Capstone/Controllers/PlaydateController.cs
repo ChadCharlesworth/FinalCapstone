@@ -12,7 +12,7 @@ namespace Capstone.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class PlaydateController : ControllerBase
     {
         private readonly IPlaydateDAO playdateDAO;
@@ -42,7 +42,8 @@ namespace Capstone.Controllers
         [AllowAnonymous]
         public ActionResult<Playdate> GetPlaydate(int playdateID)
         {
-            Playdate playdate = new Playdate();            {
+            Playdate playdate = new Playdate();
+            {
                 try
                 {
                     playdate = playdateDAO.GetPlaydate(playdateID);
@@ -58,7 +59,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Playdate> CreatePlaydate( [FromBody] Playdate newPlaydate/*, int petID*/)
+        public ActionResult<Playdate> CreatePlaydate([FromBody] Playdate newPlaydate/*, int petID*/)
         {
             if (!ModelState.IsValid)
             {
@@ -100,6 +101,56 @@ namespace Capstone.Controllers
                 return Ok(updatedPlaydate);
             }
         }
+        [HttpDelete("{id}/decline/pet/{petID}")]
+        public ActionResult<Playdate> DeclinePlaydateByPetID(int id, int petID)
+        {
+            try
+            {
+                playdateDAO.DeclinePlaydateByPetID(id, petID);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{id}/accept/pet/{petID}")]
+        public ActionResult<Playdate> AcceptPlaydateByPetID(int id, int petID)
+        {
+            try
+            {
+                playdateDAO.AcceptPlaydateByPetID(id, petID);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{id}/pending/pet/{petID}")]
+        public ActionResult<Playdate> PendingPlaydateByPetID(int id, int petID)
+        {
+            try
+            {
+                playdateDAO.PendingPlaydateByPetID(id, petID);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+            return NoContent();
+
+        }
+
+
+
 
         [HttpPut("{id}/pet/{petID}")]
         public ActionResult<Playdate> UpdatePlaydateByPetID(int id, [FromBody] Playdate updatedPlaydate, int petID)
