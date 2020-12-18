@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1>About You</h1>
+    <h1 class="text-center display-6">About You</h1>
     <form @submit.prevent="onSubmit" @reset="onReset">
-      <input
+      
+      <input 
         id="input-1"
         v-model="profile.first_Name"
         required
@@ -43,7 +44,7 @@
         v-model="address.zip"
         required
         placeholder="Zip Code"
-      />
+      /><br>
 
       <button type="submit" variant="primary">Submit</button>
       <button type="reset" variant="danger">Reset</button>

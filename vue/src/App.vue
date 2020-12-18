@@ -98,6 +98,7 @@ export default {
   
 
 </script>
+<<<<<<< HEAD
 <style>
 .main {
   background-color: #d8e2fe
@@ -111,3 +112,6 @@ export default {
 }
 
 </style>
+=======
+
+>>>>>>> 1236b30653f4f171531833266af653d95a60a1e7
