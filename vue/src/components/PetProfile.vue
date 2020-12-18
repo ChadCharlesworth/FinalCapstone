@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <h3 class="text-center">{{ pet.pet_Name }}</h3>
-    <h5>{{ pet.species }}</h5>
+  <div class="card">
+    <div class="card-body">
+    <h3 class="text-center card-title">{{ pet.pet_Name }}
+      <i v-bind:class="pet.species == 'Dog' ? 'fas fa-dog' : 'fas fa-cat'"></i></h3> 
     <h6>Breed: {{ pet.breed }}</h6>
     <h6>Personality: {{ pet.personality }}</h6>
     <h6>Size: {{pet.size}}</h6>
+    </div>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div id="playdate">
-    <google-map style="height: 800px; width: 800px" />
     <br />
 
 
@@ -33,7 +32,7 @@
           }}
         </td>
         <td>
-          <button
+          <button class="btn btn-secondary"
             type="submit"
             @click.prevent="acceptInvite(playdate.playdate_ID, playdate.pet_ID)"
             v-if="playdate.approval_Status == 'Pending'"
@@ -41,6 +40,7 @@
             I'll be there!
           </button>
           <button
+          class="btn btn-light"
             type="submit"
             @click.prevent="
               declineInvite(playdate.playdate_ID, playdate.pet_ID)
@@ -57,7 +57,6 @@
 
 <script>
 import playdateService from "../services/PlaydateService.js";
-// import googleMap from "../components/GoogleMap.vue";
 
 export default {
   name: "playdate",

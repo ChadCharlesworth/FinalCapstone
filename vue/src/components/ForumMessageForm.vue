@@ -1,7 +1,7 @@
 <template>
   <div>
         <form>
-      <label>New Message</label>
+      <label v-bind="getThisUser()">New Message</label>
       <div>
         <input v-model.trim="message.message_Title" placeholder="Title" id="message-title">
       </div>
@@ -9,8 +9,8 @@
         rows="3"
         max-rows="6"></textarea>
         <div>
-          <button v-on:click.prevent="addNewMessage(message)">Submit</button>
-          <button v-on:click.prevent="clearForm">Clear</button>
+          <button class="btn mr-2 mb-2 btn-success" v-on:click.prevent="addNewMessage(message)">Submit</button>
+          <button class="btn mr-2 mb-2 btn-danger" v-on:click.prevent="clearForm">Clear</button>
         </div>
         </form>
       
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       message: {
-        userID: this.$store.state.user.userId,
+        userID: "",
         message_Title: "",
         message_Body: ""
       }
@@ -55,6 +55,9 @@ export default {
     clearForm() {
       this.message.message_Title = "";
       this.message.message_Body = "";
+    },
+    getThisUser() {
+      this.message.userID = this.$store.state.user.userId
     }
   }
   }

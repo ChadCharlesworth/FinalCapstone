@@ -10,7 +10,7 @@
                 {{response.body}}
         <p>{{getThisProfile(response.userID).username}}  {{response.createdDate}}</p>
         </div>
-        <button href='#' @click.prevent="showForm = !showForm">{{showForm ? "Hide Form" : "Add New Comment"}}</button>
+        <button class="btn btn-light" href='#' @click.prevent="showForm = !showForm">{{showForm ? "Hide Form" : "Add New Comment"}}</button>
         <forum-response-form v-show="showForm" :messageID="message.messageID"/>
             
     </div>

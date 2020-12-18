@@ -46,8 +46,8 @@
         placeholder="Zip Code"
       /><br>
 
-      <button type="submit" variant="primary">Submit</button>
-      <button type="reset" variant="danger">Reset</button>
+      <button class="btn btn-success mt-3 mr-3" type="submit">Submit</button>
+      <button class="btn btn-danger mt-3" type="reset">Reset</button>
     </form>
   </div>
 </template>

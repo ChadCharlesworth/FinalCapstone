@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <h1 class=" mb-3 h2 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -16,7 +16,7 @@
       <input
         type="text"
         id="username"
-        class="form-control"
+        class="form-control mb-1"
         placeholder="Username"
         v-model="user.username"
         required
@@ -26,13 +26,13 @@
       <input
         type="password"
         id="password"
-        class="form-control"
+        class="form-control mb-2"
         placeholder="Password"
         v-model="user.password"
         required
       />
+      <button class="btn btn-light mr-2" type="submit">Sign in</button>
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
     </form>
   </div>
 </template>

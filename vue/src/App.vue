@@ -1,26 +1,18 @@
-<!--<template>
-  <div id="app" class="container">
-    <header-panel class="header-panel" />
-    <left-column class="left" />
-    <right-column class="right" />
-    <main-panel class="main" />
-  </div>
-</template> -->
-
 <template>
   <div id="app">
     <header-panel id="nav" />
     <div class="container-fluid">
       <div class="row">
         <left-column
-          class="col-2 left-column border border-dark"
-          style="height: 100vh"
+          class="col-2 left-column  border-dark"  
         />
         <main-panel class="col-8 main" />
         <right-column
-          class="col-2 right-column border border-dark"
+          class="col-2 right-column border-dark"
         />
       </div>
+      
+      
     </div>
   </div>
 </template>
@@ -38,7 +30,7 @@ import playdateService from "@/services/PlaydateService";
 
 
 export default {
-  components: { HeaderPanel, RightColumn, LeftColumn, MainPanel  },
+  components: { HeaderPanel, RightColumn, LeftColumn, MainPanel},
   created() {
     this.$store.commit('LOGOUT');
     profileService.getProfiles()
@@ -105,4 +97,16 @@ export default {
   
 
 </script>
+<style>
+.main {
+  background-color: #d8e2fe
+  
+}
+.right-column {
+  background-color: #d8e2fe
+}
+.left-column {
+  background-color: #d8e2fe
+}
 
+</style>

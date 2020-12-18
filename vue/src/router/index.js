@@ -64,7 +64,7 @@ const router = new Router({
       name: "forum-search",
       component: ForumSearch,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
