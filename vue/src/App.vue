@@ -4,12 +4,12 @@
     <div class="container-fluid">
       <div class="row">
         <left-column
-          class="col-2 left-column border border-dark"
-          style="height: 100vh"
+          class="col-2 left-column border-end border-dark"
+          
         />
         <main-panel class="col-8 main" />
         <right-column
-          class="col-2 right-column border border-dark"
+          class="col-2 right-column border-start border-dark"
         />
       </div>
       <footer/>
@@ -98,32 +98,16 @@ export default {
   
 
 </script>
-
-<!-- <style scoped>
-.container {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas: 
-        "header header header"
-        "left-column main-panel right-column";
-    height: 100vh;
-    grid-gap: 10px;
-}
-
-.header-panel {
-    grid-area: header;
-}
-
-.left {
-    grid-area: left-column;
-}
-
+<style>
 .main {
-    grid-area: main-panel;
+  background-color: #d8e2fe
+  
+}
+.right-column {
+  background-color: #d8e2fe
+}
+.left-column {
+  background-color: #d8e2fe
 }
 
-.right {
-    grid-area: right-panel;
-}
-
-</style> -->
+</style>

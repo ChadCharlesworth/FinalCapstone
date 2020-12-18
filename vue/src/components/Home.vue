@@ -1,5 +1,5 @@
 <template>
-  <div class="home container-fluid bg-secondary">
+  <div class="home container-fluid bg-blue">
     
     <h1 class="text-center display-4"> Playdates in Your Area </h1>
     
