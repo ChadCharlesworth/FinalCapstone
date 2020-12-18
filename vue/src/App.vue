@@ -4,15 +4,15 @@
     <div class="container-fluid">
       <div class="row">
         <left-column
-          class="col-2 left-column  border-dark"
-          
+          class="col-2 left-column  border-dark"  
         />
         <main-panel class="col-8 main" />
         <right-column
           class="col-2 right-column border-dark"
         />
       </div>
-      <footer/>
+      
+      
     </div>
   </div>
 </template>
@@ -27,11 +27,10 @@ import addressService from "@/services/AddressService";
 import forumService from "@/services/ForumService";
 import petService from "@/services/PetService";
 import playdateService from "@/services/PlaydateService";
-import Footer from './components/Footer.vue';
 
 
 export default {
-  components: { HeaderPanel, RightColumn, LeftColumn, MainPanel, Footer  },
+  components: { HeaderPanel, RightColumn, LeftColumn, MainPanel},
   created() {
     this.$store.commit('LOGOUT');
     profileService.getProfiles()

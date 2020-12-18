@@ -17,9 +17,6 @@ import MapService from "@/services/MapService.js";
 export default {
   components: { gmapsMap, gmapsMarker },
   props: ["playdateAddress"],
-  mounted() {
-    this.getLocation();
-  },
   created() {
     this.playdateAddress.forEach((address) => {
       MapService.getLatLong(

@@ -37,13 +37,13 @@
           required
         />
       </div>
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button class="btn btn-lg btn-primary" type="submit">
+      <button class="btn btn-lg mr-3 btn-primary" type="submit">
         Create Account
       </button>
+      <router-link :to="{ name: 'login' }">Have an account?</router-link>
     </form>
     <div>
-      <h4>Passwords must:</h4>
+      <h4 class="mt-3">Passwords must:</h4>
 	
 			Be at least 8 Characters<br />
 			Contain a Number<br />

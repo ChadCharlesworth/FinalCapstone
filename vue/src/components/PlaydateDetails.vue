@@ -1,6 +1,5 @@
 <template>
   <div id="playdate">
-    <google-map style="height: 800px; width: 800px" />
     <br />
 
 
@@ -58,7 +57,6 @@
 
 <script>
 import playdateService from "../services/PlaydateService.js";
-// import googleMap from "../components/GoogleMap.vue";
 
 export default {
   name: "playdate",

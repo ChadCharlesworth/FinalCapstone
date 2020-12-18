@@ -1,18 +1,14 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <paginate name="messages"
     :list="messages"
     :per="8">
-      <div class="container" v-for="messages in paginated('messages')" v-bind:key="messages.messageID">
-        <h5><router-link :to="{name: 'forum-message', params: {messageID: messages.messageID}}">{{messages.message_Title}}</router-link></h5>
-        <h6 > Comments <span class="badge text-light bg-success">{{forumResponses(messages).length}}</span></h6>
+      <div class="row" v-for="messages in paginated('messages')" v-bind:key="messages.messageID">
+        <h5 class="col-12"><router-link :to="{name: 'forum-message', params: {messageID: messages.messageID}}">{{messages.message_Title}}</router-link></h5>
+        <h6 class="col-12"> Comments <span class="badge text-light bg-success">{{forumResponses(messages).length}}</span></h6>
       </div>
     </paginate>
-      <div>
-        <button href='#' @click.prevent="showForm = !showForm">{{showForm ? "Hide Form" : "Add New Message"}}</button>
-      <forum-message-form @submit="showForm = !showForm" v-show="showForm"/>
-      </div>
-      <paginate-links
+    <paginate-links
       :show-step-links="true"
       :classes="{
         'ul': 'pagination',
@@ -20,6 +16,11 @@
         'a': 'page-link',
         'ul.paginate-links > li.active > a': 'active'
         }" for="messages"></paginate-links>
+      <div>
+        <button v-if="$store.state.token != ''" class="btn btn-light" href='#' @click.prevent="showForm = !showForm">{{showForm ? "Hide Form" : "Add New Message"}}</button>
+      <forum-message-form @submit="showForm = !showForm" v-show="showForm"/>
+      </div>
+      
   </div>
 </template>
 
